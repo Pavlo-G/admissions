@@ -1,7 +1,7 @@
 package com.training.admissions.security;
 
-import com.training.admissions.model.User;
-import com.training.admissions.repository.UserRepository;
+import com.training.admissions.model.Candidate;
+import com.training.admissions.repository.CandidateRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,17 +10,17 @@ import org.springframework.stereotype.Service;
 @Service("userDetailsServiceImpl")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final CandidateRepository candidateRepository;
 
-    public UserDetailsServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserDetailsServiceImpl(CandidateRepository candidateRepository) {
+        this.candidateRepository = candidateRepository;
     }
 
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email)
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Candidate candidate = candidateRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User does't exists"));
-        return SecurityUser.fromUser(user);
+        return SecurityUser.getUserFromCandidate(candidate);
     }
 }

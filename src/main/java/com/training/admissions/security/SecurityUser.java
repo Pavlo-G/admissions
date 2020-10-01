@@ -1,10 +1,9 @@
 package com.training.admissions.security;
 
 import com.training.admissions.model.Status;
-import com.training.admissions.model.User;
+import com.training.admissions.model.Candidate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -40,15 +39,15 @@ public class SecurityUser implements UserDetails {
     }
 
 
-    public static UserDetails fromUser(User user) {
+    public static UserDetails getUserFromCandidate(Candidate candidate) {
         return new org.springframework.security.core.userdetails.User(
-                user.getEmail(),
-                user.getPassword(),
-                user.getStatus().equals(Status.ACTIVE),
-                user.getStatus().equals(Status.ACTIVE),
-                user.getStatus().equals(Status.ACTIVE),
-                user.getStatus().equals(Status.ACTIVE),
-                user.getRole().getAuthorities());
+                candidate.getEmail(),
+                candidate.getPassword(),
+                candidate.getStatus().equals(Status.ACTIVE),
+                candidate.getStatus().equals(Status.ACTIVE),
+                candidate.getStatus().equals(Status.ACTIVE),
+                candidate.getStatus().equals(Status.ACTIVE),
+                candidate.getRole().getAuthorities());
 
 
     }

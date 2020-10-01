@@ -1,17 +1,17 @@
 package com.training.admissions.model;
 
 public enum Permission {
-    DEVELOPERS_READ("developers:read"),
-    DEVELOPERS_WRITE("developers:write");
+    CANDIDATES_READ("candidates:read"),
+    CANDIDATES_WRITE("candidates:write");
 
 
-    private final String permission;
+    private final String permissionName;
 
-    Permission(String permission){
-        this.permission=permission;
+    Permission(String permissionName){
+        this.permissionName = permissionName;
     }
 
-    public String getPermission() {
-        return permission;
+    public String getPermissionName() {
+        return permissionName;
     }
 }
