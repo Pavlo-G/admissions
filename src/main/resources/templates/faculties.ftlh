@@ -10,9 +10,7 @@
 </head>
 <body>
 <#include "fragments/nav-bar.ftl" />
-<br>
-<h4>Available faculties</h4>
-<hr>
+
 
 <#--    <div class="border-card">-->
 <#--        <div class="card-type-icon with-border">${faculty.getId()}</div>-->
@@ -38,6 +36,8 @@
 <#--            </div>-->
 <#--        </div>-->
 <section class="details-card">
+    <h4>Available faculties</h4>
+    <hr>
     <div class="container">
         <div class="row">
             <#list all_faculties as faculty>
@@ -45,12 +45,11 @@
                     <div class="card-content">
                         <div class="card-img">
                             <img src="https://placeimg.com/380/230/nature" alt="">
-                            <span><h4>heading</h4></span>
+                            <span><h4>${faculty.getName()}</h4></span>
                         </div>
                         <div class="card-desc">
                             <h3>${faculty.getName()}</h3>
                             <p>${faculty.getDescription()}</p>
-<#--                            <a href="#" class="btn-card">Read</a>-->
                             <#if isAdmin >
                                 <div>
                                     <form method="get" action="/edit_faculty">
@@ -86,7 +85,7 @@
 </section>
 
 
-</div>
+
 
 
 </body>
