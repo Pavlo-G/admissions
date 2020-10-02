@@ -65,4 +65,11 @@ public class CandidateService {
         candidateRepository.deleteById(id);
 
     }
+
+    public Candidate findByUsername(String name) {
+        log.info("Get candidate by name: " + name);
+        return candidateRepository.findByUsername(name)
+                .orElseThrow(
+                        () -> new CandidateNotFoundException("Candidate with name: " + name + "not found"));
+    }
 }

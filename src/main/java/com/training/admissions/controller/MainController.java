@@ -10,19 +10,17 @@ public class MainController {
 
     @GetMapping("/")
     public String getMainPage(){
-
-
         return "index";
     }
 
     @GetMapping("/candidates")
     public String getCandidatesPage(){
-        return "candidates";
+        return "candidates.ftlh";
     }
 
     @RequestMapping("/all_faculties")
-    public String userPage(){
-        return "faculties.html";
+    public String getFacultiesPage(){
+        return "faculties";
     }
 
     @GetMapping("/registration")

@@ -19,7 +19,6 @@
                     <div class="card-body">
                         <@error.error_login/>
                         <form action="/registration" method="POST">
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <div class="form-group row">
                                 <label for="username" class="col-md-4 col-form-label text-md-right">Username </label>
                                 <div class="col-md-6">

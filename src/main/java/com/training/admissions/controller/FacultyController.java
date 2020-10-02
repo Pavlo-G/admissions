@@ -1,47 +1,39 @@
 package com.training.admissions.controller;
 
-import com.training.admissions.dto.FacultyDTO;
-import com.training.admissions.model.Faculty;
+
+import com.training.admissions.service.CandidateService;
 import com.training.admissions.service.FacultyService;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+@Slf4j
+@Controller
+@RequestMapping("/faculties")
 
-import java.util.List;
-
-
-@RestController
-@RequestMapping("/api/faculty")
 public class FacultyController {
-
+    private final CandidateService candidateService;
     private final FacultyService facultyService;
 
-    public FacultyController(FacultyService facultyService) {
+    public FacultyController(FacultyService facultyService, CandidateService candidateService) {
         this.facultyService = facultyService;
+        this.candidateService=candidateService;
     }
 
 
-    @GetMapping
-    public List<Faculty> getAll() {
-        return facultyService.getAllFaculties();
+    @GetMapping()
+    public String getAllFaculties(Model model) {
+        model.addAttribute("all_faculties", facultyService.getAllFaculties());
+        return "/faculties";
     }
 
-    @GetMapping("/{id}")
-    public Faculty getById(@PathVariable Long id) {
-
-        return facultyService.getById(id);
-
-    }
-
-
-    @PostMapping
-    public Faculty create(@RequestBody FacultyDTO facultyDTO) {
-        return facultyService.createFaculty(facultyDTO);
-    }
-
-
-    @DeleteMapping("/{id}")
-    public void deleteById(Long id) {
-        facultyService.deleteById(id);
-    }
+//    @PostMapping()
+//    public String getAllFacultiesSorted(
+//            @RequestParam(name = "filter_option") Integer numOption, Model model) {
+//        model.addAttribute("all_faculties", facultyService.getAllFacultiesSorted(numOption));
+//
+//        return "/faculties";
+//    }
 
 }

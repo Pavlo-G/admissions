@@ -6,32 +6,33 @@ import com.training.admissions.exception.CandidateAlreadyExistsException;
 import com.training.admissions.exception.CandidateNotFoundException;
 import com.training.admissions.model.Candidate;
 import com.training.admissions.service.CandidateService;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
-
-@RestController
+@Controller
 @RequestMapping("/api/candidate")
-public class CandidateRestController {
+public class CandidateController {
 
     private final CandidateService candidateService;
 
-    public CandidateRestController(CandidateService candidateService) {
+    public CandidateController(CandidateService candidateService) {
         this.candidateService = candidateService;
     }
 
 
     @GetMapping
-    public List<Candidate> getAll() {
-        return candidateService.getAllCandidates();
+    public String getAllCandidates(Model model) {
+        model.addAttribute("all_candidates", candidateService.getAllCandidates());
+        return "candidates";
     }
 
     @GetMapping("/{id}")
-    public Candidate getById(@PathVariable Long id) throws CandidateNotFoundException {
+    public String getById(@PathVariable Long id,Model model) throws CandidateNotFoundException {
 
-        return candidateService.getById(id);
+        model.addAttribute("candidate",candidateService.getById(id));
+        return "candidates";
 
     }
 
@@ -43,8 +44,15 @@ public class CandidateRestController {
 
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('candidates:write')")
     public void deleteById(Long id) {
         candidateService.deleteById(id);
     }
+
+
+//    Principal principal = request.getUserPrincipal();
+//    Candidate candidate =candidateService.findByUsername(principal.getName());
+//
+//        model.addAttribute("admin", candidate.getRole().equals(Role.ADMIN));
+//
+
 }
