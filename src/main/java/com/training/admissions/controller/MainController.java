@@ -1,10 +1,8 @@
 package com.training.admissions.controller;
 
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import javax.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
@@ -22,6 +20,10 @@ public class MainController {
         return "candidates";
     }
 
+    @RequestMapping("/all_faculties")
+    public String userPage(){
+        return "faculties.html";
+    }
 
     @GetMapping("/registration")
     public String getRegistrationPage(){

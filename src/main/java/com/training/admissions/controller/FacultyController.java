@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/api/faculty")
 public class FacultyController {
 
-private final FacultyService facultyService;
+    private final FacultyService facultyService;
 
     public FacultyController(FacultyService facultyService) {
         this.facultyService = facultyService;
@@ -21,31 +21,27 @@ private final FacultyService facultyService;
 
 
     @GetMapping
-        public List<Faculty> getAll() {
+    public List<Faculty> getAll() {
+        return facultyService.getAllFaculties();
+    }
 
-            return facultyService.getAllFaculties();
-        }
+    @GetMapping("/{id}")
+    public Faculty getById(@PathVariable Long id) {
 
-        @GetMapping("/{id}")
-        @PreAuthorize("hasAuthority('candidates:read')")
-        public Faculty getById(@PathVariable Long id)  {
+        return facultyService.getById(id);
 
-            return facultyService.getById(id);
-
-        }
+    }
 
 
-        @PostMapping
-        @PreAuthorize("hasAuthority('admins:edit')")
-        public Faculty create(@RequestBody FacultyDTO facultyDTO) {
-            return facultyService.createFaculty(facultyDTO);
-        }
+    @PostMapping
+    public Faculty create(@RequestBody FacultyDTO facultyDTO) {
+        return facultyService.createFaculty(facultyDTO);
+    }
 
 
-        @DeleteMapping("/{id}")
-        @PreAuthorize("hasAuthority('admins:edit')")
-        public void deleteById(Long id) {
-            facultyService.deleteById(id);
-        }
+    @DeleteMapping("/{id}")
+    public void deleteById(Long id) {
+        facultyService.deleteById(id);
+    }
 
 }

@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Entity
@@ -39,7 +41,8 @@ public class Candidate {
     private Status status;
 
 
-    public boolean isAdmin(){
-        return role.getPermissions().contains(Permission.ADMINS_EDIT);
+    public Set<SimpleGrantedAuthority> getAuthorities(){
+        return Set.of(new SimpleGrantedAuthority(role.name()));
     }
+
 }

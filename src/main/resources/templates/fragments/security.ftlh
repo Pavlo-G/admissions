@@ -1,14 +1,15 @@
-
 <#assign
 know = Session.SPRING_SECURITY_CONTEXT??>
 <#if know>
     <#assign
-        user =Session.SPRING_SECURITY_CONTEXT.authentication.principal
-        name= user.getUsername()
-        isAdmin = user>
-<#else >
+    user =Session.SPRING_SECURITY_CONTEXT.authentication.principal
+    name= user.getUsername()
+    isAdmin = user.toString()?contains("ADMIN")>
+
+<#else>
     <#assign
-        name = "unknow"
-        isAdmin = false
-        >
+    name = "guest"
+    guest = true
+    isAdmin = false
+    >
 </#if>

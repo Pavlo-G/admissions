@@ -1,12 +1,12 @@
-
-<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>Success login</title>
     <#include "fragments/bootsrap-links.ftl"/>
 </head>
 <body>
+
+
 <#include "fragments/nav-bar.ftl"/>
 <h2>Success Login</h2>
 

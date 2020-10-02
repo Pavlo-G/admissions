@@ -1,6 +1,6 @@
 package com.training.admissions.dto;
 
-import com.training.admissions.model.Permission;
+
 import lombok.*;
 
 @Getter

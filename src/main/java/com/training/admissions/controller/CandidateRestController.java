@@ -25,12 +25,10 @@ public class CandidateRestController {
 
     @GetMapping
     public List<Candidate> getAll() {
-
         return candidateService.getAllCandidates();
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('candidates:read')")
     public Candidate getById(@PathVariable Long id) throws CandidateNotFoundException {
 
         return candidateService.getById(id);

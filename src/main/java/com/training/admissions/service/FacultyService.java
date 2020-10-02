@@ -25,7 +25,8 @@ public class FacultyService {
 
     public List<Faculty> getAllFaculties() {
         log.info("Get All Faculties");
-        return facultyRepository.findAll();
+        List<Faculty> list =facultyRepository.findAll();
+        return list;
 
     }
 
