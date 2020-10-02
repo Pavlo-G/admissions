@@ -37,4 +37,9 @@ public class Candidate {
     @Enumerated(value = EnumType.STRING)
     @Column(name = "status")
     private Status status;
+
+
+    public boolean isAdmin(){
+        return role.getPermissions().contains(Permission.ADMINS_EDIT);
+    }
 }

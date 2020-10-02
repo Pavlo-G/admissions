@@ -1,0 +1,78 @@
+<html>
+<head>
+    <title>Angular JS Table</title>
+    <style>
+        table, th, td {
+            border: 1px solid grey;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+
+        table tr:nth-child(odd) {
+            background-color: #f2f2f2;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+</head>
+<body>
+<h2>Registration</h2>
+<div ng-app="registration_form" ng-controller="AppCtrl">
+    <form style="margin-bottom: 30px" name="form" autocomplete="off" novalidate
+          ng-submit="form.$valid && sendForm(candidate)">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text"
+                   class="form-control"
+                   id="username"
+                   placeholder="username"
+                   required
+                   ng-model="candidate.username">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email"
+                   class="form-control"
+                   id="email"
+                   placeholder="name@domain.com"
+                   required
+                   ng-model="candidate.email">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password"
+                   class="form-control"
+                   id="password"
+                   placeholder="password"
+                   required
+                   ng-model="candidate.password">
+        </div>
+        <button type="submit" class="btn btn-default" style="margin-top:30px"  ng-disabled="form.$invalid">
+            Submit
+        </button>
+    </form>
+</div>
+<script>
+    angular.module("registration_form",[])
+        .controller("AppCtrl", function ($scope, $http) {
+            $scope.candidate = {};
+            $scope.sendForm = function(candidate){
+                $http.post("api/candidate", $scope.candidate)
+                    .then(
+                    function(data) {
+                        window.open("/auth/login", '_blank');
+                    },
+                    function(error) {
+                        window.alert("При регистрации произошла ошибка");
+                    }
+                );
+
+            }
+        });
+</script>
+</body>
+</html>

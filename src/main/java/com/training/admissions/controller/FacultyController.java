@@ -1,63 +1,51 @@
 package com.training.admissions.controller;
 
-import com.training.admissions.dto.CandidateDTO;
-import com.training.admissions.exception.CandidateAlreadyExistsException;
-import com.training.admissions.exception.CandidateNotFoundException;
-import com.training.admissions.model.Candidate;
-import com.training.admissions.service.CandidateService;
+import com.training.admissions.dto.FacultyDTO;
+import com.training.admissions.model.Faculty;
+import com.training.admissions.service.FacultyService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
-
-import com.training.admissions.dto.CandidateDTO;
-import com.training.admissions.exception.CandidateAlreadyExistsException;
-import com.training.admissions.exception.CandidateNotFoundException;
-import com.training.admissions.model.Candidate;
-import com.training.admissions.service.CandidateService;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-
-
-
 @RestController
 @RequestMapping("/api/faculty")
 public class FacultyController {
 
+private final FacultyService facultyService;
 
-        private final FacultyService facultyService;
+    public FacultyController(FacultyService facultyService) {
+        this.facultyService = facultyService;
+    }
 
 
-
-        @GetMapping
+    @GetMapping
         public List<Faculty> getAll() {
 
-            return candidateService.getAllCandidates();
+            return facultyService.getAllFaculties();
         }
 
         @GetMapping("/{id}")
         @PreAuthorize("hasAuthority('candidates:read')")
-        public Candidate getById(@PathVariable Long id) throws CandidateNotFoundException {
+        public Faculty getById(@PathVariable Long id)  {
 
-            return candidateService.getById(id);
+            return facultyService.getById(id);
 
         }
 
 
         @PostMapping
-        @PreAuthorize("hasAuthority('candidates:write')")
-        public Candidate create(@RequestBody CandidateDTO candidate) throws CandidateAlreadyExistsException {
-            return candidateService.createCandidate(candidate);
+        @PreAuthorize("hasAuthority('admins:edit')")
+        public Faculty create(@RequestBody FacultyDTO facultyDTO) {
+            return facultyService.createFaculty(facultyDTO);
         }
 
 
         @DeleteMapping("/{id}")
-        @PreAuthorize("hasAuthority('candidates:write')")
+        @PreAuthorize("hasAuthority('admins:edit')")
         public void deleteById(Long id) {
-            candidateService.deleteById(id);
+            facultyService.deleteById(id);
         }
-    }
+
 }

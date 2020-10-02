@@ -39,7 +39,6 @@ public class CandidateRestController {
 
 
     @PostMapping
-    @PreAuthorize("hasAuthority('candidates:write')")
     public Candidate create(@RequestBody CandidateDTO candidate) throws CandidateAlreadyExistsException {
         return candidateService.createCandidate(candidate);
     }

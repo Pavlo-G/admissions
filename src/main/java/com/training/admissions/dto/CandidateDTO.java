@@ -1,18 +1,25 @@
 package com.training.admissions.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.training.admissions.model.Permission;
+import lombok.*;
 
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ToString
 public class CandidateDTO {
-    private Long id;
+//    private Long id;
 
     private String username;
 
     private String email;
 
     private String password;
+
+
+
+
+
 }

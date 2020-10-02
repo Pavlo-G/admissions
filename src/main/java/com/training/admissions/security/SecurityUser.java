@@ -1,5 +1,7 @@
 package com.training.admissions.security;
 
+
+import com.training.admissions.model.Permission;
 import com.training.admissions.model.Status;
 import com.training.admissions.model.Candidate;
 import lombok.AllArgsConstructor;
@@ -16,6 +18,9 @@ public class SecurityUser implements UserDetails {
     private final String password;
     private final List<SimpleGrantedAuthority> authorities;
     private final boolean isActive;
+    private  boolean isAdmin;
+
+
 
 
     @Override
@@ -37,11 +42,14 @@ public class SecurityUser implements UserDetails {
     public boolean isEnabled() {
         return isActive;
     }
-
+    public boolean isAdmin()
+    {
+        return authorities.contains(new SimpleGrantedAuthority("ADMIN"));
+    }
 
     public static UserDetails getUserFromCandidate(Candidate candidate) {
         return new org.springframework.security.core.userdetails.User(
-                candidate.getEmail(),
+                candidate.getUsername(),
                 candidate.getPassword(),
                 candidate.getStatus().equals(Status.ACTIVE),
                 candidate.getStatus().equals(Status.ACTIVE),
