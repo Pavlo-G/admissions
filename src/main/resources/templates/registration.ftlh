@@ -18,7 +18,7 @@
                     <div class="card-header">Register</div>
                     <div class="card-body">
                         <@error.error_login/>
-                        <form action="/registration" method="POST">
+                        <form action="/api/candidate/registration" method="POST">
                             <div class="form-group row">
                                 <label for="username" class="col-md-4 col-form-label text-md-right">Username </label>
                                 <div class="col-md-6">

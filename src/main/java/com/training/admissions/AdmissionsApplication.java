@@ -10,4 +10,8 @@ public class AdmissionsApplication {
 		SpringApplication.run(AdmissionsApplication.class, args);
 	}
 
+
+
+
+
 }

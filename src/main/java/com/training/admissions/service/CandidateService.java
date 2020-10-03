@@ -4,8 +4,8 @@ import com.training.admissions.dto.CandidateDTO;
 import com.training.admissions.exception.CandidateAlreadyExistsException;
 import com.training.admissions.exception.CandidateNotFoundException;
 import com.training.admissions.model.Candidate;
-import com.training.admissions.model.Role;
 import com.training.admissions.model.CandidateStatus;
+import com.training.admissions.model.Role;
 import com.training.admissions.repository.CandidateRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -43,8 +43,8 @@ public class CandidateService {
 
     @Transactional
     public Candidate createCandidate(CandidateDTO candidateDTO) throws CandidateAlreadyExistsException {
-        if (candidateRepository.findByUsername(candidateDTO.getUsername()).isEmpty()) {
-
+        if (candidateRepository.findByUsername(candidateDTO.getUsername())
+                .isEmpty()) {
             Candidate createdCandidate = candidateRepository.save(Candidate.builder()
                     .username(candidateDTO.getUsername())
                     .password(bCryptPasswordEncoder.encode(candidateDTO.getPassword()))
@@ -55,12 +55,13 @@ public class CandidateService {
             log.info("User created: " + createdCandidate.getUsername());
             return createdCandidate;
         }
-        throw new CandidateAlreadyExistsException("Candidate already exists");
+
+        throw new CandidateAlreadyExistsException("Candidate already exists!");
     }
 
 
     public void deleteById(Long id) {
-        log.info("Faculty removed id: " + id);
+        log.info("Candidate removed id: " + id);
         candidateRepository.deleteById(id);
 
     }

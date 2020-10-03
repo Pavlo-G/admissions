@@ -2,6 +2,7 @@ package com.training.admissions.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
@@ -13,10 +14,10 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/candidates")
-    public String getCandidatesPage(){
-        return "admin/candidates";
-    }
+//    @GetMapping("/candidates")
+//    public String getCandidatesPage(){
+//        return "admin/candidates";
+//    }
 
     @RequestMapping("/all_faculties")
     public String getFacultiesPage(){

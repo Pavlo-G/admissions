@@ -4,7 +4,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <#if know>
-    <a class="navbar-brand" href="/faculties"><@spring.message "navbar.Admission_Board_App"/></a>
+        <a class="navbar-brand" href="/faculties"><@spring.message "navbar.Admission_Board_App"/></a>
     <#else >
         <a class="navbar-brand" href="/"><@spring.message "navbar.Admission_Board_App"/></a>
     </#if>
@@ -20,8 +20,8 @@
                     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><@spring.message "navbar.Change_Language"/>
                             <b class="caret"></b></a>
                         <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item"  href="${springMacroRequestContext.requestUri}?lang=en"><@spring.message "navbar.English"/></a>
-                                <a class="dropdown-item"  href="${springMacroRequestContext.requestUri}?lang=uk"><@spring.message "navbar.Ukrainian"/></a>
+                            <a class="dropdown-item"  href="${springMacroRequestContext.requestUri}?lang=en"><@spring.message "navbar.English"/></a>
+                            <a class="dropdown-item"  href="${springMacroRequestContext.requestUri}?lang=uk"><@spring.message "navbar.Ukrainian"/></a>
                         </div>
 
                     </li>
@@ -32,13 +32,18 @@
 
 
 
-            <#if isAdmin>
+
                 <li class="nav-item">
-                    <form class="form-inline my-2 my-lg-0" action="/admin/workspace" method="get">
-                        <button class="btn btn-primary" type="submit"><@spring.message "navbar.Admin_workspace"/></button>
+                    <form class="form-inline my-2 my-lg-0" action="/admin/candidate" method="get">
+                        <button class="btn btn-primary" type="submit"><@spring.message "navbar.Admin_workspace_candidates"/></button>
                     </form>
                 </li>
-            </#if>
+            <li class="nav-item">
+                <form class="form-inline my-2 my-lg-0" action="/admin/workspace" method="get">
+                    <button class="btn btn-primary" type="submit"><@spring.message "navbar.Admin_workspace_faculty"/></button>
+                </form>
+            </li>
+
         </ul>
 
 
@@ -51,10 +56,10 @@
                         <div class="dropdown-menu dropdown-menu-right">
 
                             <form action="" method="get">
-                            <button class="dropdown-item" type="submit"><@spring.message "navbar.my_profile"/></button>
+                                <button class="dropdown-item" type="submit"><@spring.message "navbar.my_profile"/></button>
                             </form>
                             <form action="/candidate/candidate_requests" method="get">
-                            <button class="dropdown-item" type="submit"><@spring.message "navbar.my_requests"/></button>
+                                <button class="dropdown-item" type="submit"><@spring.message "navbar.my_requests"/></button>
                             </form>
                             <form action="/auth/logout" method="post">
                                 <button class="dropdown-item" type="submit"><@spring.message "navbar.logout"/></button>

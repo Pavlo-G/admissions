@@ -7,7 +7,7 @@
 
 
 <body>
-<#include "../fragments/nav-bar.ftl" />
+<#include "../fragments/nav-bar-admin.ftlh" />
 <br>
 
 <div class="container">

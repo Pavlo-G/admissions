@@ -1,6 +1,6 @@
 package com.training.admissions.exception;
 
-public class CandidateAlreadyExistsException extends RuntimeException {
+public class CandidateAlreadyExistsException extends RuntimeException{
 
     private String message;
 
