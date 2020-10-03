@@ -1,5 +1,5 @@
 package com.training.admissions.model;
 
-public enum Status {
+public enum CandidateStatus {
     ACTIVE,BLOCKED;
 }

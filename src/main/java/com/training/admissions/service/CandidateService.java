@@ -5,10 +5,9 @@ import com.training.admissions.exception.CandidateAlreadyExistsException;
 import com.training.admissions.exception.CandidateNotFoundException;
 import com.training.admissions.model.Candidate;
 import com.training.admissions.model.Role;
-import com.training.admissions.model.Status;
+import com.training.admissions.model.CandidateStatus;
 import com.training.admissions.repository.CandidateRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -51,7 +50,7 @@ public class CandidateService {
                     .password(bCryptPasswordEncoder.encode(candidateDTO.getPassword()))
                     .email(candidateDTO.getEmail())
                     .role(Role.USER)
-                    .status(Status.ACTIVE)
+                    .candidateStatus(CandidateStatus.ACTIVE)
                     .build());
             log.info("User created: " + createdCandidate.getUsername());
             return createdCandidate;
@@ -72,4 +71,6 @@ public class CandidateService {
                 .orElseThrow(
                         () -> new CandidateNotFoundException("Candidate with name: " + name + "not found"));
     }
+
+
 }

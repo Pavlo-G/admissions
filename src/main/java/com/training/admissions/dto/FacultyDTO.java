@@ -1,7 +1,11 @@
 package com.training.admissions.dto;
 
 
+import com.training.admissions.model.AdmissionRequest;
+import com.training.admissions.model.Faculty;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,5 +20,15 @@ public class FacultyDTO {
     private String description;
     private int budgetCapacity;
     private int totalCapacity;
+
+    private List<AdmissionRequest>  admissionRequestsList;
+
+
+
+    public int numberOfRequests(){
+        return admissionRequestsList.size();
+    }
+
+
 }
 

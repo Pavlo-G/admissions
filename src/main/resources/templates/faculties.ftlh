@@ -66,7 +66,7 @@
 
                             <#else>
                                 <div>
-                                    <form method="get" action="/submit_request">
+                                    <form method="get" action="/candidate/submit_request">
                                         <input type="hidden" name="username" value="${name}">
                                         <input type="hidden" name="faculty_id" value="${faculty.getId()}">
                                         <button type="submit" class="btn btn-primary">Send admission request</button>

@@ -2,7 +2,7 @@ package com.training.admissions.security;
 
 
 
-import com.training.admissions.model.Status;
+import com.training.admissions.model.CandidateStatus;
 import com.training.admissions.model.Candidate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -48,10 +48,10 @@ public class SecurityUser implements UserDetails {
         return new org.springframework.security.core.userdetails.User(
                 candidate.getUsername(),
                 candidate.getPassword(),
-                candidate.getStatus().equals(Status.ACTIVE),
-                candidate.getStatus().equals(Status.ACTIVE),
-                candidate.getStatus().equals(Status.ACTIVE),
-                candidate.getStatus().equals(Status.ACTIVE),
+                candidate.getCandidateStatus().equals(CandidateStatus.ACTIVE),
+                candidate.getCandidateStatus().equals(CandidateStatus.ACTIVE),
+                candidate.getCandidateStatus().equals(CandidateStatus.ACTIVE),
+                candidate.getCandidateStatus().equals(CandidateStatus.ACTIVE),
                 candidate.getAuthorities());
 
     }

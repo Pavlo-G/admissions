@@ -38,7 +38,7 @@ public class Candidate {
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "status")
-    private Status status;
+    private CandidateStatus candidateStatus;
 
 
     public Set<SimpleGrantedAuthority> getAuthorities(){

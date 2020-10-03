@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8">
     <title>Admission board app candidates </title>
-    <#include "fragments/bootsrap-links.ftl"/>
+    <#include "../fragments/bootsrap-links.ftl"/>
 </head>
 <body>
-<#include "fragments/nav-bar.ftl" />
+<#include "../fragments/nav-bar.ftl" />
 <br>
 <h4>Registered Candidates</h4>
 <hr>
@@ -31,7 +31,7 @@
         <div class="min-gap"></div>
         <div class="label-group">
             <p class="title">Status</p>
-            <p class="caption">${candidate.getStatus().name()}</p>
+            <p class="caption">${candidate.getCandidateStatus().name()}</p>
         </div>
     </div>
 

@@ -1,6 +1,10 @@
 <#include "security.ftlh"/>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Admission Board App</a>
+    <#if know>
+    <a class="navbar-brand" href="/faculties">Admission Board App</a>
+    <#else >
+        <a class="navbar-brand" href="/">Admission Board App</a>
+    </#if>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -9,8 +13,8 @@
         <ul class="navbar-nav mr-auto">
             <#if isAdmin>
                 <li class="nav-item">
-                    <form class="form-inline my-2 my-lg-0" action="/api/candidate" method="get">
-                        <button class="btn btn-primary" type="submit">Candidates</button>
+                    <form class="form-inline my-2 my-lg-0" action="/admin/workspace" method="get">
+                        <button class="btn btn-primary" type="submit">Admin Workspace</button>
                     </form>
                 </li>
             </#if>
@@ -24,8 +28,12 @@
                     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Account:${name}
                             <b class="caret"></b></a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <button class="dropdown-item" type="button">My profile</button>
-                            <button class="dropdown-item" type="button">My requests</button>
+                            <form action="" method="get">
+                            <button class="dropdown-item" type="submit">My profile</button>
+                            </form>
+                            <form action="/candidate/candidate_requests" method="get">
+                            <button class="dropdown-item" type="submit">My requests</button>
+                            </form>
                             <form action="/auth/logout" method="post">
                                 <button class="dropdown-item" type="submit">Logout</button>
                             </form>

@@ -15,7 +15,7 @@ public class MainController {
 
     @GetMapping("/candidates")
     public String getCandidatesPage(){
-        return "candidates.ftlh";
+        return "admin/candidates";
     }
 
     @RequestMapping("/all_faculties")

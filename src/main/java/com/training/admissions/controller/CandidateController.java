@@ -25,14 +25,14 @@ public class CandidateController {
     @GetMapping
     public String getAllCandidates(Model model) {
         model.addAttribute("all_candidates", candidateService.getAllCandidates());
-        return "candidates";
+        return "/admin/candidates";
     }
 
     @GetMapping("/{id}")
     public String getById(@PathVariable Long id,Model model) throws CandidateNotFoundException {
 
         model.addAttribute("candidate",candidateService.getById(id));
-        return "candidates";
+        return "/admin/candidates";
 
     }
 
@@ -44,7 +44,7 @@ public class CandidateController {
 
 
     @DeleteMapping("/{id}")
-    public void deleteById(Long id) {
+    public void deleteById(@PathVariable Long id) {
         candidateService.deleteById(id);
     }
 
