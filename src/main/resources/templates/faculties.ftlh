@@ -12,29 +12,6 @@
 <#include "fragments/nav-bar.ftl" />
 
 
-<#--    <div class="border-card">-->
-<#--        <div class="card-type-icon with-border">${faculty.getId()}</div>-->
-<#--        <div class="content-wrapper">-->
-<#--            <div class="label-group fixed">-->
-<#--                <p class="title">Name</p>-->
-<#--                <p class="caption">${faculty.getName()}</p>-->
-<#--            </div>-->
-<#--            <div class="min-gap"></div>-->
-<#--            <div class="label-group">-->
-<#--                <p class="title">Description</p>-->
-<#--                <p class="caption">${faculty.getDescription()}</p>-->
-<#--            </div>-->
-<#--            <div class="min-gap"></div>-->
-<#--            <div class="label-group">-->
-<#--                <p class="title">Budget Capacity</p>-->
-<#--                <p class="caption">${faculty.getBudgetCapacity()}</p>-->
-<#--            </div>-->
-<#--            <div class="min-gap"></div>-->
-<#--            <div class="label-group">-->
-<#--                <p class="title">Total Capacity</p>-->
-<#--                <p class="caption">${faculty.getTotalCapacity()}</p>-->
-<#--            </div>-->
-<#--        </div>-->
 <section class="details-card">
     <h4>Available faculties</h4>
     <hr>
@@ -50,21 +27,7 @@
                         <div class="card-desc">
                             <h3>${faculty.getName()}</h3>
                             <p>${faculty.getDescription()}</p>
-                            <#if isAdmin >
-                                <div>
-                                    <form method="get" action="/edit_faculty">
-                                        <input type="hidden" name="faculty_id" value="${faculty.getId()}">
-                                        <button type="submit" class="btn btn-primary">Edit Faculty</button>
-                                    </form>
-                                </div>
-                                <div>
-                                    <form method="get" action="/delete_faculty">
-                                        <input type="hidden" name="faculty_id" value="${faculty.getId()}">
-                                        <button type="submit" class="btn btn-primary">Delete Faculty</button>
-                                    </form>
-                                </div>
 
-                            <#else>
                                 <div>
                                     <form method="get" action="/candidate/submit_request">
                                         <input type="hidden" name="username" value="${name}">
@@ -73,7 +36,7 @@
                                     </form>
                                 </div>
 
-                            </#if>
+
 
 
                         </div>

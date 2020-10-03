@@ -6,8 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -28,6 +31,11 @@ public class AdmissionRequest {
     @ManyToOne(targetEntity = Faculty.class, fetch=FetchType.EAGER)
     @JoinColumn(name = "faculty", referencedColumnName = "id")
     private Faculty faculty;
+    @CreationTimestamp
+    @Column(name = "creation_date_time", columnDefinition = "TIMESTAMP")
+    private LocalDateTime creationDateTime;
+
+
 
 
 }

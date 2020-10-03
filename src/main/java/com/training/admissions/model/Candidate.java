@@ -14,7 +14,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "candidates")
+@Table(name = "candidate")
 public class Candidate {
 
 
@@ -27,11 +27,6 @@ public class Candidate {
     private String email;
     @Column(name = "password")
     private String password;
-    @Column(name = "first_name")
-    private String firstName;
-    @Column(name = "last_name")
-    private String lastName;
-
     @Enumerated(value = EnumType.STRING)
     @Column(name = "role")
     private Role role;
@@ -39,6 +34,11 @@ public class Candidate {
     @Enumerated(value = EnumType.STRING)
     @Column(name = "status")
     private CandidateStatus candidateStatus;
+
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "candidate")
+    private CandidateProfile candidateProfile;
 
 
     public Set<SimpleGrantedAuthority> getAuthorities(){

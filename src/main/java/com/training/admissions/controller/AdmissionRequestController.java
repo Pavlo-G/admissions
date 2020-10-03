@@ -32,7 +32,7 @@ public class AdmissionRequestController {
 
     @GetMapping("/candidate/submit_request")
     public String getRequestForm(@RequestParam(name = "faculty_id") Long facultyId,
-                                 @RequestParam(name = "login.username") String username, Model model) {
+                                 @RequestParam(name = "username") String username, Model model) {
 
         model.addAttribute("userId", candidateService.findByUsername(username).getId());
         model.addAttribute("facultyId", facultyId);

@@ -3,7 +3,9 @@ package com.training.admissions.controller;
 
 import com.training.admissions.dto.CandidateDTO;
 import com.training.admissions.exception.CandidateAlreadyExistsException;
+import com.training.admissions.exception.CandidateNotFoundException;
 import com.training.admissions.model.Candidate;
+import com.training.admissions.service.CandidateProfileService;
 import com.training.admissions.service.CandidateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -16,9 +18,11 @@ import org.springframework.web.bind.annotation.*;
 public class CandidateController {
 
     private final CandidateService candidateService;
+    private final CandidateProfileService candidateProfileService;
 
-    public CandidateController(CandidateService candidateService) {
+    public CandidateController(CandidateService candidateService, CandidateProfileService candidateProfileService) {
         this.candidateService = candidateService;
+        this.candidateProfileService = candidateProfileService;
     }
 
 
@@ -28,11 +32,22 @@ public class CandidateController {
     }
 
 
-//    Principal principal = request.getUserPrincipal();
-//    Candidate candidate =candidateService.findByUsername(principal.getName());
-//
-//        model.addAttribute("admin", candidate.getRole().equals(Role.ADMIN));
-//
+    @GetMapping("/{name}")
+    public String getByName(@PathVariable String name, Model model) {
+        Candidate candidate = candidateService.findByUsername(name);
+        model.addAttribute("candidate", candidate);
+        return "/candidate/candidate_profile";
+
+    }
+
+    @GetMapping("/edit/{id}")
+    public String getById(@PathVariable Long id, Model model) {
+        Candidate candidate = candidateService.getById(id);
+        model.addAttribute("candidate", candidate);
+        return "/candidate/candidate_profile_edit";
+
+    }
+
 
 
     @PostMapping("/registration")
@@ -40,7 +55,7 @@ public class CandidateController {
         try {
             candidateService.createCandidate(userDTO);
         } catch (CandidateAlreadyExistsException e) {
-            model.addAttribute("errorMessage", "User exists!");
+            model.addAttribute("errorMessage", e.getMessage());
             return "registration";
         }
 

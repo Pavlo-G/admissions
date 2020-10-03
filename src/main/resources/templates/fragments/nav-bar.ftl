@@ -50,7 +50,7 @@
                             <b class="caret"></b></a>
                         <div class="dropdown-menu dropdown-menu-right">
 
-                            <form action="" method="get">
+                            <form action="/api/candidate/${name}" method="get">
                             <button class="dropdown-item" type="submit"><@spring.message "navbar.my_profile"/></button>
                             </form>
                             <form action="/candidate/candidate_requests" method="get">
