@@ -1,7 +1,6 @@
 package com.training.admissions.service;
 
 
-import com.training.admissions.dto.AdmissionRequestDTO;
 import com.training.admissions.exception.RequestAlreadyExistsException;
 import com.training.admissions.exception.RequestNotFoundException;
 import com.training.admissions.model.AdmissionRequest;
@@ -11,9 +10,7 @@ import com.training.admissions.model.Faculty;
 import com.training.admissions.repository.AdmissionRequestRepository;
 import org.springframework.stereotype.Service;
 
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AdmissionRequestService {
@@ -28,12 +25,28 @@ public class AdmissionRequestService {
         this.facultyService = facultyService;
     }
 
-    //    public AdmissionRequest getAdmissionRequestByUserNameAndFaculty(Long userId, Long facultyId) {
-//        return admissionRequestRepository
-//                .findAdmissionRequestByFacultyIdAndUserId(userId, facultyId)
-//                .orElseThrow();
-//
-//    }
+
+
+
+
+    public AdmissionRequest approveRequest(Long id) {
+        AdmissionRequest admissionRequest =
+                admissionRequestRepository.findById(id).orElseThrow();
+        admissionRequest.setStatus(AdmissionRequestStatus.APPROVED);
+        admissionRequestRepository.save(admissionRequest);
+        return admissionRequest;
+    }
+
+
+
+    public AdmissionRequest rejectRequest(Long id) {
+        AdmissionRequest admissionRequest =
+                admissionRequestRepository.findById(id).orElseThrow();
+        admissionRequest.setStatus(AdmissionRequestStatus.REJECTED);
+        admissionRequestRepository.save(admissionRequest);
+        return admissionRequest;
+    }
+
     public List<AdmissionRequest> getAdmissionRequestsForFacultyWithId(Long id) {
 
         return admissionRequestRepository
@@ -74,4 +87,7 @@ public class AdmissionRequestService {
         return admissionRequestRepository.findById(id)
                 .orElseThrow(() -> new RequestNotFoundException("Request by id= " + id + "not found"));
     }
+
+
+
 }

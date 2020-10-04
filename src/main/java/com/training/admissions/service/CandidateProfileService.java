@@ -1,8 +1,8 @@
 package com.training.admissions.service;
 
 import com.training.admissions.dto.CandidateProfileDTO;
-import com.training.admissions.exception.CandidateAlreadyExistsException;
 import com.training.admissions.exception.CandidateNotFoundException;
+import com.training.admissions.model.Candidate;
 import com.training.admissions.model.CandidateProfile;
 import com.training.admissions.repository.CandidateProfileRepository;
 import com.training.admissions.repository.CandidateRepository;
@@ -16,11 +16,13 @@ public class CandidateProfileService {
 
 
     private final CandidateProfileRepository candidateProfileRepository;
-    private final CandidateRepository candidateRepository;
+    private final CandidateService candidateService;
 
-    public CandidateProfileService(CandidateProfileRepository candidateProfileRepository, CandidateRepository candidateRepository) {
+    public CandidateProfileService(CandidateProfileRepository candidateProfileRepository, CandidateService candidateRepository1, CandidateService candidateService) {
         this.candidateProfileRepository = candidateProfileRepository;
-        this.candidateRepository = candidateRepository;
+        this.candidateService = candidateService;
+
+        ;
     }
 
 
@@ -51,30 +53,27 @@ public class CandidateProfileService {
     }
 
 
-    public CandidateProfile createCandidateProfile(CandidateProfileDTO candidateProfileDTO,Long id) {
-        if (candidateProfileRepository.findByCandidate_Id(id).isEmpty()) {
+    public CandidateProfile createCandidateProfile(CandidateProfileDTO candidateProfileDTO, Long id) {
 
-            CandidateProfile candidateProfile = candidateProfileRepository.save(
-                    CandidateProfile.builder()
-                            .firstName(candidateProfileDTO.getFirstName())
-                            .lastName(candidateProfileDTO.getLastName())
-                            .email(candidateProfileDTO.getEmail())
-                            .address(candidateProfileDTO.getAddress())
-                            .city(candidateProfileDTO.getCity())
-                            .region(candidateProfileDTO.getRegion())
-                            .school(candidateProfileDTO.getSchool())
-                            .phoneNumber(candidateProfileDTO.getPhoneNumber())
-                            .candidate(candidateRepository.findById(id)
-                                    .orElseThrow(()->new CandidateNotFoundException("Candidate Not Found!"))
-
-                            )
-                            .build());
-            log.info("CandidateDetails  created with id: " + candidateProfile.getId());
-            return candidateProfile;
-
-        }
-        throw new CandidateAlreadyExistsException("Candidate Details already exists!");
+        Candidate candidate = candidateService.getById(id);
+        CandidateProfile candidateProfile = candidateProfileRepository.save(
+                CandidateProfile.builder()
+                        .firstName(candidateProfileDTO.getFirstName())
+                        .lastName(candidateProfileDTO.getLastName())
+                        .email(candidateProfileDTO.getEmail())
+                        .address(candidateProfileDTO.getAddress())
+                        .city(candidateProfileDTO.getCity())
+                        .region(candidateProfileDTO.getRegion())
+                        .school(candidateProfileDTO.getSchool())
+                        .phoneNumber(candidateProfileDTO.getPhoneNumber())
+                        .candidate(candidate)
+                        .build());
+        log.info("CandidateDetails  created with id: " + candidateProfile.getId());
+        return candidateProfile;
 
     }
+
+
 }
+
 

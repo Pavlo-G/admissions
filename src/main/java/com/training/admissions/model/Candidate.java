@@ -31,7 +31,7 @@ public class Candidate {
     private CandidateStatus candidateStatus;
 
     @OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
+            cascade = CascadeType.ALL,
             mappedBy = "candidate")
     private CandidateProfile candidateProfile;
 

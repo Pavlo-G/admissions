@@ -52,46 +52,22 @@ public class CandidateController {
 
 
     @PostMapping("/api/candidate/registration")
-    public String createCandidate(CandidateDTO candidateDTO, Model model) {
-        try {
-            Candidate candidate = candidateService.createCandidate(candidateDTO);
-            model.addAttribute("candidate_id", candidate.getId());
-        } catch (CandidateAlreadyExistsException e) {
-            model.addAttribute("errorMessage", e.getMessage());
-            return "registration";
-        }
+    public String createCandidate(CandidateDTO candidateDTO, CandidateProfileDTO candidateProfileDTO, Model model) {
 
-
+        Candidate candidate = candidateService.createCandidate(candidateDTO);
+        candidateProfileService.createCandidateProfile(candidateProfileDTO, candidate.getId());
         log.info("new user " + candidateDTO.getUsername() + " created!");
-        return "/candidate/reg_details";
-    }
-
-
-    @PostMapping("/api/candidate/registration/profile")
-    public String createCandidateProfile(@RequestParam(name = "candidate_id") Long id, CandidateProfileDTO candidateProfileDTO, Model model) {
-        try {
-        candidateProfileService.createCandidateProfile(candidateProfileDTO,id);
-        } catch (CandidateAlreadyExistsException e) {
-            model.addAttribute("errorMessage", e.getMessage());
-            return "/candidate/reg_details";
-        }
 
         return "redirect:/auth/login";
     }
 
 
+
+
     @PostMapping("/api/candidate/update")
     public String updateCandidate(CandidateProfileDTO candidateProfileDTO
             , CandidateDTO candidateDTO, Model model) {
-
-        try {
-            candidateProfileService.updateCandidateProfile(candidateProfileDTO);
-        } catch (CandidateNotFoundException e) {
-            model.addAttribute("errorMessage", e.getMessage());
-            return "/candidate/candidate_profile_edit";
-        }
-
-        log.info("Candidate Profile id:  " + candidateProfileDTO.getId() + " updated!");
+        candidateProfileService.updateCandidateProfile(candidateProfileDTO);
         return "redirect:/api/candidate/profile";
     }
 

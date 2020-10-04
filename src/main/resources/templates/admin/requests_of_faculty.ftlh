@@ -23,9 +23,7 @@
                         <div class="col col-xs-6">
                             <h3 class="panel-title">Admission Requests Of Faculty ${faculty_name}</h3>
                         </div>
-                        <div class="col col-xs-6 text-right">
-                            <button type="button" class="btn btn-sm btn-primary btn-create">Create New</button>
-                        </div>
+
                     </div>
                 </div>
                 <div class="panel-body">

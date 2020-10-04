@@ -1,9 +1,7 @@
 <head>
     <#include "../fragments/bootsrap-links.ftl"/>
     <link rel="stylesheet" href="css/stylesheet.css">
-    <#--    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
-    <#--    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>-->
-    <#--    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>-->
+
 </head>
 
 
@@ -23,9 +21,6 @@
                         <div class="col col-xs-6">
                             <h3 class="panel-title">All candidates</h3>
                         </div>
-                        <#--                        <div class="col col-xs-6 text-right">-->
-                        <#--                            <button type="button" class="btn btn-sm btn-primary btn-create">Create New</button>-->
-                        <#--                        </div>-->
                     </div>
                 </div>
                 <div class="panel-body">
@@ -49,7 +44,7 @@
 
                                 <td>${candidate.getId()}</td>
                                 <td>${candidate.getUsername()}</td>
-                                <td>${candidate.getEmail()}</td>
+                                <td>${candidate.candidateProfile.email}</td>
                                 <td>${candidate.getRole().name()}</td>
                                 <td>${candidate.getCandidateStatus().name()}</td>
                                 <#--                                <td>-->

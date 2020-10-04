@@ -8,14 +8,14 @@
     <#else >
         <a class="navbar-brand" href="/"><@spring.message "navbar.Admission_Board_App"/></a>
     </#if>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<#--    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"-->
+<#--            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+<#--        <span class="navbar-toggler-icon"></span>-->
+<#--    </button>-->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
 
-            <div class="nav-item dropdown">
+            <div class="nav-item dropdown  my-2 my-lg-0">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><@spring.message "navbar.Change_Language"/>
                             <b class="caret"></b></a>
@@ -34,12 +34,12 @@
 
 
                 <li class="nav-item">
-                    <form class="form-inline my-2 my-lg-0" action="/admin/candidate" method="get">
+                    <form class="form-inline ml-2 mr-2 my-2 my-lg-0" action="/admin/candidate" method="get">
                         <button class="btn btn-primary" type="submit"><@spring.message "navbar.Admin_workspace_candidates"/></button>
                     </form>
                 </li>
             <li class="nav-item">
-                <form class="form-inline my-2 my-lg-0" action="/admin/workspace" method="get">
+                <form class="form-inline ml-2 mr-2 my-2 my-lg-0" action="/admin/workspace" method="get">
                     <button class="btn btn-primary" type="submit"><@spring.message "navbar.Admin_workspace_faculty"/></button>
                 </form>
             </li>
@@ -55,7 +55,7 @@
                             <b class="caret"></b></a>
                         <div class="dropdown-menu dropdown-menu-right">
 
-                            <form action="" method="get">
+                            <form action="/api/candidate/profile" method="get">
                                 <button class="dropdown-item" type="submit"><@spring.message "navbar.my_profile"/></button>
                             </form>
                             <form action="/candidate/candidate_requests" method="get">

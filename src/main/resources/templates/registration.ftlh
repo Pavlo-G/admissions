@@ -42,6 +42,63 @@
                                 </div>
                             </div>
 
+                            <div class="form-group row">
+                                <label for="firstName" class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.first_name"/> </label>
+                                <div class="col-md-6">
+                                    <input type="text" id="firstName" class="form-control" name="firstName"
+                                           required autofocus>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="lastName" class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.last_name"/> </label>
+                                <div class="col-md-6">
+                                    <input type="text" id="lastName" class="form-control" name="lastName" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="email_address" class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.email"/> </label>
+                                <div class="col-md-6">
+                                    <input type="email" id="email_address" class="form-control" name="email" required>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label for="address" class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.address"/> </label>
+                                <div class="col-md-6">
+                                    <input type="text" id="address" class="form-control" name="address" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="city" class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.city"/> </label>
+                                <div class="col-md-6">
+                                    <input type="text" id="city" class="form-control" name="city" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="region" class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.region"/> </label>
+                                <div class="col-md-6">
+                                    <input type="text" id="region" class="form-control" name="region" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="school" class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.school"/> </label>
+                                <div class="col-md-6">
+                                    <input type="text" id="school" class="form-control" name="school" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="phoneNumber" class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.phoneNumber"/> </label>
+                                <div class="col-md-6">
+                                    <input type="text" id="phoneNumber" class="form-control" name="phoneNumber" required>
+                                </div>
+                            </div>
+
+
+
 
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

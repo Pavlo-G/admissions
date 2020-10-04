@@ -1,8 +1,7 @@
-
 <head>
     <#include "../fragments/bootsrap-links.ftl"/>
     <link rel="stylesheet" href="css/stylesheet.css">
-<title>Request Approval form</title>
+    <title>Request Approval form</title>
 </head>
 
 
@@ -12,91 +11,73 @@
 
 <div class="container">
     <div class="row">
-        <h2 class="text-danger">Approve Request</h2>
+        <h2 class="text-danger">Request to the ${request.faculty.getName()} </h2>
 
 
         <table class="table table-bordered success">
             <thead>
             <tr>
-                <th>Full Name</th>
-                <td>${request.candidate.getUsername()}</td>
+                <th>First Name</th>
+                <td>${request.candidate.candidateProfile.firstName}</td>
             </tr>
             <tr>
-                <th class="info">Address</th>
-                <td>addres</td>
+                <th>Last Name</th>
+                <td>${request.candidate.candidateProfile.lastName}</td>
             </tr>
             <tr>
-                <th class="info">Email</th>
-                <td>>${request.candidate.getEmail()}</td>
+                <th >Email</th>
+                <td>${request.candidate.candidateProfile.email}</td>
             </tr>
             <tr>
-                <th class="info">Contact</th>
-                <td>+91 9999955555</td>
+                <th >Address</th>
+                <td>${request.candidate.candidateProfile.address}</td>
             </tr>
 
             <tr>
-                <th class="info">State</th>
-                <td>Maharashtra</td>
+                <th >City</th>
+                <td>${request.candidate.candidateProfile.city}</td>
             </tr>
             <tr>
-                <th class="info">City</th>
-                <td>Pune</td>
+                <th >Region</th>
+                <td>${request.candidate.candidateProfile.region}</td>
             </tr>
             <tr>
-                <th class="info">Service List</th>
-                <td>Service 1 , Service 2 , Serive 3</td>
+                <th >School</th>
+                <td>${request.candidate.candidateProfile.school}</td>
             </tr>
             <tr>
-                <th valign="top" class="info">Machine</th>
-                <td>Machine1 , Machine2 , Machine3</td>
-            </tr>
-            <tr>
-                <th class="info">Brand</th>
-                <td>Audi</td>
-            </tr>
-            <tr>
-                <th class="info">Specialization</th>
-                <td>Lorem Ipsum that is dollor sign to write</td>
+                <th >Contact Number</th>
+                <td>${request.candidate.candidateProfile.phoneNumber}</td>
             </tr>
 
-            <tr>
-                <th class="info">Approval Status</th>
-                <td><b>Active</b></td>
-            </tr>
+            <#--            <tr>-->
+            <#--                <th class="info">Contact Number</th>-->
+            <#--                <td>${request.candidate.candidateProfile.phoneNumber}</td>-->
+            <#--            </tr>-->
 
-            <tr>
-                <th class="info bg-info">Approval Date</th>
-                <td class="bg-primary">14/12/2018</td>
-            </tr>
-            <tr>
-                <th class="info bg-primary">Register Date</th>
-                <td class="bg-info">10/12/2018 12:00:45</td>
-            </tr>
-            <tr>
-
-                <form>
-
-                    <th class="info">Action To Approval</th>
-                    <td><select id="approv_status" name="approv_status" class="form-control">
-                            <option value="">Select</option>
-                            <option value="active"><b>Active</b></option>
-                            <option value="inactive"><b>Inactive</b></option>
-                        </select></td>
-
-            </tr>
-            <tr>
-                <th colspan="1"></th>
-                <td>
-                    <input type="hidden" name="hidden_id" id="hidden_id" value="<?php echo $value->id; ?>">
-                    <input type="hidden" name="folder_name" id="folder_name" value="<?php echo $value->email; ?>">
-                    <a href="<?php echo base_url()?>module_c/approval_manager/service_provider_display"
-                       class="btn btn-warning">Back</a>
-                    <input type="button" id="approve_btn" class="btn btn-info" name="approve_btn" value="Approve"></td>
-                </form>
-            </tr>
             </thead>
 
         </table>
+
+        <div class="container h-100">
+            <div class="row h-100 justify-content-center align-items-center">
+
+                <form action="/admin/request_approve" method="POST">
+                    <input type="hidden" id="requestId" name="requestId" value="${request.getId()}">
+                    <input type="hidden" id="facultyId" name="facultyId" value="${request.faculty.getId()}">
+                    <button class="btn btn-primary mr-2" type="submit">Approve</button>
+                </form>
+                <form action="/admin/request_reject" method="POST">
+                    <input type="hidden" id="requestId" name="requestId" value="${request.getId()}">
+                    <input type="hidden" id="facultyId" name="facultyId" value="${request.faculty.getId()}">
+                    <button class="btn btn-danger mr-2" type="submit">Reject</button>
+                </form>
+                <form action="/admin/requests_of_faculty/${request.faculty.getId()}" method="get">
+                    <button class="btn btn-warning mr-2" type="submit"> Back</button>
+                </form>
+
+            </div>
+        </div>
     </div>
 </div>
 </body>

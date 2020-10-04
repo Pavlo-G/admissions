@@ -46,11 +46,8 @@ public class AdmissionRequestController {
     @PostMapping("/candidate/submit_request")
     public String createRequestFromCandidate(@RequestParam(name = "candidate") Long candidateId,
                                              @RequestParam(name = "faculty") Long facultyId, Model model) {
-        try {
+
             admissionRequestService.saveAdmissionRequest(candidateId, facultyId);
-        } catch (RequestAlreadyExistsException e) {
-            return "redirect:/candidate/request_form/error";
-        }
         return "redirect:/candidate/candidate_requests";
     }
 

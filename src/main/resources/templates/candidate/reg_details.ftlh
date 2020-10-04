@@ -20,7 +20,8 @@
                     <div class="card-body">
                         <@error.error_login/>
                         <form action="/api/candidate/registration/profile" method="POST">
-                            <input type="hidden" id="candidate_id" class="form-control" name="candidate_id" value="${candidate_id}">
+                            <input type="hidden" id="candidate_username" class="form-control" name="candidate_username" value="${candidate_username}">
+                            <input type="hidden" id="candidate_password" class="form-control" name="candidate_password" value="${candidate_password}">
                             <div class="form-group row">
                                 <label for="firstName" class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.first_name"/> </label>
                                 <div class="col-md-6">

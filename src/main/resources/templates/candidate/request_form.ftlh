@@ -42,7 +42,7 @@
                                 <label for="first_name" class="col-md-4 col-form-label text-md-right">First
                                     Name </label>
                                 <div class="col-md-6">
-                                    ${candidate.candidateProfile.firstName}
+                                    ${candidate.candidateProfile.firstName}}
                                 </div>
                             </div>
                             <div class="form-group row">
