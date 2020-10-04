@@ -1,10 +1,15 @@
 package com.training.admissions.controller;
 
 import com.training.admissions.exception.CandidateNotFoundException;
+import com.training.admissions.model.Candidate;
 import com.training.admissions.service.AdmissionRequestService;
 import com.training.admissions.service.CandidateService;
 import com.training.admissions.service.FacultyService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,8 +63,13 @@ public class AdminWorkspaceController {
 
 
     @GetMapping("/admin/candidate")
-    public String getAllCandidates(Model model) {
-        model.addAttribute("all_candidates", candidateService.getAllCandidates());
+    public String getAllCandidates(
+            @PageableDefault(sort = {"id"},direction = Sort.Direction.ASC,size = 5) Pageable pageable,
+            Model model) {
+        Page<Candidate> page =candidateService.getAllCandidates(pageable);
+        model.addAttribute("page",page );
+        model.addAttribute("url","/admin/candidate" );
+
         return "/admin/candidates";
     }
 

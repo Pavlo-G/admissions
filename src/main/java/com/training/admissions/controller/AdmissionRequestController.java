@@ -71,9 +71,9 @@ public class AdmissionRequestController {
 
 
     @PostMapping("/candidate/delete_request/{id}")
-    public String deleteRequest(@PathVariable(name = "id") Long Id) {
+    public String deleteRequest(@PathVariable(name = "id") Long id) {
         log.info("inside delete method");
-        admissionRequestService.deleteRequest(Id);
+        admissionRequestService.deleteRequest(id);
         return "redirect:/candidate/candidate_requests";
     }
 

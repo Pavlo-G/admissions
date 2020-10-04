@@ -1,17 +1,18 @@
+
 <head>
     <#include "../fragments/bootsrap-links.ftl"/>
     <link rel="stylesheet" href="css/stylesheet.css">
-<#--    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
-<#--    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>-->
-<#--    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>-->
+    <#--    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
+    <#--    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>-->
+    <#--    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>-->
 </head>
-
 
 
 <body>
 <#include "../fragments/nav-bar-admin.ftlh" />
 <br>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet'
+      type='text/css'>
 
 <div class="container">
     <div class="row">
@@ -35,27 +36,47 @@
 
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Number Of Requests</th>
+                            <th>New Requests</th>
+                            <th>Approved Requests</th>
+                            <th>Rejected Requests</th>
+                            <th>Total</th>
                             <th>Work With Requests</th>
-                            <th align="center"><em class="fa fa-cog"></em></th>
+                            <th>Edit Faculty</th>
+                            <th>Delete Faculty</th>
+
                         </tr>
                         </thead>
                         <tbody>
+
                         <#list faculties_list as faculty>
-                        <tr>
+                            <tr>
 
-                            <td>${faculty.getId()}</td>
-                            <td>${faculty.getName()}</td>
-                            <td>${faculty.numberOfRequests()}</td>
-                            <td>  <form class="form-inline my-2 my-lg-0" action="/admin/requests_of_faculty/${faculty.getId()}" method="get">
-                                    <button class="btn btn-primary" type="submit">work with requests</button>
-                                </form></td>
+                                <td>${faculty.getId()}</td>
+                                <td>${faculty.getName()}</td>
+                                <td>${faculty.numberOfRequestsNew()}</td>
+                                <td>${faculty.numberOfRequestsApproved()}</td>
+                                <td>${faculty.numberOfRequestsRejected()}</td>
+                                <td>${faculty.numberOfRequests()}</td>
+                                <td>
+                                    <form class="form-inline my-2 my-lg-0"
+                                          action="/admin/requests_of_faculty/${faculty.getId()}" method="get">
+                                        <button class="btn btn-primary" type="submit">requests</button>
+                                    </form>
+                                </td>
 
-                            <td align="center">
-                                <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
-                                <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
-                            </td>
-                        </tr>
+                                <td align="center">
+                                    <form class="form-inline my-2 my-lg-0"
+                                          action="/admin/requests_of_faculty/${faculty.getId()}" method="get">
+                                        <button class="btn btn-primary" type="submit">edit</button>
+                                    </form>
+                                </td>
+                                <td align="center">
+                                    <form class="form-inline my-2 my-lg-0"
+                                          action="/admin/requests_of_faculty/${faculty.getId()}" method="get">
+                                        <button class="btn btn-danger" type="submit">delete</button>
+                                    </form>
+                                </td>
+                            </tr>
                         </#list>
                         </tbody>
                     </table>
@@ -82,7 +103,9 @@
                 </div>
             </div>
 
-        </div></div></div>
+        </div>
+    </div>
+</div>
 
 
 </body>

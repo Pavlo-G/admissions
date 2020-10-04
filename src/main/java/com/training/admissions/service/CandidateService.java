@@ -8,11 +8,14 @@ import com.training.admissions.model.CandidateStatus;
 import com.training.admissions.model.Role;
 import com.training.admissions.repository.CandidateRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
+
+
 
 @Slf4j
 @Service
@@ -29,9 +32,11 @@ public class CandidateService {
     }
 
 
-    public List<Candidate> getAllCandidates() {
+    public Page<Candidate> getAllCandidates(Pageable pageable) {
+
         log.info("Get All Candidates");
-        return candidateRepository.findAll();
+
+        return candidateRepository.findAll(pageable);
     }
 
     public Candidate getById(Long id) throws CandidateNotFoundException {

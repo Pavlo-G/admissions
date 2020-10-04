@@ -38,7 +38,6 @@
                             <th>Action</th>
 
 
-                            <th align="center"><em class="fa fa-cog"></em></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -56,10 +55,6 @@
                                     </form>
                                 </td>
 
-                                <td align="center">
-                                    <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
-                                    <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
-                                </td>
                             </tr>
                         </#list>
                         </tbody>

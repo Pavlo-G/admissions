@@ -2,10 +2,12 @@ package com.training.admissions.dto;
 
 
 import com.training.admissions.model.AdmissionRequest;
+import com.training.admissions.model.AdmissionRequestStatus;
 import com.training.admissions.model.Faculty;
 import lombok.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -30,5 +32,20 @@ public class FacultyDTO {
     }
 
 
+    public Long numberOfRequestsNew(){
+        return admissionRequestsList.stream()
+                .filter(ar->ar.getStatus().ordinal()== AdmissionRequestStatus.NEW.ordinal())
+                .count();
+    }
+    public Long numberOfRequestsApproved(){
+        return admissionRequestsList.stream()
+                .filter(ar->ar.getStatus().ordinal()== AdmissionRequestStatus.APPROVED.ordinal())
+                .count();
+    }
+    public Long numberOfRequestsRejected(){
+        return admissionRequestsList.stream()
+                .filter(ar->ar.getStatus().ordinal()== AdmissionRequestStatus.REJECTED.ordinal())
+                .count();
+    }
 }
 
