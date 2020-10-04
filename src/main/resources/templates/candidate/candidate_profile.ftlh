@@ -21,6 +21,14 @@
         <table class="table table-bordered success">
             <thead>
             <tr>
+                <th>Username</th>
+                <td>${candidate.username}</td>
+            </tr>
+            <tr>
+                <th class="info">Email</th>
+                <td>${candidate.candidateProfile.email}</td>
+            </tr>
+            <tr>
                 <th>First Name</th>
                 <td>${candidate.candidateProfile.firstName}</td>
             </tr>
@@ -28,9 +36,10 @@
                 <th class="info">Last Name</th>
                 <td>${candidate.candidateProfile.lastName}</td>
             </tr>
+
             <tr>
-                <th class="info">Email</th>
-                <td>${candidate.email}</td>
+                <th class="info">Address</th>
+                <td>${candidate.candidateProfile.address}</td>
             </tr>
             <tr>
                 <th class="info">City</th>
@@ -44,6 +53,10 @@
             <tr>
                 <th class="info">School</th>
                 <td>${candidate.candidateProfile.school}</td>
+            </tr>
+            <tr>
+                <th class="info">Phone number</th>
+                <td>${candidate.candidateProfile.phoneNumber}</td>
             </tr>
 
             </thead>

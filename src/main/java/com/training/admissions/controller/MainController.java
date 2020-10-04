@@ -28,4 +28,8 @@ public class MainController {
     public String getRegistrationPage(){
         return "registration";
     }
+    @GetMapping("/registration/details")
+    public String getRegistrationDetailsPage(){
+        return "/candidate/reg_details";
+    }
 }

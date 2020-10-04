@@ -1,9 +1,6 @@
 package com.training.admissions.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
@@ -23,8 +20,6 @@ public class Candidate {
     private Long id;
     @Column(name = "username")
     private String username;
-    @Column(name = "email")
-    private String email;
     @Column(name = "password")
     private String password;
     @Enumerated(value = EnumType.STRING)
@@ -44,5 +39,6 @@ public class Candidate {
     public Set<SimpleGrantedAuthority> getAuthorities(){
         return Set.of(new SimpleGrantedAuthority(role.name()));
     }
+
 
 }

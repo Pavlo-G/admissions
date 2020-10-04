@@ -15,18 +15,18 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
 
-            <div class="nav-item dropdown">
+            <li class="nav-item dropdown">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><@spring.message "navbar.Change_Language"/>
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" data-target="#navbarDropdown"><@spring.message "navbar.Change_Language"/>
                             <b class="caret"></b></a>
-                        <div class="dropdown-menu dropdown-menu-right">
+                        <div class="dropdown-menu dropdown-menu-right" id="navbarDropdown">
                                 <a class="dropdown-item"  href="${springMacroRequestContext.requestUri}?lang=en"><@spring.message "navbar.English"/></a>
                                 <a class="dropdown-item"  href="${springMacroRequestContext.requestUri}?lang=uk"><@spring.message "navbar.Ukrainian"/></a>
                         </div>
 
                     </li>
                 </ul>
-            </div>
+            </li>
 
 
 
@@ -46,11 +46,11 @@
 
             <div class="nav-item dropdown">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><@spring.message "navbar.Account"/> ${name}
+                    <li class="dropdown"><a href="" class="dropdown-toggle" data-target="#navbarDropdownPr" data-toggle="dropdown"><@spring.message "navbar.Account"/> ${name}
                             <b class="caret"></b></a>
-                        <div class="dropdown-menu dropdown-menu-right">
+                        <div class="dropdown-menu dropdown-menu-right" id="navbarDropdownPr">
 
-                            <form action="/api/candidate/${name}" method="get">
+                            <form action="/api/candidate/profile" method="get">
                             <button class="dropdown-item" type="submit"><@spring.message "navbar.my_profile"/></button>
                             </form>
                             <form action="/candidate/candidate_requests" method="get">

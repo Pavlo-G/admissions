@@ -48,7 +48,6 @@ public class CandidateService {
             Candidate createdCandidate = candidateRepository.save(Candidate.builder()
                     .username(candidateDTO.getUsername())
                     .password(bCryptPasswordEncoder.encode(candidateDTO.getPassword()))
-                    .email(candidateDTO.getEmail())
                     .role(Role.USER)
                     .candidateStatus(CandidateStatus.ACTIVE)
                     .build());

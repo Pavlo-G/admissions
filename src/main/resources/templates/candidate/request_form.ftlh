@@ -21,105 +21,73 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
+
+
+                <#if errorMessage??>
+                <div class="alert alert-primary" role="alert">
+                    ${errorMessage}
+                    <form method="get" action="/faculties">
+                        <button type="submit" class="btn btn-primary">
+                            Go back to faculties list
+                        </button>
+                    </form>
+                </div>
+                <#else>
                 <div class="card">
-                    <div class="card-header">Admission request form</div>
+                    <div class="card-header">Admission request to ${faculty.name}</div>
                     <div class="card-body">
-                        <#if errorMessage??>
-                            <div class="alert alert-primary" role="alert">
-                                ${errorMessage}
+                        <form action="/candidate/submit_request" method="post">
 
-                                <form method="get"action="/faculties">
-
-                                    <button type="submit" class="btn btn-primary">
-                                        Go back to faculties list
-                                    </button>
-                                </form>
+                            <div class="form-group row">
+                                <label for="first_name" class="col-md-4 col-form-label text-md-right">First
+                                    Name </label>
+                                <div class="col-md-6">
+                                    ${candidate.candidateProfile.firstName}
+                                </div>
                             </div>
-                        <#else>
-
-                            <form action="/candidate/submit_request" method="post">
-
-                                <div class="form-group row">
-                                    <label for="first_name" class="col-md-4 col-form-label text-md-right">First
-                                        Name </label>
-                                    <div class="col-md-6">
-                                        <input type="text" id="first_name" class="form-control" name="first_name"
-                                               required autofocus>
-                                    </div>
+                            <div class="form-group row">
+                                <label for="last_name" class="col-md-4 col-form-label text-md-right">Last
+                                    Name </label>
+                                <div class="col-md-6">
+                                    ${candidate.candidateProfile.lastName}
                                 </div>
-                                <div class="form-group row">
-                                    <label for="last_name" class="col-md-4 col-form-label text-md-right">Last
-                                        Name </label>
-                                    <div class="col-md-6">
-                                        <input type="text" id="last_name" class="form-control" name="last_name"
-                                               required>
-                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail
+                                    Address</label>
+                                <div class="col-md-6">
+                                    ${candidate.candidateProfile.email}
                                 </div>
+                            </div>
 
-                                <div class="form-group row">
-                                    <label for="address" class="col-md-4 col-form-label text-md-right">Address </label>
-                                    <div class="col-md-6">
-                                        <input type="text" id="address" class="form-control" name="address"
-                                               required>
-                                    </div>
+                            <div class="form-group row">
+                                <label for="address" class="col-md-4 col-form-label text-md-right">Address </label>
+                                <div class="col-md-6">
+                                    ${candidate.candidateProfile.address}
                                 </div>
+                            </div>
 
-                                <div class="form-group row">
-                                    <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail
-                                        Address</label>
-                                    <div class="col-md-6">
-                                        <input type="email" id="email_address" class="form-control" name="email"
-                                               required>
-                                    </div>
+
+                            <div class="form-group row">
+                                <label for="phone_number" class="col-md-4 col-form-label text-md-right">Contact
+                                    Number
+                                </label>
+                                <div class="col-md-6">
+                                    ${candidate.candidateProfile.phoneNumber}
                                 </div>
-
-                                <div class="form-group row">
-                                    <label for="phone_number" class="col-md-4 col-form-label text-md-right">Contact
-                                        Number
-                                    </label>
-                                    <div class="col-md-6">
-                                        <input type="tel" id="phone_number" class="form-control" name="phone_number"
-                                               required>
-                                    </div>
-                                </div>
+                            </div>
 
 
-                                <#--                            <div class="form-group row">-->
-                                <#--                                <label for="cert_file" class="col-md-4 col-form-label text-md-right">Certificate </label>-->
-                                <#--                                <div class="col-md-6">-->
-                                <#--                                    <img src="/img/file.png" id="upfile1" style="cursor:pointer" />-->
-                                <#--                                    <input type="file" id="file1"  name="file1" style="display:none" />-->
+                            <input type="hidden" id="candidateId" name="candidate" value="${candidate.id}"/>
+                            <input type="hidden" id="facultyId" name="faculty" value="${faculty.id}"/>
 
-                                <#--                                </div>-->
-                                <#--                            </div>-->
-                                <#--                            <script>-->
-                                <#--                            function previewFile() {-->
-                                <#--                            const preview = document.querySelector('img');-->
-                                <#--                            const file = document.querySelector('input[type=file]').files[0];-->
-                                <#--                            const reader = new FileReader();-->
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Submit Request
+                                </button>
+                            </div>
 
-                                <#--                            reader.addEventListener("load", function () {-->
-                                <#--                            // convert image file to base64 string-->
-                                <#--                            preview.src = reader.result;-->
-                                <#--                            }, false);-->
-
-                                <#--                            if (file) {-->
-                                <#--                            reader.readAsDataURL(file);-->
-                                <#--                            }-->
-                                <#--                            }-->
-                                <#--                            </script>-->
-
-
-                                <input type="hidden" name="userId" value="${userId}"/>
-                                <input type="hidden" name="facultyId" value="${facultyId}"/>
-
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        Submit Request
-                                    </button>
-                                </div>
-
-                            </form>
+                        </form>
                         </#if>
                     </div>
                 </div>

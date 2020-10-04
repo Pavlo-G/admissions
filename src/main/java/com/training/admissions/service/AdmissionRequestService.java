@@ -2,6 +2,7 @@ package com.training.admissions.service;
 
 
 import com.training.admissions.dto.AdmissionRequestDTO;
+import com.training.admissions.exception.RequestAlreadyExistsException;
 import com.training.admissions.exception.RequestNotFoundException;
 import com.training.admissions.model.AdmissionRequest;
 import com.training.admissions.model.AdmissionRequestStatus;
@@ -47,22 +48,21 @@ public class AdmissionRequestService {
 
     }
 
-    public boolean saveAdmissionRequest(AdmissionRequestDTO arDTO) {
-        Candidate candidate = candidateService.getById(arDTO.getUserId());
-        Faculty faculty = facultyService.getById(arDTO.getFacultyId());
+    public AdmissionRequest saveAdmissionRequest(Long candidateId, Long facultyId) throws RequestAlreadyExistsException {
+        Candidate candidate = candidateService.getById(candidateId);
+        Faculty faculty = facultyService.getById(facultyId);
 
-        Optional<AdmissionRequest> admissionRequest = admissionRequestRepository
-                .findByCandidateAndFaculty(candidate, faculty);
+        if (admissionRequestRepository
+                .findByCandidateAndFaculty(candidate, faculty).isEmpty()) {
 
-        if (admissionRequest.isEmpty()) {
-            admissionRequestRepository.save(AdmissionRequest.builder()
-                    .status(AdmissionRequestStatus.NEW)
-                    .candidate(candidate)
-                    .faculty(faculty)
-                    .build());
-            return true;
+            return admissionRequestRepository.save(
+                    AdmissionRequest.builder()
+                            .status(AdmissionRequestStatus.NEW)
+                            .candidate(candidate)
+                            .faculty(faculty)
+                            .build());
         }
-        return false;
+        throw new RequestAlreadyExistsException("Request Already Exists!");
     }
 
     public void deleteRequest(Long id) {
@@ -71,7 +71,7 @@ public class AdmissionRequestService {
 
 
     public AdmissionRequest getById(Long id) {
-       return admissionRequestRepository.findById(id)
-               .orElseThrow(()-> new RequestNotFoundException("Request by id= "+id+"not found"));
+        return admissionRequestRepository.findById(id)
+                .orElseThrow(() -> new RequestNotFoundException("Request by id= " + id + "not found"));
     }
 }

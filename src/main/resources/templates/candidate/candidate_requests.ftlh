@@ -57,7 +57,7 @@
 
                                 <td align="center">
                                     <form
-                                            action="/candidate/delete_request/${request.getId()}" method="get">
+                                            action="/candidate/delete_request/${request.getId()}" method="post">
                                         <button class="btn btn-primary" type="submit">Delete request</button>
                                     </form>
 

@@ -1,6 +1,8 @@
 package com.training.admissions.dto;
 
 
+import com.training.admissions.model.Candidate;
+import com.training.admissions.model.Faculty;
 import lombok.*;
 
 @Getter
@@ -11,7 +13,7 @@ import lombok.*;
 @ToString
 public class AdmissionRequestDTO {
 
+    private Long candidateId;
     private Long facultyId;
-    private Long userId;
 
 }

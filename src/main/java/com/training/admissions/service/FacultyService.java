@@ -36,7 +36,8 @@ public class FacultyService {
 
     public Faculty getById(Long id) {
         log.info("Get faculty by id: " + id);
-        return facultyRepository.findById(id).orElseThrow(FacultyNotFoundException::new);
+        return facultyRepository.findById(id)
+                .orElseThrow(()->new FacultyNotFoundException("Faculty not found! by id: "+id));
     }
 
     @Transactional

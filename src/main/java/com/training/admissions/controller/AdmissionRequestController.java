@@ -1,67 +1,74 @@
 package com.training.admissions.controller;
 
 
-import com.training.admissions.dto.AdmissionRequestDTO;
+import com.training.admissions.exception.RequestAlreadyExistsException;
 import com.training.admissions.model.Candidate;
 import com.training.admissions.service.AdmissionRequestService;
 import com.training.admissions.service.CandidateService;
+import com.training.admissions.service.FacultyService;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
 @Controller
 
-//@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-
 public class AdmissionRequestController {
 
     private final AdmissionRequestService admissionRequestService;
-    private CandidateService candidateService;
+    private final CandidateService candidateService;
+    private final FacultyService facultyService;
 
 
-    public AdmissionRequestController(AdmissionRequestService admissionRequestService, CandidateService candidateService) {
+    public AdmissionRequestController(AdmissionRequestService admissionRequestService, CandidateService candidateService, FacultyService facultyService) {
         this.admissionRequestService = admissionRequestService;
-        this.candidateService =candidateService;
+        this.candidateService = candidateService;
 
+        this.facultyService = facultyService;
     }
 
     @GetMapping("/candidate/submit_request")
     public String getRequestForm(@RequestParam(name = "faculty_id") Long facultyId,
-                                 @RequestParam(name = "username") String username, Model model) {
+                                 @AuthenticationPrincipal User currentUser, Model model) {
 
-        model.addAttribute("userId", candidateService.findByUsername(username).getId());
-        model.addAttribute("facultyId", facultyId);
+        model.addAttribute("candidate", candidateService.findByUsername(currentUser.getUsername()));
+        model.addAttribute("faculty", facultyService.getById(facultyId));
         return "/candidate/request_form";
     }
 
 
     @PostMapping("/candidate/submit_request")
-    public String addRequestFromCandidate(AdmissionRequestDTO arDTO, Model model) {
-
-        log.info("inside Post AdmReq " + arDTO.getUserId() + " " + arDTO.getFacultyId());
-        if (!admissionRequestService.saveAdmissionRequest(arDTO)) {
-            model.addAttribute("userId", arDTO.getUserId());
-            model.addAttribute("facultyId", arDTO.getFacultyId());
-            model.addAttribute("errorMessage", "Request already exists chose other faculty!");
-            return "candidate/request_form";
+    public String createRequestFromCandidate(@RequestParam(name = "candidate") Long candidateId,
+                                             @RequestParam(name = "faculty") Long facultyId, Model model) {
+        try {
+            admissionRequestService.saveAdmissionRequest(candidateId, facultyId);
+        } catch (RequestAlreadyExistsException e) {
+            return "redirect:/candidate/request_form/error";
         }
         return "redirect:/candidate/candidate_requests";
     }
 
+    @GetMapping("/candidate/request_form/error")
+    public String showError(Model model) {
+        model.addAttribute("errorMessage", "Request Already Exists!");
+        return "candidate/request_form";
+    }
+
+
     @GetMapping("/candidate/candidate_requests")
     public String getAllUserRequests(@AuthenticationPrincipal User currentUser
             , Model model) {
-        log.info("inside Get all requests");
-
         Candidate candidate = candidateService.findByUsername(currentUser.getUsername());
-        model.addAttribute("username",candidate.getUsername());
+        log.info("Get all requests for candidate"+candidate.getUsername());
+        model.addAttribute("username", candidate.getUsername());
         model.addAttribute("requests_list",
-                admissionRequestService.getAdmissionRequestsForUserWithId (candidate.getId()));
+                admissionRequestService.getAdmissionRequestsForUserWithId(candidate.getId()));
         return "/candidate/candidate_requests";
     }
 
