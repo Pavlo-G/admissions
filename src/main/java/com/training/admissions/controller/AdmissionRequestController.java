@@ -42,8 +42,7 @@ public class AdmissionRequestController {
         return "/candidate/request_form";
     }
 
-//    @RequestParam(name = "candidate") Long candidateId,
-//    @RequestParam(name = "faculty") Long facultyId,
+
     @PostMapping("/candidate/submit_request")
     public String createRequestFromCandidate(AdmissionRequestDTO admissionRequestDTO, Model model) {
 

@@ -25,7 +25,7 @@
                         </div>
                         <div class="col col-xs-6 text-right">
                             <form action="/admin/faculty/add" method="get">
-                                <button type="submit" class="btn btn-sm btn-primary btn-create" >Create New</button>
+                                <button type="submit" class="btn btn-sm btn-primary btn-create">Create New</button>
                             </form>
                         </div>
                     </div>
@@ -61,20 +61,20 @@
                                 <td>
                                     <form class="form-inline my-2 my-lg-0"
                                           action="/admin/requests_of_faculty/${faculty.getId()}" method="get">
-                                        <button class="btn btn-primary" type="submit">requests</button>
+                                        <button class="btn btn-primary" type="submit">Requests</button>
                                     </form>
                                 </td>
 
                                 <td align="center">
                                     <form class="form-inline my-2 my-lg-0"
-                                          action="/admin/requests_of_faculty/${faculty.getId()}" method="get">
-                                        <button class="btn btn-primary" type="submit">edit</button>
+                                          action="/admin/faculty/edit/${faculty.getId()}" method="get">
+                                        <button class="btn btn-primary" type="submit">Edit</button>
                                     </form>
                                 </td>
                                 <td align="center">
                                     <form class="form-inline my-2 my-lg-0"
-                                          action="/admin/requests_of_faculty/${faculty.getId()}" method="get">
-                                        <button class="btn btn-danger" type="submit">delete</button>
+                                          action="/admin/faculties/delete/${faculty.getId()}" method="post">
+                                        <button class="btn btn-danger" type="submit">Delete</button>
                                     </form>
                                 </td>
                             </tr>

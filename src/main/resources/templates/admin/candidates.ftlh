@@ -53,7 +53,7 @@
                                 <td>${candidate.getCandidateStatus().name()}</td>
 
                                 <td align="center">
-                                    <form action="/admin/candidate/${candidate.getId()}" method="get">
+                                    <form action="/admin/candidate/edit/${candidate.getId()}" method="get">
                                         <button class="btn btn-primary" type="submit"> Edit</button>
                                     </form>
 

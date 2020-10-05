@@ -1,4 +1,3 @@
-
 <head>
 
     <link rel="stylesheet" href="css/stylesheet.css">
@@ -15,19 +14,19 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+<#--        <div class="col-md-10 col-md-offset-1">-->
 
-            <div class="panel panel-default panel-table">
-                <div class="panel-heading">
+<#--            <div class="panel panel-default panel-table">-->
+<#--                <div class="panel-heading">-->
                     <div class="row">
                         <div class="col col-xs-6">
                             <h3 class="panel-title">Faculties</h3>
                         </div>
 
                     </div>
-                </div>
+<#--                </div>-->
                 <div class="panel-body">
-                    <table class="table table-striped table-bordered table-list">
+                    <table class="table table-bordered">
                         <thead>
                         <tr>
 
@@ -51,24 +50,31 @@
                                 <td>${faculty.getBudgetCapacity()}</td>
                                 <td>${faculty.getTotalCapacity()}</td>
                                 <td>
-                                    <form method="get" action="/candidate/submit_request">
-                                        <input type="hidden" name="faculty_id" value="${faculty.getId()}">
-                                        <button type="submit" class="btn btn-primary">Send admission request</button>
-                                    </form>
+                                    <#if isAdmin>
+
+                                    <#else >
+                                        <form method="get" action="/candidate/submit_request">
+                                            <input type="hidden" name="faculty_id" value="${faculty.getId()}">
+                                            <button type="submit" class="btn btn-primary btn-sm">Send admission request
+                                            </button>
+                                        </form>
+                                    </#if>
+
                                 </td>
 
-<#--                                <td align="center">-->
-<#--                                    <form class="form-inline my-2 my-lg-0"-->
-<#--                                          action="/admin/requests_of_faculty/${faculty.getId()}" method="get">-->
-<#--                                        <button class="btn btn-primary" type="submit">edit</button>-->
-<#--                                    </form>-->
-<#--                                </td>-->
-<#--                                <td align="center">-->
-<#--                                    <form class="form-inline my-2 my-lg-0"-->
-<#--                                          action="/admin/requests_of_faculty/${faculty.getId()}" method="get">-->
-<#--                                        <button class="btn btn-danger" type="submit">delete</button>-->
-<#--                                    </form>-->
-<#--                                </td>-->
+
+                                <#--                                <td align="center">-->
+                                <#--                                    <form class="form-inline my-2 my-lg-0"-->
+                                <#--                                          action="/admin/requests_of_faculty/${faculty.getId()}" method="get">-->
+                                <#--                                        <button class="btn btn-primary" type="submit">edit</button>-->
+                                <#--                                    </form>-->
+                                <#--                                </td>-->
+                                <#--                                <td align="center">-->
+                                <#--                                    <form class="form-inline my-2 my-lg-0"-->
+                                <#--                                          action="/admin/requests_of_faculty/${faculty.getId()}" method="get">-->
+                                <#--                                        <button class="btn btn-danger" type="submit">delete</button>-->
+                                <#--                                    </form>-->
+                                <#--                                </td>-->
                             </tr>
                         </#list>
                         </tbody>

@@ -16,10 +16,7 @@ public class MainController {
         return "index";
     }
 
-//    @GetMapping("/candidates")
-//    public String getCandidatesPage(){
-//        return "admin/candidates";
-//    }
+
 
     @RequestMapping("/all_faculties")
     public String getFacultiesPage() {

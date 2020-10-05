@@ -14,11 +14,11 @@ import java.util.stream.Collectors;
 public class StatementService {
 
     private final FacultyService facultyService;
-    private final AdmissionRequestService admissionRequestService;
 
-    public StatementService(FacultyService facultyService, AdmissionRequestService admissionRequestService) {
+
+    public StatementService(FacultyService facultyService) {
         this.facultyService = facultyService;
-        this.admissionRequestService = admissionRequestService;
+
     }
 
 

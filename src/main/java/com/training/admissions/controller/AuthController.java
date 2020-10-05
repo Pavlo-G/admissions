@@ -26,8 +26,5 @@ public class AuthController {
     public String getSuccessPage(){
         return "success";
     }
-//    @GetMapping("/logout")
-//    public String getLogoutPage(){
-//        return "logout";
-//    }
+
 }

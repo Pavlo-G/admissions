@@ -79,19 +79,19 @@
                             <div class="form-group row">
                                 <label for="requiredSubject1Grade" class="col-md-4 col-form-label text-md-right">Grade For ${faculty.getRequiredSubject1()} </label>
                                 <div class="col-md-6">
-                                    <input type="number" id="requiredSubject1Grade" class="form-control" name="requiredSubject1Grade" required>
+                                    <input type="number" id="requiredSubject1Grade" min="1" max="12" class="form-control" name="requiredSubject1Grade" required>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="requiredSubject2Grade" class="col-md-4 col-form-label text-md-right">Grade For ${faculty.getRequiredSubject2()} </label>
                                 <div class="col-md-6">
-                                    <input type="number" id="requiredSubject2Grade" class="form-control" name="requiredSubject2Grade" required>
+                                    <input type="number" id="requiredSubject2Grade" min="1" max="12" class="form-control" name="requiredSubject2Grade" required>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="requiredSubject3Grade" class="col-md-4 col-form-label text-md-right">Grade For ${faculty.getRequiredSubject3()} </label>
+                                <label for="requiredSubject3Grade"  class="col-md-4 col-form-label text-md-right">Grade For ${faculty.getRequiredSubject3()} </label>
                                 <div class="col-md-6">
-                                    <input type="number" id="requiredSubject3Grade" class="form-control" name="requiredSubject3Grade" required>
+                                    <input type="number" id="requiredSubject3Grade" min="1" max="12" class="form-control" name="requiredSubject3Grade" required>
                                 </div>
                             </div>
 

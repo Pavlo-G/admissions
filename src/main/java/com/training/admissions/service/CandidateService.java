@@ -1,6 +1,8 @@
 package com.training.admissions.service;
 
 import com.training.admissions.dto.CandidateDTO;
+import com.training.admissions.dto.FacultyDTO;
+import com.training.admissions.entity.Faculty;
 import com.training.admissions.exception.CandidateAlreadyExistsException;
 import com.training.admissions.exception.CandidateNotFoundException;
 import com.training.admissions.entity.Candidate;
@@ -14,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-
 
 
 @Slf4j
@@ -33,33 +34,26 @@ public class CandidateService {
 
 
     public Page<Candidate> getAllCandidates(Pageable pageable) {
-
-        log.info("Get All Candidates");
-
         return candidateRepository.findAll(pageable);
     }
 
-    public Candidate getById(Long id) throws CandidateNotFoundException {
-        log.info("Get candidate by id: " + id);
+    public Candidate getById(Long id) {
         return candidateRepository.findById(id)
                 .orElseThrow(
                         () -> new CandidateNotFoundException("Candidate with " + id + "not found"));
     }
 
     @Transactional
-    public Candidate createCandidate(CandidateDTO candidateDTO) throws CandidateAlreadyExistsException {
+    public Candidate createCandidate(CandidateDTO candidateDTO) {
         if (candidateRepository.findByUsername(candidateDTO.getUsername())
                 .isEmpty()) {
-            Candidate createdCandidate = candidateRepository.save(Candidate.builder()
+            return candidateRepository.save(Candidate.builder()
                     .username(candidateDTO.getUsername())
                     .password(bCryptPasswordEncoder.encode(candidateDTO.getPassword()))
                     .role(Role.USER)
                     .candidateStatus(CandidateStatus.ACTIVE)
                     .build());
-            log.info("User created: " + createdCandidate.getUsername());
-            return createdCandidate;
         }
-
         throw new CandidateAlreadyExistsException("Candidate already exists!");
     }
 
@@ -78,4 +72,12 @@ public class CandidateService {
     }
 
 
+    public Candidate updateCandidate(CandidateDTO candidateDTO) {
+
+        Candidate candidate = candidateRepository.findById(candidateDTO.getId()).orElseThrow();
+        candidate.setRole(candidateDTO.getRole());
+        candidate.setCandidateStatus(candidateDTO.getCandidateStatus());
+        return candidateRepository.save(candidate);
+    }
 }
+

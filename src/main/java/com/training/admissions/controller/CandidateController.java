@@ -63,7 +63,7 @@ public class CandidateController {
 
     @PostMapping("/api/candidate/update")
     public String updateCandidate(CandidateProfileDTO candidateProfileDTO
-            , CandidateDTO candidateDTO, Model model) {
+            ) {
         candidateProfileService.updateCandidateProfile(candidateProfileDTO);
         return "redirect:/api/candidate/profile";
     }

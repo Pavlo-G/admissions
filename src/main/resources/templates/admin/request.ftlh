@@ -50,10 +50,18 @@
                 <td>${request.candidate.candidateProfile.phoneNumber}</td>
             </tr>
 
-            <#--            <tr>-->
-            <#--                <th class="info">Contact Number</th>-->
-            <#--                <td>${request.candidate.candidateProfile.phoneNumber}</td>-->
-            <#--            </tr>-->
+            <tr>
+                <th >Grade for ${request.faculty.getRequiredSubject1()} </th>
+                <td>${request.getRequiredSubject1Grade()}</td>
+            </tr>
+            <tr>
+                <th >Grade for ${request.faculty.getRequiredSubject2()}</th>
+                <td>${request.getRequiredSubject2Grade()}</td>
+            </tr>
+            <tr>
+                <th >Grade for ${request.faculty.getRequiredSubject3()}</th>
+                <td>${request.getRequiredSubject3Grade()}</td>
+            </tr>
 
             </thead>
 

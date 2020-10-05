@@ -1,7 +1,7 @@
 package com.training.admissions.controller;
 
+import com.training.admissions.dto.CandidateDTO;
 import com.training.admissions.dto.FacultyDTO;
-import com.training.admissions.exception.CandidateNotFoundException;
 import com.training.admissions.entity.AdmissionRequest;
 import com.training.admissions.entity.Candidate;
 import com.training.admissions.service.AdmissionRequestService;
@@ -80,11 +80,17 @@ public class AdminWorkspaceController {
         return "/admin/candidates";
     }
 
-    @GetMapping("/admin/candidate/{id}")
-    public String getById(@PathVariable Long id, Model model) throws CandidateNotFoundException {
+    @GetMapping("/admin/candidate/edit/{id}")
+    public String getById(@PathVariable Long id, Model model) {
 
         model.addAttribute("candidate", candidateService.getById(id));
-        return "/admin/candidates";
+        return "/admin/candidates-edit";
+
+    }
+    @PostMapping("/admin/candidate/edit/{id}")
+    public String updateCandidateWithId(CandidateDTO candidateDTO) {
+       candidateService.updateCandidate(candidateDTO);
+        return "redirect:/admin/candidate";
 
     }
 
@@ -120,20 +126,38 @@ public class AdminWorkspaceController {
     }
 
 
-
     @GetMapping("/admin/faculty/add")
     public String createNewFacultyForm(Model model) {
 
-        return "/admin/add-edit-faculty";
+        return "/admin/create-faculty";
     }
 
 
-
     @PostMapping("/admin/faculty/add")
-    public String createNewFaculty(FacultyDTO facultyDTO, Model model) {
+    public String createNewFaculty(FacultyDTO facultyDTO) {
         facultyService.createFaculty(facultyDTO);
 
+        return "redirect:/admin/workspace";
+    }
 
+
+    @GetMapping("/admin/faculty/edit/{id}")
+    public String editFacultyWithId(@PathVariable Long id, Model model) {
+        model.addAttribute("faculty", facultyService.getById(id));
+        return "/admin/edit-faculty";
+
+    }
+
+    @PostMapping("/admin/faculty/edit/{id}")
+    public String updateFacultyWithId(FacultyDTO facultyDTO) {
+        facultyService.updateFaculty(facultyDTO);
+        return "redirect:/admin/workspace";
+
+    }
+
+    @PostMapping("/admin/faculties/delete/{id}")
+    public String deleteFacultyById(@PathVariable(name = "id") Long id) {
+        facultyService.deleteById(id);
         return "redirect:/admin/workspace";
     }
 

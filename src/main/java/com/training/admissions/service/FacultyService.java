@@ -1,6 +1,9 @@
 package com.training.admissions.service;
 
+import com.training.admissions.dto.CandidateProfileDTO;
 import com.training.admissions.dto.FacultyDTO;
+import com.training.admissions.entity.CandidateProfile;
+import com.training.admissions.exception.CandidateNotFoundException;
 import com.training.admissions.exception.FacultyAlreadyExistsException;
 import com.training.admissions.exception.FacultyNotFoundException;
 import com.training.admissions.entity.Faculty;
@@ -83,4 +86,25 @@ public class FacultyService {
         return facultyDTOList;
 
     }
+
+    public Faculty updateFaculty(FacultyDTO facultyDTO) {
+
+        Faculty faculty =Faculty.builder()
+                .id(facultyDTO.getId())
+                .name(facultyDTO.getName())
+                .description(facultyDTO.getDescription())
+                .budgetCapacity(facultyDTO.getBudgetCapacity())
+                .totalCapacity(facultyDTO.getTotalCapacity())
+                .admissionRequestList(facultyDTO.getAdmissionRequestsList())
+                .requiredSubject1(facultyDTO.getRequiredSubject1())
+                .requiredSubject2(facultyDTO.getRequiredSubject2())
+                .requiredSubject3(facultyDTO.getRequiredSubject3())
+                .build();
+      return facultyRepository.save(faculty);
+    }
+
+
+
+
+
 }

@@ -8,6 +8,8 @@ import com.training.admissions.repository.CandidateProfileRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 
 @Slf4j
 @Service
@@ -21,12 +23,11 @@ public class CandidateProfileService {
         this.candidateProfileRepository = candidateProfileRepository;
         this.candidateService = candidateService;
 
-        ;
+
     }
 
 
     public CandidateProfile getByCandidate_Id(Long id) {
-        log.info("Get candidate profile by id: " + id);
         return candidateProfileRepository.findById(id)
                 .orElseThrow(() -> new CandidateNotFoundException("Candidate Profile not found!"));
     }
@@ -36,6 +37,7 @@ public class CandidateProfileService {
 
         CandidateProfile candidateProfile = candidateProfileRepository.findById(candidateProfileDTO.getId())
                 .orElseThrow(() -> new CandidateNotFoundException("Candidate details not found!"));
+
         candidateProfile.setFirstName(candidateProfileDTO.getFirstName());
         candidateProfile.setLastName(candidateProfileDTO.getLastName());
         candidateProfile.setAddress(candidateProfileDTO.getAddress());
@@ -51,7 +53,7 @@ public class CandidateProfileService {
 
     }
 
-
+    @Transactional
     public CandidateProfile createCandidateProfile(CandidateProfileDTO candidateProfileDTO, Long id) {
 
         Candidate candidate = candidateService.getById(id);

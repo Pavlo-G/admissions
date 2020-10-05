@@ -11,6 +11,7 @@ import com.training.admissions.entity.Faculty;
 import com.training.admissions.repository.AdmissionRequestRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -26,10 +27,7 @@ public class AdmissionRequestService {
         this.facultyService = facultyService;
     }
 
-
-
-
-
+    @Transactional
     public AdmissionRequest approveRequest(Long id) {
         AdmissionRequest admissionRequest =
                 admissionRequestRepository.findById(id).orElseThrow();
@@ -39,7 +37,7 @@ public class AdmissionRequestService {
     }
 
 
-
+    @Transactional
     public AdmissionRequest rejectRequest(Long id) {
         AdmissionRequest admissionRequest =
                 admissionRequestRepository.findById(id).orElseThrow();
@@ -49,17 +47,13 @@ public class AdmissionRequestService {
     }
 
     public List<AdmissionRequest> getAdmissionRequestsForFacultyWithId(Long id) {
-
         return admissionRequestRepository
                 .findAllByFaculty_Id(id);
-
     }
 
     public List<AdmissionRequest> getAdmissionRequestsForUserWithId(Long id) {
-
         return admissionRequestRepository
                 .findAllByCandidate_Id(id);
-
     }
 
     public AdmissionRequest saveAdmissionRequest(AdmissionRequestDTO admissionRequestDTO) throws RequestAlreadyExistsException {
@@ -91,7 +85,6 @@ public class AdmissionRequestService {
         return admissionRequestRepository.findById(id)
                 .orElseThrow(() -> new RequestNotFoundException("Request by id= " + id + "not found"));
     }
-
 
 
 }
