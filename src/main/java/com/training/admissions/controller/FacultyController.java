@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 @Controller
-@RequestMapping("/faculties")
 
 public class FacultyController {
     private final CandidateService candidateService;
@@ -22,10 +21,10 @@ public class FacultyController {
     }
 
 
-    @GetMapping()
+    @GetMapping("/faculties2")
     public String getAllFaculties(Model model) {
         model.addAttribute("all_faculties", facultyService.getAllFaculties());
-        return "/faculties";
+        return "/faculties2";
     }
 
 //    @PostMapping()
