@@ -3,10 +3,7 @@ package com.training.admissions.controller;
 
 import com.training.admissions.dto.CandidateDTO;
 import com.training.admissions.dto.CandidateProfileDTO;
-import com.training.admissions.exception.CandidateAlreadyExistsException;
-import com.training.admissions.exception.CandidateNotFoundException;
-import com.training.admissions.model.Candidate;
-import com.training.admissions.model.CandidateProfile;
+import com.training.admissions.entity.Candidate;
 import com.training.admissions.service.CandidateProfileService;
 import com.training.admissions.service.CandidateService;
 import lombok.extern.slf4j.Slf4j;

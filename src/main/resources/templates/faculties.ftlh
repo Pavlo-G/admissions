@@ -1,54 +1,86 @@
-<html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <title>Admission board app faculties </title>
-    <#include "fragments/bootsrap-links.ftl"/>
+
     <link rel="stylesheet" href="css/stylesheet.css">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <#include "fragments/bootsrap-links.ftl"/>
 </head>
+
+
 <body>
-<#include "fragments/nav-bar.ftl" />
+<#include "/fragments/nav-bar.ftl" />
+<br>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet'
+      type='text/css'>
 
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
 
-<section class="details-card">
-    <h4>Available faculties</h4>
-    <hr>
-    <div class="container">
-        <div class="row">
-            <#list all_faculties as faculty>
-                <div class="col-md-4">
-                    <div class="card-content">
-                        <div class="card-img">
-                            <img src="https://placeimg.com/380/230/nature" alt="">
-                            <span><h4>${faculty.getName()}</h4></span>
+            <div class="panel panel-default panel-table">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col col-xs-6">
+                            <h3 class="panel-title">Faculties</h3>
                         </div>
-                        <div class="card-desc">
-                            <h3>${faculty.getName()}</h3>
-                            <p>${faculty.getDescription()}</p>
 
-                                <div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-striped table-bordered table-list">
+                        <thead>
+                        <tr>
+
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Budget Capacity</th>
+                            <th>Total Capacity</th>
+                            <th>Submit request</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <#list all_faculties as faculty>
+                            <tr>
+
+                                <td>${faculty.getId()}</td>
+                                <td>${faculty.getName()}</td>
+                                <td>${faculty.getDescription()}</td>
+                                <td>${faculty.getBudgetCapacity()}</td>
+                                <td>${faculty.getTotalCapacity()}</td>
+                                <td>
                                     <form method="get" action="/candidate/submit_request">
                                         <input type="hidden" name="faculty_id" value="${faculty.getId()}">
                                         <button type="submit" class="btn btn-primary">Send admission request</button>
                                     </form>
-                                </div>
+                                </td>
 
+<#--                                <td align="center">-->
+<#--                                    <form class="form-inline my-2 my-lg-0"-->
+<#--                                          action="/admin/requests_of_faculty/${faculty.getId()}" method="get">-->
+<#--                                        <button class="btn btn-primary" type="submit">edit</button>-->
+<#--                                    </form>-->
+<#--                                </td>-->
+<#--                                <td align="center">-->
+<#--                                    <form class="form-inline my-2 my-lg-0"-->
+<#--                                          action="/admin/requests_of_faculty/${faculty.getId()}" method="get">-->
+<#--                                        <button class="btn btn-danger" type="submit">delete</button>-->
+<#--                                    </form>-->
+<#--                                </td>-->
+                            </tr>
+                        </#list>
+                        </tbody>
+                    </table>
 
-
-
-                        </div>
-                    </div>
                 </div>
-            </#list>
+
+            </div>
+
         </div>
     </div>
-</section>
-
-
-
+</div>
 
 
 </body>
-</html>

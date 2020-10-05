@@ -1,8 +1,8 @@
 package com.training.admissions.repository;
 
-import com.training.admissions.model.AdmissionRequest;
-import com.training.admissions.model.Candidate;
-import com.training.admissions.model.Faculty;
+import com.training.admissions.entity.AdmissionRequest;
+import com.training.admissions.entity.Candidate;
+import com.training.admissions.entity.Faculty;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

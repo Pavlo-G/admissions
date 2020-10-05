@@ -3,7 +3,7 @@ package com.training.admissions.service;
 import com.training.admissions.dto.FacultyDTO;
 import com.training.admissions.exception.FacultyAlreadyExistsException;
 import com.training.admissions.exception.FacultyNotFoundException;
-import com.training.admissions.model.Faculty;
+import com.training.admissions.entity.Faculty;
 import com.training.admissions.repository.AdmissionRequestRepository;
 import com.training.admissions.repository.FacultyRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -48,6 +48,9 @@ public class FacultyService {
                     .description(facultyDTO.getDescription())
                     .budgetCapacity(facultyDTO.getBudgetCapacity())
                     .totalCapacity(facultyDTO.getTotalCapacity())
+                    .requiredSubject1(facultyDTO.getRequiredSubject1())
+                    .requiredSubject2(facultyDTO.getRequiredSubject2())
+                    .requiredSubject3(facultyDTO.getRequiredSubject3())
                     .build());
             log.info("Faculty created: " + createdFaculty.getName());
             return createdFaculty;

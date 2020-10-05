@@ -1,6 +1,6 @@
 package com.training.admissions.repository;
 
-import com.training.admissions.model.Faculty;
+import com.training.admissions.entity.Faculty;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

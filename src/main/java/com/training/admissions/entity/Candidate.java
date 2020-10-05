@@ -1,16 +1,19 @@
-package com.training.admissions.model;
+package com.training.admissions.entity;
 
 import lombok.*;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Data
+
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+
 @Table(name = "candidate")
 public class Candidate {
 
@@ -35,10 +38,22 @@ public class Candidate {
             mappedBy = "candidate")
     private CandidateProfile candidateProfile;
 
+    @OneToMany(mappedBy = "candidate",cascade = CascadeType.ALL,fetch = FetchType.LAZY )
+    private List<AdmissionRequest> admissionRequestList;
+
 
     public Set<SimpleGrantedAuthority> getAuthorities(){
         return Set.of(new SimpleGrantedAuthority(role.name()));
     }
 
-
+    @Override
+    public String toString() {
+        return "Candidate{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", candidateStatus=" + candidateStatus +
+                '}';
+    }
 }

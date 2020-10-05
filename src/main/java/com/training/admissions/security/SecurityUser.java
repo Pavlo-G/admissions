@@ -2,8 +2,8 @@ package com.training.admissions.security;
 
 
 
-import com.training.admissions.model.CandidateStatus;
-import com.training.admissions.model.Candidate;
+import com.training.admissions.entity.CandidateStatus;
+import com.training.admissions.entity.Candidate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

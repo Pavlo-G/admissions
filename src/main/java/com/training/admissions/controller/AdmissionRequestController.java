@@ -1,8 +1,8 @@
 package com.training.admissions.controller;
 
 
-import com.training.admissions.exception.RequestAlreadyExistsException;
-import com.training.admissions.model.Candidate;
+import com.training.admissions.dto.AdmissionRequestDTO;
+import com.training.admissions.entity.Candidate;
 import com.training.admissions.service.AdmissionRequestService;
 import com.training.admissions.service.CandidateService;
 import com.training.admissions.service.FacultyService;
@@ -42,12 +42,12 @@ public class AdmissionRequestController {
         return "/candidate/request_form";
     }
 
-
+//    @RequestParam(name = "candidate") Long candidateId,
+//    @RequestParam(name = "faculty") Long facultyId,
     @PostMapping("/candidate/submit_request")
-    public String createRequestFromCandidate(@RequestParam(name = "candidate") Long candidateId,
-                                             @RequestParam(name = "faculty") Long facultyId, Model model) {
+    public String createRequestFromCandidate(AdmissionRequestDTO admissionRequestDTO, Model model) {
 
-            admissionRequestService.saveAdmissionRequest(candidateId, facultyId);
+            admissionRequestService.saveAdmissionRequest(admissionRequestDTO);
         return "redirect:/candidate/candidate_requests";
     }
 

@@ -1,4 +1,4 @@
-package com.training.admissions.model;
+package com.training.admissions.entity;
 
 
 import lombok.AllArgsConstructor;

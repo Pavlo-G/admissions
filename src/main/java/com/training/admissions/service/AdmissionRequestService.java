@@ -1,12 +1,13 @@
 package com.training.admissions.service;
 
 
+import com.training.admissions.dto.AdmissionRequestDTO;
 import com.training.admissions.exception.RequestAlreadyExistsException;
 import com.training.admissions.exception.RequestNotFoundException;
-import com.training.admissions.model.AdmissionRequest;
-import com.training.admissions.model.AdmissionRequestStatus;
-import com.training.admissions.model.Candidate;
-import com.training.admissions.model.Faculty;
+import com.training.admissions.entity.AdmissionRequest;
+import com.training.admissions.entity.AdmissionRequestStatus;
+import com.training.admissions.entity.Candidate;
+import com.training.admissions.entity.Faculty;
 import com.training.admissions.repository.AdmissionRequestRepository;
 import org.springframework.stereotype.Service;
 
@@ -61,9 +62,9 @@ public class AdmissionRequestService {
 
     }
 
-    public AdmissionRequest saveAdmissionRequest(Long candidateId, Long facultyId) throws RequestAlreadyExistsException {
-        Candidate candidate = candidateService.getById(candidateId);
-        Faculty faculty = facultyService.getById(facultyId);
+    public AdmissionRequest saveAdmissionRequest(AdmissionRequestDTO admissionRequestDTO) throws RequestAlreadyExistsException {
+        Candidate candidate = candidateService.getById(admissionRequestDTO.getCandidateId());
+        Faculty faculty = facultyService.getById(admissionRequestDTO.getFacultyId());
 
         if (admissionRequestRepository
                 .findByCandidateAndFaculty(candidate, faculty).isEmpty()) {
@@ -73,6 +74,9 @@ public class AdmissionRequestService {
                             .status(AdmissionRequestStatus.NEW)
                             .candidate(candidate)
                             .faculty(faculty)
+                            .requiredSubject1Grade(admissionRequestDTO.getRequiredSubject1Grade())
+                            .requiredSubject2Grade(admissionRequestDTO.getRequiredSubject2Grade())
+                            .requiredSubject3Grade(admissionRequestDTO.getRequiredSubject3Grade())
                             .build());
         }
         throw new RequestAlreadyExistsException("Request Already Exists!");

@@ -1,4 +1,3 @@
-
 <head>
     <#include "../fragments/bootsrap-links.ftl"/>
     <link rel="stylesheet" href="css/stylesheet.css">
@@ -25,7 +24,9 @@
                             <h3 class="panel-title">Faculties</h3>
                         </div>
                         <div class="col col-xs-6 text-right">
-                            <button type="button" class="btn btn-sm btn-primary btn-create">Create New</button>
+                            <form action="/admin/faculty/add" method="get">
+                                <button type="submit" class="btn btn-sm btn-primary btn-create" >Create New</button>
+                            </form>
                         </div>
                     </div>
                 </div>

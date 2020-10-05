@@ -1,6 +1,6 @@
 package com.training.admissions.security;
 
-import com.training.admissions.model.Candidate;
+import com.training.admissions.entity.Candidate;
 import com.training.admissions.repository.CandidateRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

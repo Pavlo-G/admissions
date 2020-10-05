@@ -2,10 +2,9 @@ package com.training.admissions.service;
 
 import com.training.admissions.dto.CandidateProfileDTO;
 import com.training.admissions.exception.CandidateNotFoundException;
-import com.training.admissions.model.Candidate;
-import com.training.admissions.model.CandidateProfile;
+import com.training.admissions.entity.Candidate;
+import com.training.admissions.entity.CandidateProfile;
 import com.training.admissions.repository.CandidateProfileRepository;
-import com.training.admissions.repository.CandidateRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

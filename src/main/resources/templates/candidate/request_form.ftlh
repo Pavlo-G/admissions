@@ -76,10 +76,28 @@
                                     ${candidate.candidateProfile.phoneNumber}
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <label for="requiredSubject1Grade" class="col-md-4 col-form-label text-md-right">Grade For ${faculty.getRequiredSubject1()} </label>
+                                <div class="col-md-6">
+                                    <input type="number" id="requiredSubject1Grade" class="form-control" name="requiredSubject1Grade" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="requiredSubject2Grade" class="col-md-4 col-form-label text-md-right">Grade For ${faculty.getRequiredSubject2()} </label>
+                                <div class="col-md-6">
+                                    <input type="number" id="requiredSubject2Grade" class="form-control" name="requiredSubject2Grade" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="requiredSubject3Grade" class="col-md-4 col-form-label text-md-right">Grade For ${faculty.getRequiredSubject3()} </label>
+                                <div class="col-md-6">
+                                    <input type="number" id="requiredSubject3Grade" class="form-control" name="requiredSubject3Grade" required>
+                                </div>
+                            </div>
 
 
-                            <input type="hidden" id="candidateId" name="candidate" value="${candidate.id}"/>
-                            <input type="hidden" id="facultyId" name="faculty" value="${faculty.id}"/>
+                            <input type="hidden" id="candidateId" name="candidateId" value="${candidate.getId()}"/>
+                            <input type="hidden" id="facultyId" name="facultyId" value="${faculty.getId()}"/>
 
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

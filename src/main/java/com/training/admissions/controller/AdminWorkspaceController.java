@@ -1,10 +1,13 @@
 package com.training.admissions.controller;
 
+import com.training.admissions.dto.FacultyDTO;
 import com.training.admissions.exception.CandidateNotFoundException;
-import com.training.admissions.model.Candidate;
+import com.training.admissions.entity.AdmissionRequest;
+import com.training.admissions.entity.Candidate;
 import com.training.admissions.service.AdmissionRequestService;
 import com.training.admissions.service.CandidateService;
 import com.training.admissions.service.FacultyService;
+import com.training.admissions.service.StatementService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +20,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Slf4j
 @Controller
 public class AdminWorkspaceController {
@@ -24,13 +29,15 @@ public class AdminWorkspaceController {
     private final FacultyService facultyService;
     private final CandidateService candidateService;
     private final AdmissionRequestService admissionRequestService;
+    private final StatementService statementService;
 
     public AdminWorkspaceController(FacultyService facultyService,
                                     CandidateService candidateService,
-                                    AdmissionRequestService admissionRequestService) {
+                                    AdmissionRequestService admissionRequestService, StatementService statementService) {
         this.facultyService = facultyService;
         this.candidateService = candidateService;
         this.admissionRequestService = admissionRequestService;
+        this.statementService = statementService;
     }
 
 
@@ -64,11 +71,11 @@ public class AdminWorkspaceController {
 
     @GetMapping("/admin/candidate")
     public String getAllCandidates(
-            @PageableDefault(sort = {"id"},direction = Sort.Direction.ASC,size = 5) Pageable pageable,
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.ASC, size = 5) Pageable pageable,
             Model model) {
-        Page<Candidate> page =candidateService.getAllCandidates(pageable);
-        model.addAttribute("page",page );
-        model.addAttribute("url","/admin/candidate" );
+        Page<Candidate> page = candidateService.getAllCandidates(pageable);
+        model.addAttribute("page", page);
+        model.addAttribute("url", "/admin/candidate");
 
         return "/admin/candidates";
     }
@@ -89,8 +96,6 @@ public class AdminWorkspaceController {
     }
 
 
-
-
     @PostMapping("/admin/request_approve")
     public String requestApprove(@RequestParam(name = "requestId") Long requestId,
                                  @RequestParam(name = "facultyId") Long facultyId) {
@@ -102,6 +107,34 @@ public class AdminWorkspaceController {
     public String requestReject(@RequestParam(name = "requestId") Long requestId, @RequestParam(name = "facultyId") Long facultyId) {
         admissionRequestService.rejectRequest(requestId);
         return "redirect:/admin/requests_of_faculty/" + facultyId;
+    }
+
+
+    @GetMapping("/admin/workspace/statement")
+    public String getStatement(Model model) {
+
+        List<List<AdmissionRequest>> statementList = statementService.getStatement();
+
+        model.addAttribute("statementList", statementList);
+        return "/admin/statement";
+    }
+
+
+
+    @GetMapping("/admin/faculty/add")
+    public String createNewFacultyForm(Model model) {
+
+        return "/admin/add-edit-faculty";
+    }
+
+
+
+    @PostMapping("/admin/faculty/add")
+    public String createNewFaculty(FacultyDTO facultyDTO, Model model) {
+        facultyService.createFaculty(facultyDTO);
+
+
+        return "redirect:/admin/workspace";
     }
 
 }

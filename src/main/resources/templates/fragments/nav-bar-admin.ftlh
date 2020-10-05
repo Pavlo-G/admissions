@@ -36,6 +36,12 @@
                                 type="submit"><@spring.message "navbar.Admin_workspace_faculty"/></button>
                     </form>
                 </li>
+                <li class="nav-item">
+                    <form class="form-inline ml-2 mr-2 my-2 my-lg-0" action="/admin/workspace/statement" method="get">
+                        <button class="btn btn-primary"
+                                type="submit"><@spring.message "navbar.Admin_workspace_statement"/></button>
+                    </form>
+                </li>
 
 
             </ul>

@@ -23,7 +23,7 @@ public class MainController {
 
     @RequestMapping("/all_faculties")
     public String getFacultiesPage() {
-        return "faculties2";
+        return "faculties";
     }
 
     @GetMapping("/registration")
@@ -39,6 +39,7 @@ public class MainController {
     public String getRegistrationDetailsPage() {
         return "/candidate/reg_details";
     }
+
 
 
 }
