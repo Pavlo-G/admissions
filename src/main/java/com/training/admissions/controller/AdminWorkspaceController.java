@@ -186,6 +186,7 @@ public class AdminWorkspaceController {
     public String facultyStatement(@PathVariable(name = "id") Long id, Model model)
     {
         model.addAttribute("faculty_statement",statementService.getStatementForFacultyWithId(id));
+        model.addAttribute("faculty_id",id);
         return "/admin/statement";
     }
 
@@ -195,20 +196,22 @@ public class AdminWorkspaceController {
                                            @AuthenticationPrincipal User currentUser,
                                            Model model)
     {
+
+        facultyService.blockAdmissionRequestRegistration(id);
         statementService.facultyStatementFinalize(id,currentUser.getUsername());
 
-        return "/admin/statement";
+        return "redirect:/admin/finalized";
     }
 
 
-    @GetMapping("/admin/finalized")
-    public String finalizedStatements(Model model)
-    {
-        model.addAttribute("all_statements",statementService.getAllFinalizedStatements());
-
-
-        return "/admin/finalized_statements";
-    }
+//    @GetMapping("/admin/finalized")
+//    public String finalizedStatements(Model model)
+//    {
+//        model.addAttribute("all_statements",statementService.getAllFinalizedStatements());
+//
+//
+//        return "/admin/finalized_statements";
+//    }
 
 
 }

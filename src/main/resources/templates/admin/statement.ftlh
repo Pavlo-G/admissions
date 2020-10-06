@@ -16,7 +16,7 @@
             <div class="panel-body">
                 <td align="center">
                     <form class="form-inline my-2 my-lg-0"
-                          action="/admin/finalize/${faculty_statement[0].id}" method="get">
+                          action="/admin/statement/finalize/${faculty_id}" method="get">
                         <button class="btn btn-danger" type="submit">Finalize statement</button>
                     </form>
                 </td>
