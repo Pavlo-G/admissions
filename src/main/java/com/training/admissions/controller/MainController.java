@@ -24,18 +24,15 @@ public class MainController {
     }
 
     @GetMapping("/registration")
-    public String getRegistrationPage(Model model, @RequestParam(value = "error", required = false) Boolean error) {
-        if (error != null) {
-            model.addAttribute("errorMessage", "The email or password is incorrect.");
-        }
+    public String getRegistrationPage() {
         return "registration";
     }
 
 
-    @GetMapping("/registration/details")
-    public String getRegistrationDetailsPage() {
-        return "/candidate/reg_details";
-    }
+//    @GetMapping("/registration/details")
+//    public String getRegistrationDetailsPage() {
+//        return "/candidate/reg_details";
+//    }
 
 
 

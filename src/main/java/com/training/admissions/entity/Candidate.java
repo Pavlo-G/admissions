@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Set;
 
@@ -21,10 +22,18 @@ public class Candidate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "username")
+
+
+
+    @Column(name = "username", unique=true)
     private String username;
+
+
+
     @Column(name = "password")
     private String password;
+
+
     @Enumerated(value = EnumType.STRING)
     @Column(name = "role")
     private Role role;

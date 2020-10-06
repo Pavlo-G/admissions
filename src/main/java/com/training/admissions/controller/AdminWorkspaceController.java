@@ -4,6 +4,7 @@ import com.training.admissions.dto.CandidateDTO;
 import com.training.admissions.dto.FacultyDTO;
 import com.training.admissions.entity.AdmissionRequest;
 import com.training.admissions.entity.Candidate;
+import com.training.admissions.entity.Faculty;
 import com.training.admissions.service.AdmissionRequestService;
 import com.training.admissions.service.CandidateService;
 import com.training.admissions.service.FacultyService;
@@ -13,14 +14,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -44,8 +47,7 @@ public class AdminWorkspaceController {
     @GetMapping("/admin/workspace")
     public String getAdminWorkspace(Model model) {
 
-
-        model.addAttribute("faculties_list", facultyService.getAllFacultiesWithRequests());
+        model.addAttribute("faculties_list", facultyService.getAllFaculties());
 
         return "/admin/admin_workspace";
     }
@@ -87,9 +89,10 @@ public class AdminWorkspaceController {
         return "/admin/candidates-edit";
 
     }
+
     @PostMapping("/admin/candidate/edit/{id}")
     public String updateCandidateWithId(CandidateDTO candidateDTO) {
-       candidateService.updateCandidate(candidateDTO);
+        candidateService.updateCandidate(candidateDTO);
         return "redirect:/admin/candidate";
 
     }
@@ -116,15 +119,6 @@ public class AdminWorkspaceController {
     }
 
 
-    @GetMapping("/admin/workspace/statement")
-    public String getStatement(Model model) {
-
-        List<List<AdmissionRequest>> statementList = statementService.getStatement();
-
-        model.addAttribute("statementList", statementList);
-        return "/admin/statement";
-    }
-
 
     @GetMapping("/admin/faculty/add")
     public String createNewFacultyForm(Model model) {
@@ -132,11 +126,32 @@ public class AdminWorkspaceController {
         return "/admin/create-faculty";
     }
 
-
     @PostMapping("/admin/faculty/add")
-    public String createNewFaculty(FacultyDTO facultyDTO) {
-        facultyService.createFaculty(facultyDTO);
+    public String createNewFaculty(@Valid FacultyDTO facultyDTO, BindingResult bindingResult,Model model
 
+    ) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("faculty",facultyDTO);
+            model.addAttribute("errorMessages",bindingResult.getAllErrors());
+            return "/admin/create-faculty";
+        }
+            facultyService.createFaculty(facultyDTO);
+
+        return "redirect:/admin/workspace";
+    }
+
+
+
+
+    @GetMapping("/admin/block_reg/{id}")
+    public String blockRegistrationToFaculty(@PathVariable(name = "id") Long id) {
+        facultyService.blockAdmissionRequestRegistration(id);
+        return "redirect:/admin/workspace";
+    }
+
+    @GetMapping("/admin/unblock_reg/{id}")
+    public String unblockRegistrationToFaculty(@PathVariable(name = "id") Long id) {
+        facultyService.unblockAdmissionRequestRegistration(id);
         return "redirect:/admin/workspace";
     }
 
@@ -148,6 +163,7 @@ public class AdminWorkspaceController {
 
     }
 
+
     @PostMapping("/admin/faculty/edit/{id}")
     public String updateFacultyWithId(FacultyDTO facultyDTO) {
         facultyService.updateFaculty(facultyDTO);
@@ -155,10 +171,44 @@ public class AdminWorkspaceController {
 
     }
 
+
+
     @PostMapping("/admin/faculties/delete/{id}")
     public String deleteFacultyById(@PathVariable(name = "id") Long id) {
         facultyService.deleteById(id);
         return "redirect:/admin/workspace";
     }
+
+
+
+
+    @GetMapping("/admin/statement/faculty/{id}")
+    public String facultyStatement(@PathVariable(name = "id") Long id, Model model)
+    {
+        model.addAttribute("faculty_statement",statementService.getStatementForFacultyWithId(id));
+        return "/admin/statement";
+    }
+
+
+    @GetMapping("/admin/statement/finalize/{id}")
+    public String facultyStatementFinalize(@PathVariable(name = "id") Long id,
+                                           @AuthenticationPrincipal User currentUser,
+                                           Model model)
+    {
+        statementService.facultyStatementFinalize(id,currentUser.getUsername());
+
+        return "/admin/statement";
+    }
+
+
+    @GetMapping("/admin/finalized")
+    public String finalizedStatements(Model model)
+    {
+        model.addAttribute("all_statements",statementService.getAllFinalizedStatements());
+
+
+        return "/admin/finalized_statements";
+    }
+
 
 }

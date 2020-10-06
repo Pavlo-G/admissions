@@ -1,8 +1,10 @@
 package com.training.admissions.entity;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Data
@@ -15,7 +17,7 @@ import java.util.List;
 @Entity
 public class Faculty {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name", nullable = false)
     private String name;
@@ -33,9 +35,32 @@ public class Faculty {
     private String requiredSubject2;
     @Column(name = "req_subject3", nullable = false)
     private String requiredSubject3;
+    @Column(name = "admission_open", nullable = false)
+    private boolean admissionOpen;
 
     @OneToMany(mappedBy = "faculty",cascade = CascadeType.ALL,fetch = FetchType.LAZY )
     private List<AdmissionRequest> admissionRequestList;
+
+
+    public Long numberOfRequestsNew() {
+        return admissionRequestList.stream()
+                .filter(ar -> ar.getStatus().ordinal() == AdmissionRequestStatus.NEW.ordinal())
+                .count();
+    }
+
+    public Long numberOfRequestsApproved() {
+        return admissionRequestList.stream()
+                .filter(ar -> ar.getStatus().ordinal() == AdmissionRequestStatus.APPROVED.ordinal())
+                .count();
+    }
+
+    public Long numberOfRequestsRejected() {
+        return admissionRequestList.stream()
+                .filter(ar -> ar.getStatus().ordinal() == AdmissionRequestStatus.REJECTED.ordinal())
+                .count();
+    }
+
+
 
     @Override
     public String toString() {

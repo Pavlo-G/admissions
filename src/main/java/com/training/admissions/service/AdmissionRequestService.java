@@ -56,7 +56,7 @@ public class AdmissionRequestService {
                 .findAllByCandidate_Id(id);
     }
 
-    public AdmissionRequest saveAdmissionRequest(AdmissionRequestDTO admissionRequestDTO) throws RequestAlreadyExistsException {
+    public AdmissionRequest saveAdmissionRequest(AdmissionRequestDTO admissionRequestDTO){
         Candidate candidate = candidateService.getById(admissionRequestDTO.getCandidateId());
         Faculty faculty = facultyService.getById(admissionRequestDTO.getFacultyId());
 

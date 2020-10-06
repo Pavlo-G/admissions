@@ -3,6 +3,7 @@ package com.training.admissions.controller;
 
 import com.training.admissions.dto.AdmissionRequestDTO;
 import com.training.admissions.entity.Candidate;
+import com.training.admissions.entity.Faculty;
 import com.training.admissions.service.AdmissionRequestService;
 import com.training.admissions.service.CandidateService;
 import com.training.admissions.service.FacultyService;
@@ -29,17 +30,22 @@ public class AdmissionRequestController {
     public AdmissionRequestController(AdmissionRequestService admissionRequestService, CandidateService candidateService, FacultyService facultyService) {
         this.admissionRequestService = admissionRequestService;
         this.candidateService = candidateService;
-
         this.facultyService = facultyService;
     }
+
+
+
 
     @GetMapping("/candidate/submit_request")
     public String getRequestForm(@RequestParam(name = "faculty_id") Long facultyId,
                                  @AuthenticationPrincipal User currentUser, Model model) {
-
-        model.addAttribute("candidate", candidateService.findByUsername(currentUser.getUsername()));
-        model.addAttribute("faculty", facultyService.getById(facultyId));
-        return "/candidate/request_form";
+        Faculty faculty =facultyService.getById(facultyId);
+        if(faculty.isAdmissionOpen()) {
+            model.addAttribute("candidate", candidateService.getByUsername(currentUser.getUsername()));
+            model.addAttribute("faculty", faculty);
+            return "/candidate/request_form";
+        }
+        return "redirect:/candidate/candidate_requests";
     }
 
 
@@ -50,17 +56,13 @@ public class AdmissionRequestController {
         return "redirect:/candidate/candidate_requests";
     }
 
-    @GetMapping("/candidate/request_form/error")
-    public String showError(Model model) {
-        model.addAttribute("errorMessage", "Request Already Exists!");
-        return "candidate/request_form";
-    }
+
 
 
     @GetMapping("/candidate/candidate_requests")
     public String getAllUserRequests(@AuthenticationPrincipal User currentUser
             , Model model) {
-        Candidate candidate = candidateService.findByUsername(currentUser.getUsername());
+        Candidate candidate = candidateService.getByUsername(currentUser.getUsername());
         log.info("Get all requests for candidate"+candidate.getUsername());
         model.addAttribute("username", candidate.getUsername());
         model.addAttribute("requests_list",

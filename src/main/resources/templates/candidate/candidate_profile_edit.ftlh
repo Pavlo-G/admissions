@@ -1,3 +1,4 @@
+<#import "../fragments/error.ftl" as error>
 <head>
     <#include "../fragments/bootsrap-links.ftl"/>
     <link rel="stylesheet" href="css/stylesheet.css">
@@ -12,7 +13,7 @@
 <div class="container">
     <div class="row">
         <h2 class="text-danger"><@spring.message "profile.edit.edit_profile"/></h2>
-
+        <@error.error/>
 
         <table class="table table-bordered success">
             <form action="/api/candidate/update" method="post">

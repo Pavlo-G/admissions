@@ -1,4 +1,4 @@
-<#import "../fragments/error-login.ftl" as error/>
+<#import "../fragments/error.ftl" as error/>
 <!doctype html>
 <html lang="en">
 <head>
@@ -17,7 +17,7 @@
                 <div class="card">
                     <div class="card-header">Create new faculty</div>
                     <div class="card-body">
-                        <@error.error_login/>
+                        <@error.error/>
                         <form action="/admin/candidate/edit/${candidate.getId()}" method="POST">
 
 
@@ -49,7 +49,7 @@
                             <div class="form-group row">
                                 <label for="candidateStatus" class="col-md-4 col-form-label text-md-right">Candidate Status :  </label>
                                 <div class="form-group">
-                                    <select class="custom-select"  name="candidateStatus"required>
+                                    <select class="custom-select"  name="candidateStatus" required>
                                         <option value="ACTIVE">ACTIVE</option>
                                         <option value="BLOCKED">BLOCKED</option>
                                     </select>

@@ -1,4 +1,4 @@
-<#macro error_login>
+<#macro error>
     <#if errorMessage??>
         <div class="alert alert-primary" role="alert">
             ${errorMessage}

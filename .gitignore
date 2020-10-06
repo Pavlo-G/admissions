@@ -31,3 +31,4 @@ build/
 
 ### VS Code ###
 .vscode/
+/log/admission_board_app.log

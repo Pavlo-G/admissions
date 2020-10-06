@@ -1,4 +1,4 @@
-<#import "../fragments/error-login.ftl" as error/>
+<#import "../fragments/error.ftl" as error/>
 <#import "/spring.ftl" as spring/>
 <!doctype html>
 <html lang="en">
@@ -18,7 +18,7 @@
                 <div class="card">
                     <div class="card-header"><@spring.message "reg.detail.please_fill_your_profile"/></div>
                     <div class="card-body">
-                        <@error.error_login/>
+                        <@error.error/>
                         <form action="/api/candidate/registration/profile" method="POST">
                             <input type="hidden" id="candidate_username" class="form-control" name="candidate_username" value="${candidate_username}">
                             <input type="hidden" id="candidate_password" class="form-control" name="candidate_password" value="${candidate_password}">

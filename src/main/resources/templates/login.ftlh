@@ -1,4 +1,4 @@
-<#import "fragments/error-login.ftl" as error>
+<#import "fragments/error.ftl" as error>
 <#import "/spring.ftl" as spring/>
 <html>
 <head>
@@ -19,7 +19,7 @@
                     <div class="card-header"><@spring.message "login.user_login"/></div>
                     <div class="card-body">
 
-                       <@error.error_login/>
+                       <@error.error/>
 
                         <form action="/auth/login" method="post" >
                             <div class="form-group row">

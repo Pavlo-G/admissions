@@ -3,6 +3,7 @@ package com.training.admissions.service;
 import com.training.admissions.dto.CandidateProfileDTO;
 import com.training.admissions.dto.FacultyDTO;
 import com.training.admissions.entity.CandidateProfile;
+import com.training.admissions.exception.CandidateAlreadyExistsException;
 import com.training.admissions.exception.CandidateNotFoundException;
 import com.training.admissions.exception.FacultyAlreadyExistsException;
 import com.training.admissions.exception.FacultyNotFoundException;
@@ -40,25 +41,26 @@ public class FacultyService {
     public Faculty getById(Long id) {
         log.info("Get faculty by id: " + id);
         return facultyRepository.findById(id)
-                .orElseThrow(()->new FacultyNotFoundException("Faculty not found! by id: "+id));
+                .orElseThrow(() -> new FacultyNotFoundException("Faculty not found! by id: " + id));
     }
 
     @Transactional
     public Faculty createFaculty(FacultyDTO facultyDTO) {
-        if (facultyRepository.findByName(facultyDTO.getName()).isEmpty()) {
-            Faculty createdFaculty = facultyRepository.save(Faculty.builder()
-                    .name(facultyDTO.getName())
-                    .description(facultyDTO.getDescription())
-                    .budgetCapacity(facultyDTO.getBudgetCapacity())
-                    .totalCapacity(facultyDTO.getTotalCapacity())
-                    .requiredSubject1(facultyDTO.getRequiredSubject1())
-                    .requiredSubject2(facultyDTO.getRequiredSubject2())
-                    .requiredSubject3(facultyDTO.getRequiredSubject3())
-                    .build());
-            log.info("Faculty created: " + createdFaculty.getName());
-            return createdFaculty;
-        }
-        throw new FacultyAlreadyExistsException("Faculty already exists");
+        facultyRepository.findByName(facultyDTO.getName()).
+                ifPresent(s -> {
+                    throw new FacultyAlreadyExistsException("Faculty with username - " + facultyDTO.getName() + " - already Exists");
+                });
+
+        return facultyRepository.save(Faculty.builder()
+                .name(facultyDTO.getName())
+                .description(facultyDTO.getDescription())
+                .budgetCapacity(facultyDTO.getBudgetCapacity())
+                .totalCapacity(facultyDTO.getTotalCapacity())
+                .requiredSubject1(facultyDTO.getRequiredSubject1())
+                .requiredSubject2(facultyDTO.getRequiredSubject2())
+                .requiredSubject3(facultyDTO.getRequiredSubject3())
+                .admissionOpen(true)
+                .build());
     }
 
 
@@ -67,29 +69,11 @@ public class FacultyService {
         log.info("Faculty removed id: " + id);
     }
 
-    public List<FacultyDTO> getAllFacultiesWithRequests() {
-        List<FacultyDTO> facultyDTOList = new ArrayList<>();
 
-        for (Faculty f : facultyRepository.findAll()) {
-            facultyDTOList.add(
-                    FacultyDTO.builder()
-                            .id(f.getId())
-                            .name(f.getName())
-                            .budgetCapacity(f.getBudgetCapacity())
-                            .description(f.getDescription())
-                            .totalCapacity(f.getTotalCapacity())
-                            .admissionRequestsList(admissionRequestRepository.findAllByFaculty_Id(f.getId()))
-                    .build()
-            );
-        }
-
-        return facultyDTOList;
-
-    }
 
     public Faculty updateFaculty(FacultyDTO facultyDTO) {
 
-        Faculty faculty =Faculty.builder()
+        Faculty faculty = Faculty.builder()
                 .id(facultyDTO.getId())
                 .name(facultyDTO.getName())
                 .description(facultyDTO.getDescription())
@@ -99,12 +83,25 @@ public class FacultyService {
                 .requiredSubject1(facultyDTO.getRequiredSubject1())
                 .requiredSubject2(facultyDTO.getRequiredSubject2())
                 .requiredSubject3(facultyDTO.getRequiredSubject3())
+                .admissionOpen(facultyDTO.isAdmissionOpen())
                 .build();
-      return facultyRepository.save(faculty);
+        return facultyRepository.save(faculty);
     }
 
+    @Transactional
+    public Faculty blockAdmissionRequestRegistration(Long id) {
+        Faculty faculty = facultyRepository.findById(id)
+                .orElseThrow(() -> new FacultyNotFoundException("Faculty with id: " + id + "not found!"));
+        faculty.setAdmissionOpen(false);
+        return facultyRepository.save(faculty);
 
+    }
+    @Transactional
+    public Faculty unblockAdmissionRequestRegistration(Long id) {
+        Faculty faculty = facultyRepository.findById(id)
+                .orElseThrow(() -> new FacultyNotFoundException("Faculty with id: " + id + "not found!"));
+        faculty.setAdmissionOpen(true);
+        return facultyRepository.save(faculty);
 
-
-
+    }
 }

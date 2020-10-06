@@ -1,4 +1,4 @@
-<#import "../fragments/error-login.ftl" as error/>
+<#import "../fragments/errors.ftlh" as errors/>
 <!doctype html>
 <html lang="en">
 <head>
@@ -17,7 +17,7 @@
                 <div class="card">
                     <div class="card-header">Create new faculty</div>
                     <div class="card-body">
-                        <@error.error_login/>
+                        <@errors.errors/>
                         <form action="/admin/faculty/add" method="POST">
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">Faculty Name </label>
@@ -30,7 +30,7 @@
                             <div class="form-group row">
                                 <label for="description" class="col-md-4 col-form-label text-md-right">Description</label>
                                 <div class="col-md-6">
-                                    <input type="text" id="description" class="form-control" name="description" required>
+                                    <input type="text" id="description" class="form-control" name="description">
                                 </div>
                             </div>
 
@@ -88,7 +88,7 @@
 
 </main>
 
-
+<#include "../fragments/footer.ftlh" />
 </body>
 </html>
 

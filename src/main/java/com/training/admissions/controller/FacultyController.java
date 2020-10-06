@@ -6,6 +6,9 @@ import com.training.admissions.entity.Candidate;
 import com.training.admissions.service.CandidateService;
 import com.training.admissions.service.FacultyService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,31 +20,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 
 public class FacultyController {
-    private final CandidateService candidateService;
+
     private final FacultyService facultyService;
 
-    public FacultyController(FacultyService facultyService, CandidateService candidateService) {
+    public FacultyController(FacultyService facultyService) {
         this.facultyService = facultyService;
-        this.candidateService=candidateService;
     }
 
 
     @GetMapping("/faculties")
-    public String getAllFaculties(Model model) {
-        model.addAttribute("all_faculties", facultyService.getAllFaculties());
-        return "faculties";
+    public String getAllFaculties(@AuthenticationPrincipal User user, Model model) {
+        if(user.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))){
+            return "redirect:/admin/workspace";
+        }else {
+            model.addAttribute("all_faculties", facultyService.getAllFaculties());
+            return "faculties";
+        }
     }
-
-//    @PostMapping()
-//    public String getAllFacultiesSorted(
-//            @RequestParam(name = "filter_option") Integer numOption, Model model) {
-//        model.addAttribute("all_faculties", facultyService.getAllFacultiesSorted(numOption));
-//
-//        return "/faculties";
-//    }
-
-
-
 
 
 

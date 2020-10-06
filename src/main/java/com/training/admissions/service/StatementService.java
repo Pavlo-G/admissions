@@ -1,45 +1,69 @@
 package com.training.admissions.service;
 
-import com.training.admissions.entity.AdmissionRequest;
-import com.training.admissions.entity.AdmissionRequestStatus;
-import com.training.admissions.entity.Faculty;
+import com.training.admissions.entity.*;
+import com.training.admissions.repository.StatementRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class StatementService {
 
     private final FacultyService facultyService;
+    private final StatementRepository statementRepository;
 
 
-    public StatementService(FacultyService facultyService) {
+    public StatementService(FacultyService facultyService, StatementRepository statementRepository) {
         this.facultyService = facultyService;
 
+        this.statementRepository = statementRepository;
     }
 
 
-    public List<List<AdmissionRequest>> getStatement() {
+    public List<AdmissionRequest> getStatementForFacultyWithId(Long id) {
+        Faculty faculty = facultyService.getById(id);
 
-        List<List<AdmissionRequest>> totalStatementList = new ArrayList<>();
-        List<Faculty> facultyList = facultyService.getAllFaculties();
+        return faculty.getAdmissionRequestList()
+                .stream()
+                .filter(x -> x.getStatus() == AdmissionRequestStatus.APPROVED)
+                .limit(faculty.getTotalCapacity())
+                .sorted(
+                        Comparator.comparingInt(AdmissionRequest::getSumOfGrades).reversed()
+                                .thenComparing(AdmissionRequest::getCreationDateTime))
+                .collect(Collectors.toList());
 
-        for (Faculty f : facultyList) {
+    }
 
-            List<AdmissionRequest> facultyStatementList = f.getAdmissionRequestList()
-                    .stream()
-                    .filter(x -> x.getStatus() == AdmissionRequestStatus.APPROVED)
-                    .limit(f.getTotalCapacity())
-                    .sorted(
-                            Comparator.comparingInt(AdmissionRequest::getSumOfGrades).reversed()
-                                    .thenComparing(AdmissionRequest::getCreationDateTime))
-                    .collect(Collectors.toList());
-            totalStatementList.add(List.copyOf(facultyStatementList));
-            facultyStatementList.clear();
+    public void facultyStatementFinalize(Long id, String author) {
+
+        Faculty faculty = facultyService.getById(id);
+
+        Statement statement= Statement.builder()
+                .author(author)
+                .enrolledCandidates(  getEnrolledCandidateFromRequest(faculty))
+                .build();
+
+          statementRepository.save(statement);
+    }
+
+    private List<EnrolledCandidate> getEnrolledCandidateFromRequest(Faculty faculty) {
+
+        List<EnrolledCandidate> enrolledCandidates = new ArrayList<>();
+
+        for (AdmissionRequest ar : faculty.getAdmissionRequestList()) {
+            enrolledCandidates.add(EnrolledCandidate.builder()
+                    .firstName(ar.getCandidate().getCandidateProfile().getFirstName())
+                    .lastName(ar.getCandidate().getCandidateProfile().getLastName())
+                    .email(ar.getCandidate().getCandidateProfile().getEmail())
+                    .phoneNumber(ar.getCandidate().getCandidateProfile().getPhoneNumber())
+                    .grade(ar.getSumOfGrades()).build());
+
         }
-        return totalStatementList;
+        return enrolledCandidates;
+    }
+
+    public List<Statement> getAllFinalizedStatements() {
+      return   statementRepository.findAll();
     }
 }

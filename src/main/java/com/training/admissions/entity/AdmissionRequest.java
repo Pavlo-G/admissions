@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Entity
 public class AdmissionRequest {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "status", nullable = false)
     private AdmissionRequestStatus status;

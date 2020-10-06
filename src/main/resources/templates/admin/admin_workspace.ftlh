@@ -1,9 +1,7 @@
 <head>
     <#include "../fragments/bootsrap-links.ftl"/>
     <link rel="stylesheet" href="css/stylesheet.css">
-    <#--    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
-    <#--    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>-->
-    <#--    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>-->
+
 </head>
 
 
@@ -16,34 +14,35 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-
             <div class="panel panel-default panel-table">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col col-xs-6">
+                        <div class="col col-xs-1">
                             <h3 class="panel-title">Faculties</h3>
                         </div>
-                        <div class="col col-xs-6 text-right">
+                        <div class="col col-xs-1 text-center">
                             <form action="/admin/faculty/add" method="get">
-                                <button type="submit" class="btn btn-sm btn-primary btn-create">Create New</button>
+                                <button type="submit" class="btn btn-sm btn-primary btn-create">Create New Faculty
+                                </button>
                             </form>
                         </div>
                     </div>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body h-100 row align-items-center" >
                     <table class="table table-striped table-bordered table-list">
-                        <thead>
+                        <thead class="col-md-10 col-md-offset-1">
                         <tr>
-
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>New Requests</th>
-                            <th>Approved Requests</th>
-                            <th>Rejected Requests</th>
-                            <th>Total</th>
-                            <th>Work With Requests</th>
-                            <th>Edit Faculty</th>
-                            <th>Delete Faculty</th>
+                            <th style="width: 10%">Name</th>
+                            <th style="width: 5%">New Requests</th>
+                            <th style="width: 5%">Approved Requests</th>
+                            <th style="width: 5%">Rejected Requests</th>
+                            <th style="width: 5%">Budget Capacity</th>
+                            <th style="width: 5%">Total Capacity</th>
+                            <th style="width: 13%">Work With Requests</th>
+                            <th style="width: 13%">Block/Unblock Registration</th>
+                            <th style="width: 13%">Edit Faculty</th>
+                            <th style="width: 13%">Delete Faculty</th>
+                            <th style="width: 13%">Statement</th>
 
                         </tr>
                         </thead>
@@ -52,55 +51,56 @@
                         <#list faculties_list as faculty>
                             <tr>
 
-                                <td>${faculty.getId()}</td>
-                                <td>${faculty.getName()}</td>
-                                <td>${faculty.numberOfRequestsNew()}</td>
-                                <td>${faculty.numberOfRequestsApproved()}</td>
-                                <td>${faculty.numberOfRequestsRejected()}</td>
-                                <td>${faculty.numberOfRequests()}</td>
+
+                                <td >${faculty.getName()}</td>
+                                <td >${faculty.numberOfRequestsNew()}</td>
+                                <td >${faculty.numberOfRequestsApproved()}</td>
+                                <td >${faculty.numberOfRequestsRejected()}</td>
+                                <td >${faculty.budgetCapacity}</td>
+                                <td >${faculty.totalCapacity}</td>
                                 <td>
                                     <form class="form-inline my-2 my-lg-0"
                                           action="/admin/requests_of_faculty/${faculty.getId()}" method="get">
-                                        <button class="btn btn-primary" type="submit">Requests</button>
+                                        <button class="btn btn-primary btn-xs" type="submit">Requests</button>
                                     </form>
+                                </td>
+                                <td >
+                                    <#if faculty.admissionOpen>
+                                        <form class="form-inline my-2 my-lg-0"
+                                              action="/admin/block_reg/${faculty.getId()}" method="get">
+                                            <button class="btn btn-warning btn-xs" type="submit">Block</button>
+                                        </form>
+                                    <#else>
+                                        <form class="form-inline my-2 my-lg-0"
+                                              action="/admin/unblock_reg/${faculty.getId()}" method="get">
+                                            <button class="btn btn-success btn-xs" type="submit">Unblock</button>
+                                        </form>
+                                    </#if>
                                 </td>
 
-                                <td align="center">
+                                <td >
                                     <form class="form-inline my-2 my-lg-0"
                                           action="/admin/faculty/edit/${faculty.getId()}" method="get">
-                                        <button class="btn btn-primary" type="submit">Edit</button>
+                                        <button class="btn btn-primary btn-xs" type="submit">Edit</button>
                                     </form>
                                 </td>
-                                <td align="center">
+                                <td class="col-lg-11 col-centered">
                                     <form class="form-inline my-2 my-lg-0"
                                           action="/admin/faculties/delete/${faculty.getId()}" method="post">
-                                        <button class="btn btn-danger" type="submit">Delete</button>
+                                        <button class="btn btn-danger btn-xs" type="submit">Delete</button>
+                                    </form>
+                                </td>
+                                <td class="col-lg-11 col-centered">
+                                    <form class="form-inline my-2 my-lg-0"
+                                          action="/admin/statement/faculty/${faculty.id}" method="get">
+                                        <button class="btn btn-primary btn-xs" type="submit">Statement</button>
                                     </form>
                                 </td>
                             </tr>
                         </#list>
                         </tbody>
                     </table>
-
-                </div>
-                <div class="panel-footer">
-                    <div class="row">
-                        <div class="col col-xs-4">Page 1 of 5
-                        </div>
-                        <div class="col col-xs-8">
-                            <ul class="pagination hidden-xs pull-right">
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                            </ul>
-                            <ul class="pagination visible-xs pull-right">
-                                <li><a href="#">«</a></li>
-                                <li><a href="#">»</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    <br>
                 </div>
             </div>
 

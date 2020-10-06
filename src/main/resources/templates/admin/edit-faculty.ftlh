@@ -1,4 +1,4 @@
-<#import "../fragments/error-login.ftl" as error/>
+<#import "../fragments/error.ftl" as error/>
 <!doctype html>
 <html lang="en">
 <head>
@@ -17,7 +17,7 @@
                 <div class="card">
                     <div class="card-header">Create new faculty</div>
                     <div class="card-body">
-                        <@error.error_login/>
+                        <@error.error/>
                         <form action="/admin/faculty/edit/${faculty.getId()}" method="POST">
 
                             <div class="form-group row">

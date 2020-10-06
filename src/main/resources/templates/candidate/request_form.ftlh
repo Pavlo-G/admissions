@@ -3,7 +3,7 @@
 
 
 
-<#import "../fragments/error-login.ftl" as error/>
+<#import "../fragments/error.ftl" as error/>
 <!doctype html>
 <html lang="en">
 <head>
@@ -21,11 +21,10 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-
-
                 <#if errorMessage??>
                 <div class="alert alert-primary" role="alert">
                     ${errorMessage}
+
                     <form method="get" action="/faculties">
                         <button type="submit" class="btn btn-primary">
                             Go back to faculties list
@@ -42,7 +41,7 @@
                                 <label for="first_name" class="col-md-4 col-form-label text-md-right">First
                                     Name </label>
                                 <div class="col-md-6">
-                                    ${candidate.candidateProfile.firstName}}
+                                    ${candidate.candidateProfile.firstName}
                                 </div>
                             </div>
                             <div class="form-group row">

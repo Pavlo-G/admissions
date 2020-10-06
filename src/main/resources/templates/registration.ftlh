@@ -1,4 +1,4 @@
-<#import "fragments/error-login.ftl" as error/>
+<#import "fragments/error.ftl" as error/>
 <!doctype html>
 <html lang="en">
 <head>
@@ -17,13 +17,13 @@
                 <div class="card">
                     <div class="card-header">Register</div>
                     <div class="card-body">
-                        <@error.error_login/>
+                        <@error.error/>
                         <form action="/api/candidate/registration" method="POST">
                             <div class="form-group row">
                                 <label for="username" class="col-md-4 col-form-label text-md-right">Username </label>
                                 <div class="col-md-6">
                                     <input type="text" id="username" class="form-control" name="username"
-                                           required autofocus>
+                                           >
                                 </div>
                             </div>
 
@@ -46,7 +46,7 @@
                                 <label for="firstName" class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.first_name"/> </label>
                                 <div class="col-md-6">
                                     <input type="text" id="firstName" class="form-control" name="firstName"
-                                           required autofocus>
+                                           required >
                                 </div>
                             </div>
 

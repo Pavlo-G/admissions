@@ -30,7 +30,7 @@
                         <thead>
                         <tr>
 
-                            <th>ID</th>
+
                             <th>Name</th>
                             <th>Description</th>
                             <th>Budget Capacity</th>
@@ -43,21 +43,20 @@
 
                         <#list all_faculties as faculty>
                             <tr>
-
-                                <td>${faculty.getId()}</td>
                                 <td>${faculty.getName()}</td>
                                 <td>${faculty.getDescription()}</td>
                                 <td>${faculty.getBudgetCapacity()}</td>
                                 <td>${faculty.getTotalCapacity()}</td>
                                 <td>
                                     <#if isAdmin>
-
                                     <#else >
+                                        <#if faculty.admissionOpen>
                                         <form method="get" action="/candidate/submit_request">
                                             <input type="hidden" name="faculty_id" value="${faculty.getId()}">
                                             <button type="submit" class="btn btn-primary btn-sm">Send admission request
                                             </button>
                                         </form>
+                                        </#if>
                                     </#if>
 
                                 </td>
