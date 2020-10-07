@@ -20,7 +20,7 @@
 
     </#if>
     <div class="mt-3">
-        <ul class="pagination">
+        <ul class="pagination ">
             <li class="page-item disabled">
                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><@spring.message"pagination.page"/></a>
             </li>

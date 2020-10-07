@@ -1,10 +1,11 @@
 package com.training.admissions.entity;
 
-import lombok.*;
-import org.hibernate.validator.constraints.Length;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Data
@@ -12,8 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 
-@Table( name="faculty",
-        uniqueConstraints={@UniqueConstraint(columnNames={"name"})})
+@Table(name = "faculty",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"name"})})
 @Entity
 public class Faculty {
     @Id
@@ -38,7 +39,7 @@ public class Faculty {
     @Column(name = "admission_open", nullable = false)
     private boolean admissionOpen;
 
-    @OneToMany(mappedBy = "faculty",cascade = CascadeType.ALL,fetch = FetchType.LAZY )
+    @OneToMany(mappedBy = "faculty", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<AdmissionRequest> admissionRequestList;
 
 
@@ -59,7 +60,6 @@ public class Faculty {
                 .filter(ar -> ar.getStatus().ordinal() == AdmissionRequestStatus.REJECTED.ordinal())
                 .count();
     }
-
 
 
     @Override

@@ -1,9 +1,9 @@
 package com.training.admissions.service;
 
 import com.training.admissions.dto.CandidateProfileDTO;
-import com.training.admissions.exception.CandidateNotFoundException;
 import com.training.admissions.entity.Candidate;
 import com.training.admissions.entity.CandidateProfile;
+import com.training.admissions.exception.CandidateNotFoundException;
 import com.training.admissions.repository.CandidateProfileRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class CandidateProfileService {
     private final CandidateProfileRepository candidateProfileRepository;
     private final CandidateService candidateService;
 
-    public CandidateProfileService(CandidateProfileRepository candidateProfileRepository, CandidateService candidateRepository1, CandidateService candidateService) {
+    public CandidateProfileService(CandidateProfileRepository candidateProfileRepository, CandidateService candidateService) {
         this.candidateProfileRepository = candidateProfileRepository;
         this.candidateService = candidateService;
 
@@ -32,7 +32,7 @@ public class CandidateProfileService {
                 .orElseThrow(() -> new CandidateNotFoundException("Candidate Profile not found!"));
     }
 
-
+    @Transactional
     public CandidateProfile updateCandidateProfile(CandidateProfileDTO candidateProfileDTO) {
 
         CandidateProfile candidateProfile = candidateProfileRepository.findById(candidateProfileDTO.getId())
@@ -46,7 +46,6 @@ public class CandidateProfileService {
         candidateProfile.setSchool(candidateProfileDTO.getSchool());
         candidateProfile.setEmail(candidateProfileDTO.getEmail());
         candidateProfile.setPhoneNumber(candidateProfileDTO.getPhoneNumber());
-
 
         return candidateProfileRepository.save(candidateProfile);
 

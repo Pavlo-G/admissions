@@ -2,25 +2,24 @@ package com.training.admissions.service;
 
 
 import com.training.admissions.dto.AdmissionRequestDTO;
-import com.training.admissions.exception.RequestAlreadyExistsException;
-import com.training.admissions.exception.RequestNotFoundException;
 import com.training.admissions.entity.AdmissionRequest;
 import com.training.admissions.entity.AdmissionRequestStatus;
 import com.training.admissions.entity.Candidate;
 import com.training.admissions.entity.Faculty;
+import com.training.admissions.exception.RequestAlreadyExistsException;
+import com.training.admissions.exception.RequestNotFoundException;
 import com.training.admissions.repository.AdmissionRequestRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 public class AdmissionRequestService {
     private final AdmissionRequestRepository admissionRequestRepository;
-    private CandidateService candidateService;
-    private FacultyService facultyService;
+    private final CandidateService candidateService;
+    private final FacultyService facultyService;
 
     public AdmissionRequestService(AdmissionRequestRepository admissionRequestRepository,
                                    CandidateService candidateService, FacultyService facultyService) {
@@ -48,17 +47,18 @@ public class AdmissionRequestService {
         return admissionRequest;
     }
 
-    public List<AdmissionRequest> getAdmissionRequestsForFacultyWithId(Long id) {
+    public Page<AdmissionRequest> getAdmissionRequestsForFacultyWithId(Long id, Pageable pageable) {
         return admissionRequestRepository
-                .findAllByFaculty_Id(id);
+                .findAllByFaculty_Id(id, pageable);
     }
 
     public Page<AdmissionRequest> getAdmissionRequestsForUserWittUsername(String username, Pageable pageable) {
         return admissionRequestRepository
-                .findAllByCandidate_Username(username,pageable);
+                .findAllByCandidate_Username(username, pageable);
     }
 
-    public AdmissionRequest saveAdmissionRequest(AdmissionRequestDTO admissionRequestDTO){
+    @Transactional
+    public AdmissionRequest saveAdmissionRequest(AdmissionRequestDTO admissionRequestDTO) {
         Candidate candidate = candidateService.getById(admissionRequestDTO.getCandidateId());
         Faculty faculty = facultyService.getById(admissionRequestDTO.getFacultyId());
 
@@ -77,6 +77,8 @@ public class AdmissionRequestService {
         }
         throw new RequestAlreadyExistsException("Request Already Exists!");
     }
+
+
 
     public void deleteRequest(Long id) {
         admissionRequestRepository.deleteById(id);

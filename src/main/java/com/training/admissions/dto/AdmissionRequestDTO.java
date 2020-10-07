@@ -1,8 +1,6 @@
 package com.training.admissions.dto;
 
 
-import com.training.admissions.entity.Candidate;
-import com.training.admissions.entity.Faculty;
 import lombok.*;
 
 @Getter

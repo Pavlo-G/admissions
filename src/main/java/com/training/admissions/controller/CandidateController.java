@@ -4,7 +4,6 @@ package com.training.admissions.controller;
 import com.training.admissions.dto.CandidateDTO;
 import com.training.admissions.dto.CandidateProfileDTO;
 import com.training.admissions.entity.Candidate;
-import com.training.admissions.exception.CandidateRegistrationException;
 import com.training.admissions.service.CandidateProfileService;
 import com.training.admissions.service.CandidateService;
 import lombok.extern.slf4j.Slf4j;
@@ -13,11 +12,12 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
-
-
 
 
 @Slf4j
@@ -36,20 +36,13 @@ public class CandidateController {
     public String createCandidate(@Valid CandidateDTO candidateDTO,
                                   CandidateProfileDTO candidateProfileDTO,
                                   BindingResult bindingResult,
-                                  Model model
-    ) {
-
-            Candidate candidate = candidateService.createCandidate(candidateDTO);
-            candidateProfileService.createCandidateProfile(candidateProfileDTO, candidate.getId());
-            log.info("new user " + candidateDTO.getUsername() + " created!");
+                                  Model model) {
+        Candidate candidate = candidateService.createCandidate(candidateDTO);
+        candidateProfileService.createCandidateProfile(candidateProfileDTO, candidate.getId());
+        log.info("new user " + candidateDTO.getUsername() + " created!");
 
         return "redirect:/auth/login";
     }
-
-
-
-
-
 
 
     @DeleteMapping("/api/candidate/{id}")
@@ -74,17 +67,12 @@ public class CandidateController {
     }
 
 
-
-
-
-
     @PostMapping("/api/candidate/update")
     public String updateCandidate(CandidateProfileDTO candidateProfileDTO
     ) {
         candidateProfileService.updateCandidateProfile(candidateProfileDTO);
         return "redirect:/api/candidate/profile";
     }
-
 
 
 }

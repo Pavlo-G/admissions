@@ -41,14 +41,10 @@ public class FacultyDTO {
 
     @AssertTrue(message = "budget capacity must be less or equals to total capacity")
     private boolean isValid() {
-        return this.budgetCapacity<=this.totalCapacity;
+        return this.budgetCapacity <= this.totalCapacity;
     }
 
     private List<AdmissionRequest> admissionRequestsList;
-
-
-
-
 
 
     public Long numberOfRequestsNew() {

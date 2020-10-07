@@ -2,6 +2,7 @@ package com.training.admissions.controller;
 
 import com.training.admissions.dto.CandidateDTO;
 import com.training.admissions.dto.FacultyDTO;
+import com.training.admissions.entity.AdmissionRequest;
 import com.training.admissions.entity.Candidate;
 import com.training.admissions.entity.Faculty;
 import com.training.admissions.service.AdmissionRequestService;
@@ -18,13 +19,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.io.File;
@@ -52,7 +54,7 @@ public class AdminWorkspaceController {
 
     @GetMapping("/admin/workspace")
     public String getAdminWorkspace(@PageableDefault(sort = {"name"}, direction = Sort.Direction.ASC, size = 5) Pageable pageable,
-            Model model) {
+                                    Model model) {
 
         Page<Faculty> page = facultyService.getAllFaculties(pageable);
         model.addAttribute("page", page);
@@ -62,13 +64,13 @@ public class AdminWorkspaceController {
     }
 
 
-
     @GetMapping("/admin/requests_of_faculty/{id}")
-    public String getRequestsForFacultyById(@PathVariable(name = "id") Long id, Model model) {
-
-
-        model.addAttribute("requests_list", admissionRequestService.getAdmissionRequestsForFacultyWithId(id));
-        model.addAttribute("faculty_name", facultyService.getById(id).getName());
+    public String getRequestsForFacultyById(@PageableDefault(sort = {"status"}, direction = Sort.Direction.ASC, size = 5) Pageable pageable,
+                                            @PathVariable(name = "id") Long id, Model model) {
+        Page<AdmissionRequest> page = admissionRequestService.getAdmissionRequestsForFacultyWithId(id, pageable);
+        Long facultyId = page.getContent().get(0).getFaculty().getId();
+        model.addAttribute("page", page);
+        model.addAttribute("url", "/admin/requests_of_faculty/" + facultyId);
 
         return "/admin/requests_of_faculty";
     }
@@ -109,7 +111,6 @@ public class AdminWorkspaceController {
 
     @PostMapping("/admin/candidate/delete/{id}")
     public String deleteRequest(@PathVariable(name = "id") Long id) {
-        log.info("inside admin/candidate/delete method");
         candidateService.deleteById(id);
         return "redirect:/admin/candidate";
     }
@@ -194,24 +195,22 @@ public class AdminWorkspaceController {
 
 
     @GetMapping("/admin/statement/finalize/{id}")
-    public ModelAndView facultyStatementFinalize(@PathVariable(name = "id") Long id,
-                                                 @AuthenticationPrincipal User currentUser
+    public String facultyStatementFinalize(@PathVariable(name = "id") Long id,
+                                           @AuthenticationPrincipal User currentUser
     ) {
-        ModelAndView modelAndView = new ModelAndView();
+
 
         facultyService.blockAdmissionRequestRegistration(id);
         statementService.facultyStatementFinalize(id, currentUser.getUsername());
-        modelAndView.setViewName("/admin/report");
-        return modelAndView;
+
+        return "redirect:/admin/pdf/download";
     }
 
 
-    @RequestMapping(value = "/admin/pdf/download", method = RequestMethod.GET)
-    public ResponseEntity<byte[]> getPDF1() throws IOException {
-
+    @GetMapping(value = "/admin/pdf/download")
+    public ResponseEntity<byte[]> getPDF() throws IOException {
 
         HttpHeaders headers = new HttpHeaders();
-
         headers.setContentType(MediaType.parseMediaType("application/pdf"));
         String filename = "src\\main\\resources\\public\\Reports.pdf";
         File file = new File(filename);

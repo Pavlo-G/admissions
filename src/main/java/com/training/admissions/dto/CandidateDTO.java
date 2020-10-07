@@ -15,7 +15,7 @@ import javax.validation.constraints.NotBlank;
 @ToString
 public class CandidateDTO {
 
-private Long id;
+    private Long id;
 
     @NotBlank(message = "Name is mandatory")
     private String username;

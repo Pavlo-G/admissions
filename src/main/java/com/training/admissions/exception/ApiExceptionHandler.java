@@ -1,15 +1,8 @@
 package com.training.admissions.exception;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.validation.ConstraintViolationException;
-import java.util.ArrayList;
-import java.util.List;
 
 @ControllerAdvice
 public class ApiExceptionHandler {

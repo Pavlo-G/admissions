@@ -11,9 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AdmissionRequestRepository extends JpaRepository<AdmissionRequest, Long> {
+
     Page<AdmissionRequest> findAllByCandidate_Username(String username, Pageable pageable);
 
-    List<AdmissionRequest> findAllByFaculty_Id(Long id);
+    Page<AdmissionRequest> findAllByFaculty_Id(Long id,Pageable pageable);
 
     Optional<AdmissionRequest> findByCandidateAndFaculty(Candidate candidate, Faculty faculty);
 }

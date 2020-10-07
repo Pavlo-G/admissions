@@ -3,8 +3,6 @@ package com.training.admissions.dto;
 
 import lombok.*;
 
-import javax.persistence.Column;
-
 @Getter
 @Setter
 @AllArgsConstructor

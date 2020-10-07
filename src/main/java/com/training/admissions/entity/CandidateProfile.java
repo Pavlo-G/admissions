@@ -20,7 +20,7 @@ public class CandidateProfile {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "first_name")
@@ -30,7 +30,7 @@ public class CandidateProfile {
     private String lastName;
 
     @NotBlank(message = "fill the email")
-    @Email( message = "email is not correct")
+    @Email(message = "email is not correct")
     @Column(name = "email")
     private String email;
 

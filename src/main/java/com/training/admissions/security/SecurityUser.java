@@ -1,9 +1,8 @@
 package com.training.admissions.security;
 
 
-
-import com.training.admissions.entity.CandidateStatus;
 import com.training.admissions.entity.Candidate;
+import com.training.admissions.entity.CandidateStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,9 +17,7 @@ public class SecurityUser implements UserDetails {
     private final String password;
     private final List<SimpleGrantedAuthority> authorities;
     private final boolean isActive;
-    private  boolean isAdmin;
-
-
+    private boolean isAdmin;
 
 
     @Override

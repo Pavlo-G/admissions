@@ -38,13 +38,11 @@ public class AdmissionRequestController {
     }
 
 
-
-
     @GetMapping("/candidate/submit_request")
     public String getRequestForm(@RequestParam(name = "faculty_id") Long facultyId,
                                  @AuthenticationPrincipal User currentUser, Model model) {
-        Faculty faculty =facultyService.getById(facultyId);
-        if(faculty.isAdmissionOpen()) {
+        Faculty faculty = facultyService.getById(facultyId);
+        if (faculty.isAdmissionOpen()) {
             model.addAttribute("candidate", candidateService.getByUsername(currentUser.getUsername()));
             model.addAttribute("faculty", faculty);
             return "/candidate/request_form";
@@ -55,38 +53,28 @@ public class AdmissionRequestController {
 
     @PostMapping("/candidate/submit_request")
     public String createRequestFromCandidate(AdmissionRequestDTO admissionRequestDTO, Model model) {
-
-            admissionRequestService.saveAdmissionRequest(admissionRequestDTO);
+        admissionRequestService.saveAdmissionRequest(admissionRequestDTO);
         return "redirect:/candidate/candidate_requests";
     }
-
-
 
 
     @GetMapping("/candidate/candidate_requests")
     public String getAllUserRequests(@PageableDefault(sort = {"id"},
             direction = Sort.Direction.ASC, size = 5) Pageable pageable,
-            @AuthenticationPrincipal User currentUser
+                                     @AuthenticationPrincipal User currentUser
             , Model model) {
 
-        Page<AdmissionRequest> page =admissionRequestService.getAdmissionRequestsForUserWittUsername(currentUser.getUsername(),pageable);
+        Page<AdmissionRequest> page = admissionRequestService.getAdmissionRequestsForUserWittUsername(currentUser.getUsername(), pageable);
         model.addAttribute("page", page);
         model.addAttribute("url", "/candidate/candidate_requests");
-        model.addAttribute("username",currentUser.getUsername());
-        model.addAttribute("requests_list",page);
+        model.addAttribute("username", currentUser.getUsername());
+        model.addAttribute("requests_list", page);
         return "/candidate/candidate_requests";
     }
 
 
-
-
-
-
-
-
     @PostMapping("/candidate/delete_request/{id}")
     public String deleteRequest(@PathVariable(name = "id") Long id) {
-        log.info("inside delete method");
         admissionRequestService.deleteRequest(id);
         return "redirect:/candidate/candidate_requests";
     }
