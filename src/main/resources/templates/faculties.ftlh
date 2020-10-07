@@ -1,3 +1,5 @@
+<#import "fragments/pager.ftl" as pager/>
+<#import "fragments/items-per-page.ftl" as items_per_page/>
 <head>
 
     <link rel="stylesheet" href="css/stylesheet.css">
@@ -7,7 +9,7 @@
 
 
 <body>
-<#include "/fragments/nav-bar.ftl" />
+<#include "fragments/nav-bar.ftl" />
 <br>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet'
       type='text/css'>
@@ -26,6 +28,7 @@
                     </div>
 <#--                </div>-->
                 <div class="panel-body">
+                    <@items_per_page.items url page/>
                     <table class="table table-bordered">
                         <thead>
                         <tr>
@@ -41,7 +44,7 @@
                         </thead>
                         <tbody>
 
-                        <#list all_faculties as faculty>
+                        <#list page.content as faculty>
                             <tr>
                                 <td>${faculty.getName()}</td>
                                 <td>${faculty.getDescription()}</td>
@@ -61,24 +64,11 @@
 
                                 </td>
 
-
-                                <#--                                <td align="center">-->
-                                <#--                                    <form class="form-inline my-2 my-lg-0"-->
-                                <#--                                          action="/admin/requests_of_faculty/${faculty.getId()}" method="get">-->
-                                <#--                                        <button class="btn btn-primary" type="submit">edit</button>-->
-                                <#--                                    </form>-->
-                                <#--                                </td>-->
-                                <#--                                <td align="center">-->
-                                <#--                                    <form class="form-inline my-2 my-lg-0"-->
-                                <#--                                          action="/admin/requests_of_faculty/${faculty.getId()}" method="get">-->
-                                <#--                                        <button class="btn btn-danger" type="submit">delete</button>-->
-                                <#--                                    </form>-->
-                                <#--                                </td>-->
                             </tr>
                         </#list>
                         </tbody>
                     </table>
-
+                    <@pager.pager url page/>
                 </div>
 
             </div>

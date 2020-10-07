@@ -11,6 +11,8 @@ import com.training.admissions.entity.Faculty;
 import com.training.admissions.repository.AdmissionRequestRepository;
 import com.training.admissions.repository.FacultyRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -31,10 +33,9 @@ public class FacultyService {
     }
 
 
-    public List<Faculty> getAllFaculties() {
-        log.info("Get All Faculties");
+    public Page<Faculty> getAllFaculties(Pageable pageable) {
 
-        return facultyRepository.findAll();
+        return facultyRepository.findAll(pageable);
 
     }
 
@@ -70,7 +71,6 @@ public class FacultyService {
     }
 
 
-
     public Faculty updateFaculty(FacultyDTO facultyDTO) {
 
         Faculty faculty = Faculty.builder()
@@ -96,6 +96,7 @@ public class FacultyService {
         return facultyRepository.save(faculty);
 
     }
+
     @Transactional
     public Faculty unblockAdmissionRequestRegistration(Long id) {
         Faculty faculty = facultyRepository.findById(id)

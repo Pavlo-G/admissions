@@ -9,6 +9,8 @@ import com.training.admissions.entity.AdmissionRequestStatus;
 import com.training.admissions.entity.Candidate;
 import com.training.admissions.entity.Faculty;
 import com.training.admissions.repository.AdmissionRequestRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -51,9 +53,9 @@ public class AdmissionRequestService {
                 .findAllByFaculty_Id(id);
     }
 
-    public List<AdmissionRequest> getAdmissionRequestsForUserWithId(Long id) {
+    public Page<AdmissionRequest> getAdmissionRequestsForUserWittUsername(String username, Pageable pageable) {
         return admissionRequestRepository
-                .findAllByCandidate_Id(id);
+                .findAllByCandidate_Username(username,pageable);
     }
 
     public AdmissionRequest saveAdmissionRequest(AdmissionRequestDTO admissionRequestDTO){

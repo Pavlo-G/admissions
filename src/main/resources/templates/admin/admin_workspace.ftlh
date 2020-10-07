@@ -1,4 +1,6 @@
 <head>
+    <#import "../fragments/pager.ftl" as pager/>
+    <#import "../fragments/items-per-page.ftl" as items_per_page/>
     <#include "../fragments/bootsrap-links.ftl"/>
     <link rel="stylesheet" href="css/stylesheet.css">
 
@@ -29,6 +31,7 @@
                     </div>
                 </div>
                 <div class="panel-body h-100 row align-items-center" >
+                    <@items_per_page.items url page/>
                     <table class="table table-striped table-bordered table-list">
                         <thead class="col-md-10 col-md-offset-1">
                         <tr>
@@ -48,7 +51,7 @@
                         </thead>
                         <tbody>
 
-                        <#list faculties_list as faculty>
+                        <#list page.content as faculty>
                             <tr>
 
 
@@ -100,6 +103,7 @@
                         </#list>
                         </tbody>
                     </table>
+                    <@pager.pager url page/>
                     <br>
                 </div>
             </div>

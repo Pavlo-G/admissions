@@ -3,12 +3,12 @@ package com.training.admissions.controller;
 import com.training.admissions.dto.CandidateDTO;
 import com.training.admissions.dto.FacultyDTO;
 import com.training.admissions.entity.Candidate;
+import com.training.admissions.entity.Faculty;
 import com.training.admissions.service.AdmissionRequestService;
 import com.training.admissions.service.CandidateService;
 import com.training.admissions.service.FacultyService;
 import com.training.admissions.service.StatementService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,12 +51,16 @@ public class AdminWorkspaceController {
 
 
     @GetMapping("/admin/workspace")
-    public String getAdminWorkspace(Model model) {
+    public String getAdminWorkspace(@PageableDefault(sort = {"name"}, direction = Sort.Direction.ASC, size = 5) Pageable pageable,
+            Model model) {
 
-        model.addAttribute("faculties_list", facultyService.getAllFaculties());
-
+        Page<Faculty> page = facultyService.getAllFaculties(pageable);
+        model.addAttribute("page", page);
+        model.addAttribute("url", "/admin/workspace");
         return "/admin/admin_workspace";
+
     }
+
 
 
     @GetMapping("/admin/requests_of_faculty/{id}")
@@ -126,7 +131,6 @@ public class AdminWorkspaceController {
 
     @GetMapping("/admin/faculty/add")
     public String createNewFacultyForm(Model model) {
-
         return "/admin/create-faculty";
     }
 

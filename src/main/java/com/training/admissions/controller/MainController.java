@@ -29,11 +29,6 @@ public class MainController {
     }
 
 
-//    @GetMapping("/registration/details")
-//    public String getRegistrationDetailsPage() {
-//        return "/candidate/reg_details";
-//    }
-
 
 
 }

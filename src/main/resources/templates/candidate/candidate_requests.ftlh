@@ -1,4 +1,6 @@
 <head>
+    <#import "../fragments/pager.ftl" as pager/>
+    <#import "../fragments/items-per-page.ftl" as items_per_page/>
     <#include "../fragments/bootsrap-links.ftl"/>
     <link rel="stylesheet" href="css/stylesheet.css">
     <#--    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">-->
@@ -23,12 +25,13 @@
                         <div class="col col-xs-6">
                             <h2 class="text-danger">Admission Requests </h2>
                         </div>
-<#--                        <div class="col col-xs-6 text-right">-->
-<#--                            <button type="button" class="btn btn-sm btn-primary btn-create">Create New</button>-->
-<#--                        </div>-->
+                        <#--                        <div class="col col-xs-6 text-right">-->
+                        <#--                            <button type="button" class="btn btn-sm btn-primary btn-create">Create New</button>-->
+                        <#--                        </div>-->
                     </div>
                 </div>
                 <div class="panel-body">
+                    <@items_per_page.items url page/>
                     <table class="table table-striped table-bordered table-list">
                         <thead>
                         <tr>
@@ -44,7 +47,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <#list requests_list as request>
+                        <#list page.content as request>
                             <tr>
 
                                 <td>${request.getId()}</td>
@@ -66,27 +69,9 @@
                         </#list>
                         </tbody>
                     </table>
+                    <@pager.pager url page/>
+                </div>
 
-                </div>
-                <div class="panel-footer">
-                    <div class="row">
-                        <div class="col col-xs-4">Page 1 of 5
-                        </div>
-                        <div class="col col-xs-8">
-                            <ul class="pagination hidden-xs pull-right">
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                            </ul>
-                            <ul class="pagination visible-xs pull-right">
-                                <li><a href="#">«</a></li>
-                                <li><a href="#">»</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
             </div>
 
         </div>

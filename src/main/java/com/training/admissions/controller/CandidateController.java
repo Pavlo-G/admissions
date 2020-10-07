@@ -16,9 +16,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Map;
 
-import static com.training.admissions.controller.ControllerUtils.getValidationErrors;
+
+
 
 @Slf4j
 @Controller
@@ -38,13 +38,11 @@ public class CandidateController {
                                   BindingResult bindingResult,
                                   Model model
     ) {
-//        if (bindingResult.hasErrors()) {
-//          throw new CandidateRegistrationException("x",bindingResult.getAllErrors());
-//        } else {
+
             Candidate candidate = candidateService.createCandidate(candidateDTO);
             candidateProfileService.createCandidateProfile(candidateProfileDTO, candidate.getId());
             log.info("new user " + candidateDTO.getUsername() + " created!");
-//        }
+
         return "redirect:/auth/login";
     }
 
