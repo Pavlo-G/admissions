@@ -2,28 +2,33 @@ package com.training.admissions.controller;
 
 import com.training.admissions.dto.CandidateDTO;
 import com.training.admissions.dto.FacultyDTO;
-import com.training.admissions.entity.AdmissionRequest;
 import com.training.admissions.entity.Candidate;
-import com.training.admissions.entity.Faculty;
 import com.training.admissions.service.AdmissionRequestService;
 import com.training.admissions.service.CandidateService;
 import com.training.admissions.service.FacultyService;
 import com.training.admissions.service.StatementService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 @Slf4j
 @Controller
@@ -119,7 +124,6 @@ public class AdminWorkspaceController {
     }
 
 
-
     @GetMapping("/admin/faculty/add")
     public String createNewFacultyForm(Model model) {
 
@@ -127,20 +131,18 @@ public class AdminWorkspaceController {
     }
 
     @PostMapping("/admin/faculty/add")
-    public String createNewFaculty(@Valid FacultyDTO facultyDTO, BindingResult bindingResult,Model model
+    public String createNewFaculty(@Valid FacultyDTO facultyDTO, BindingResult bindingResult, Model model
 
     ) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("faculty",facultyDTO);
-            model.addAttribute("errorMessages",bindingResult.getAllErrors());
+            model.addAttribute("faculty", facultyDTO);
+            model.addAttribute("errorMessages", bindingResult.getAllErrors());
             return "/admin/create-faculty";
         }
-            facultyService.createFaculty(facultyDTO);
+        facultyService.createFaculty(facultyDTO);
 
         return "redirect:/admin/workspace";
     }
-
-
 
 
     @GetMapping("/admin/block_reg/{id}")
@@ -172,7 +174,6 @@ public class AdminWorkspaceController {
     }
 
 
-
     @PostMapping("/admin/faculties/delete/{id}")
     public String deleteFacultyById(@PathVariable(name = "id") Long id) {
         facultyService.deleteById(id);
@@ -180,38 +181,45 @@ public class AdminWorkspaceController {
     }
 
 
-
-
     @GetMapping("/admin/statement/faculty/{id}")
-    public String facultyStatement(@PathVariable(name = "id") Long id, Model model)
-    {
-        model.addAttribute("faculty_statement",statementService.getStatementForFacultyWithId(id));
-        model.addAttribute("faculty_id",id);
+    public String facultyStatement(@PathVariable(name = "id") Long id, Model model) {
+        model.addAttribute("faculty_statement", statementService.getStatementForFacultyWithId(id));
+        model.addAttribute("faculty_id", id);
         return "/admin/statement";
     }
 
 
     @GetMapping("/admin/statement/finalize/{id}")
-    public String facultyStatementFinalize(@PathVariable(name = "id") Long id,
-                                           @AuthenticationPrincipal User currentUser,
-                                           Model model)
-    {
+    public ModelAndView facultyStatementFinalize(@PathVariable(name = "id") Long id,
+                                                 @AuthenticationPrincipal User currentUser
+    ) {
+        ModelAndView modelAndView = new ModelAndView();
 
         facultyService.blockAdmissionRequestRegistration(id);
-        statementService.facultyStatementFinalize(id,currentUser.getUsername());
-
-        return "redirect:/admin/finalized";
+        statementService.facultyStatementFinalize(id, currentUser.getUsername());
+        modelAndView.setViewName("/admin/report");
+        return modelAndView;
     }
 
 
-//    @GetMapping("/admin/finalized")
-//    public String finalizedStatements(Model model)
-//    {
-//        model.addAttribute("all_statements",statementService.getAllFinalizedStatements());
-//
-//
-//        return "/admin/finalized_statements";
-//    }
+    @RequestMapping(value = "/admin/pdf/download", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> getPDF1() throws IOException {
+
+
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.setContentType(MediaType.parseMediaType("application/pdf"));
+        String filename = "src\\main\\resources\\public\\Reports.pdf";
+        File file = new File(filename);
+
+        byte[] fileContent = Files.readAllBytes(file.toPath());
+
+        headers.add("content-disposition", "inline;filename=" + filename);
+        headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+        return new ResponseEntity<byte[]>(fileContent
+                , headers, HttpStatus.OK);
+
+    }
 
 
 }
