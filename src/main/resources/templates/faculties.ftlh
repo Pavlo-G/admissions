@@ -34,7 +34,7 @@
                         <tr>
 
 
-                            <th>Name</th>
+                            <th>Name<span class="glyphicon glyphicon-star" aria-hidden="true"></span> </th>
                             <th>Description</th>
                             <th>Budget Capacity</th>
                             <th>Total Capacity</th>

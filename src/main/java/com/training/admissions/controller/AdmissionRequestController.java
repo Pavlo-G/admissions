@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Slf4j
 @Controller
-
 public class AdmissionRequestController {
 
     private final AdmissionRequestService admissionRequestService;
@@ -33,8 +32,8 @@ public class AdmissionRequestController {
 
     public AdmissionRequestController(AdmissionRequestService admissionRequestService, CandidateService candidateService, FacultyService facultyService) {
         this.admissionRequestService = admissionRequestService;
-        this.candidateService = candidateService;
-        this.facultyService = facultyService;
+        this.candidateService =candidateService;
+        this.facultyService=facultyService;
     }
 
 

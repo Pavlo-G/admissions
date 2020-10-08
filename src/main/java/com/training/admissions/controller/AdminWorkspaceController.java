@@ -14,9 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
@@ -29,9 +26,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 
 @Slf4j
 @Controller
@@ -124,7 +118,8 @@ public class AdminWorkspaceController {
     }
 
     @PostMapping("/admin/request_reject")
-    public String requestReject(@RequestParam(name = "requestId") Long requestId, @RequestParam(name = "facultyId") Long facultyId) {
+    public String requestReject(@RequestParam(name = "requestId") Long requestId,
+                                @RequestParam(name = "facultyId") Long facultyId) {
         admissionRequestService.rejectRequest(requestId);
         return "redirect:/admin/requests_of_faculty/" + facultyId;
     }
@@ -136,9 +131,9 @@ public class AdminWorkspaceController {
     }
 
     @PostMapping("/admin/faculty/add")
-    public String createNewFaculty(@Valid FacultyDTO facultyDTO, BindingResult bindingResult, Model model
-
-    ) {
+    public String createNewFaculty(@Valid FacultyDTO facultyDTO,
+                                   BindingResult bindingResult,
+                                   Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("faculty", facultyDTO);
             model.addAttribute("errorMessages", bindingResult.getAllErrors());
@@ -196,11 +191,7 @@ public class AdminWorkspaceController {
 
     @GetMapping("/admin/statement/finalize/{id}")
     public String facultyStatementFinalize(@PathVariable(name = "id") Long id,
-                                           @AuthenticationPrincipal User currentUser
-    ) {
-
-
-        facultyService.blockAdmissionRequestRegistration(id);
+                                           @AuthenticationPrincipal User currentUser) {
         statementService.facultyStatementFinalize(id, currentUser.getUsername());
 
         return "redirect:/admin/pdf/download";
@@ -208,20 +199,8 @@ public class AdminWorkspaceController {
 
 
     @GetMapping(value = "/admin/pdf/download")
-    public ResponseEntity<byte[]> getPDF() throws IOException {
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.parseMediaType("application/pdf"));
-        String filename = "src\\main\\resources\\public\\Reports.pdf";
-        File file = new File(filename);
-
-        byte[] fileContent = Files.readAllBytes(file.toPath());
-
-        headers.add("content-disposition", "inline;filename=" + filename);
-        headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
-        return new ResponseEntity<byte[]>(fileContent
-                , headers, HttpStatus.OK);
-
+    public ResponseEntity<byte[]> getPDF() {
+       return statementService.getPDF();
     }
 
 

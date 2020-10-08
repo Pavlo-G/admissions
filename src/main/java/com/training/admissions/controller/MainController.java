@@ -17,5 +17,8 @@ public class MainController {
         return "registration";
     }
 
-
+    @GetMapping("/new_table")
+    public String getNewPage() {
+        return "/new_table";
+    }
 }

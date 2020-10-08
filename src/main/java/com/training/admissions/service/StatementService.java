@@ -4,16 +4,19 @@ import com.training.admissions.entity.AdmissionRequest;
 import com.training.admissions.entity.AdmissionRequestStatus;
 import com.training.admissions.entity.Faculty;
 import com.training.admissions.entity.StatementElement;
+import com.training.admissions.exception.CanNotMakePDFException;
 import com.training.admissions.exception.StatementCreationException;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+import java.io.*;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -46,7 +49,7 @@ public class StatementService {
     }
 
     public void facultyStatementFinalize(Long id, String author) {
-
+        facultyService.blockAdmissionRequestRegistration(id);
         List<StatementElement> statementElementList = new ArrayList<>();
         for (AdmissionRequest ar : getStatementForFacultyWithId(id)) {
 
@@ -83,4 +86,23 @@ public class StatementService {
 
     }
 
+    public ResponseEntity<byte[]> getPDF() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType("application/pdf"));
+        String filename = "src\\main\\resources\\public\\Reports.pdf";
+        File file = new File(filename);
+
+        byte[] fileContent;
+
+        try {
+            fileContent = Files.readAllBytes(file.toPath());
+        } catch (IOException e) {
+          throw  new CanNotMakePDFException("Can not prepare PDF statement");
+        }
+
+        headers.add("content-disposition", "inline;filename=" + filename);
+        headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+        return new ResponseEntity<byte[]>(fileContent
+                , headers, HttpStatus.OK);
+    }
 }
