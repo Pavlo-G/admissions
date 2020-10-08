@@ -1,6 +1,8 @@
 package com.training.admissions.dto;
 
 
+import com.training.admissions.controller.CandidateController;
+import com.training.admissions.entity.Candidate;
 import lombok.*;
 
 @Getter
@@ -29,5 +31,6 @@ public class CandidateProfileDTO {
 
     private String phoneNumber;
 
+    private  Long candidateId;
 
 }

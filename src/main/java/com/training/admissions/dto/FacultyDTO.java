@@ -49,19 +49,19 @@ public class FacultyDTO {
 
     public Long numberOfRequestsNew() {
         return admissionRequestsList.stream()
-                .filter(ar -> ar.getStatus().ordinal() == AdmissionRequestStatus.NEW.ordinal())
+                .filter(ar -> ar.getAdmissionRequestStatus().ordinal() == AdmissionRequestStatus.NEW.ordinal())
                 .count();
     }
 
     public Long numberOfRequestsApproved() {
         return admissionRequestsList.stream()
-                .filter(ar -> ar.getStatus().ordinal() == AdmissionRequestStatus.APPROVED.ordinal())
+                .filter(ar -> ar.getAdmissionRequestStatus().ordinal() == AdmissionRequestStatus.APPROVED.ordinal())
                 .count();
     }
 
     public Long numberOfRequestsRejected() {
         return admissionRequestsList.stream()
-                .filter(ar -> ar.getStatus().ordinal() == AdmissionRequestStatus.REJECTED.ordinal())
+                .filter(ar -> ar.getAdmissionRequestStatus().ordinal() == AdmissionRequestStatus.REJECTED.ordinal())
                 .count();
     }
 }

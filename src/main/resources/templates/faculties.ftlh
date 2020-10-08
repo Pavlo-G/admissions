@@ -54,8 +54,10 @@
                                     <#if isAdmin>
                                     <#else >
                                         <#if faculty.admissionOpen>
-                                        <form method="get" action="/candidate/submit_request">
-                                            <input type="hidden" name="faculty_id" value="${faculty.getId()}">
+                                        <form method="Get" action="/candidate/submit_request_form">
+                                            <input type="hidden" name="id" value="${faculty.id}">
+                                            <input type="hidden" name="name" value="${faculty.name}">
+                                            <input type="hidden" name="admissionOpen" value="${faculty.admissionOpen?string}">
                                             <button type="submit" class="btn btn-primary btn-sm">Send admission request
                                             </button>
                                         </form>

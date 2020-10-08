@@ -1,8 +1,11 @@
 package com.training.admissions.exception;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.ConstraintViolationException;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
@@ -28,7 +31,7 @@ public class ApiExceptionHandler {
 
 
     @ExceptionHandler(value =    FacultyAlreadyExistsException.class)
-    public ModelAndView handleConstraintViolationException(   FacultyAlreadyExistsException ex){
+    public ModelAndView handleFacultyAlreadyExistsException(   FacultyAlreadyExistsException ex){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/admin/create-faculty");
         modelAndView.addObject("errorMessage", ex.getMessage());
@@ -36,12 +39,18 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(value =RequestAlreadyExistsException.class)
-    public ModelAndView handleConstraintViolationException( RequestAlreadyExistsException ex){
+    public ModelAndView handleRequestAlreadyExistsException( RequestAlreadyExistsException ex){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("/candidate/request_form");
         modelAndView.addObject("errorMessage", ex.getMessage());
         return modelAndView;
     }
 
-
+//    @ExceptionHandler(value = DataIntegrityViolationException.class)
+//    public ModelAndView handleDataIntegrityViolationException( DataIntegrityViolationException ex){
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.setViewName("/candidate/request_form");
+//        modelAndView.addObject("errorMessage", ex.getMessage());
+//        return modelAndView;
+//    }
 }

@@ -47,7 +47,7 @@
                                 <td>${request.getId()}</td>
                                 <td>${request.candidate.getUsername()}</td>
                                 <td>${request.faculty.getName()}</td>
-                                <td>${request.status.name()}</td>
+                                <td>${request.admissionRequestStatus.name()}</td>
                                 <td>
                                     <form
                                             action="/admin/requests_of_faculty/request/${request.getId()}" method="get">

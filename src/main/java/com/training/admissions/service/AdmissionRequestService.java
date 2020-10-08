@@ -2,6 +2,7 @@ package com.training.admissions.service;
 
 
 import com.training.admissions.dto.AdmissionRequestDTO;
+import com.training.admissions.dto.FacultyDTO;
 import com.training.admissions.entity.AdmissionRequest;
 import com.training.admissions.entity.AdmissionRequestStatus;
 import com.training.admissions.entity.Candidate;
@@ -11,7 +12,9 @@ import com.training.admissions.exception.RequestNotFoundException;
 import com.training.admissions.repository.AdmissionRequestRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.transaction.Transactional;
 
@@ -28,31 +31,18 @@ public class AdmissionRequestService {
         this.facultyService = facultyService;
     }
 
-    @Transactional
-    public AdmissionRequest approveRequest(Long id) {
-        AdmissionRequest admissionRequest =
-                admissionRequestRepository.findById(id).orElseThrow();
-        admissionRequest.setStatus(AdmissionRequestStatus.APPROVED);
-        admissionRequestRepository.save(admissionRequest);
-        return admissionRequest;
+
+    public Integer updateStatusOfRequest(AdmissionRequestDTO admissionRequestDTO) {
+        return admissionRequestRepository.updateRequest(admissionRequestDTO.getId(), admissionRequestDTO.getAdmissionRequestStatus());
     }
 
-
-    @Transactional
-    public AdmissionRequest rejectRequest(Long id) {
-        AdmissionRequest admissionRequest =
-                admissionRequestRepository.findById(id).orElseThrow();
-        admissionRequest.setStatus(AdmissionRequestStatus.REJECTED);
-        admissionRequestRepository.save(admissionRequest);
-        return admissionRequest;
-    }
 
     public Page<AdmissionRequest> getAdmissionRequestsForFacultyWithId(Long id, Pageable pageable) {
         return admissionRequestRepository
                 .findAllByFaculty_Id(id, pageable);
     }
 
-    public Page<AdmissionRequest> getAdmissionRequestsForUserWittUsername(String username, Pageable pageable) {
+    public Page<AdmissionRequest> getAdmissionRequestsForUserWithUsername(String username, Pageable pageable) {
         return admissionRequestRepository
                 .findAllByCandidate_Username(username, pageable);
     }
@@ -64,10 +54,9 @@ public class AdmissionRequestService {
 
         if (admissionRequestRepository
                 .findByCandidateAndFaculty(candidate, faculty).isEmpty()) {
-
             return admissionRequestRepository.save(
                     AdmissionRequest.builder()
-                            .status(AdmissionRequestStatus.NEW)
+                            .admissionRequestStatus(AdmissionRequestStatus.NEW)
                             .candidate(candidate)
                             .faculty(faculty)
                             .requiredSubject1Grade(admissionRequestDTO.getRequiredSubject1Grade())
@@ -77,7 +66,6 @@ public class AdmissionRequestService {
         }
         throw new RequestAlreadyExistsException("Request Already Exists!");
     }
-
 
 
     public void deleteRequest(Long id) {
@@ -91,4 +79,11 @@ public class AdmissionRequestService {
     }
 
 
+    public AdmissionRequestDTO getAdmissionRequestDTO(FacultyDTO facultyDTO, User currentUser) {
+        Candidate candidate = candidateService.getByUsername(currentUser.getUsername());
+        Faculty faculty = facultyService.getById(facultyDTO.getId());
+
+        return AdmissionRequestDTO.builder().candidate(candidate).faculty(faculty).build();
+
+    }
 }

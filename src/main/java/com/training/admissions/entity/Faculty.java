@@ -45,19 +45,19 @@ public class Faculty {
 
     public Long numberOfRequestsNew() {
         return admissionRequestList.stream()
-                .filter(ar -> ar.getStatus().ordinal() == AdmissionRequestStatus.NEW.ordinal())
+                .filter(ar -> ar.getAdmissionRequestStatus().ordinal() == AdmissionRequestStatus.NEW.ordinal())
                 .count();
     }
 
     public Long numberOfRequestsApproved() {
         return admissionRequestList.stream()
-                .filter(ar -> ar.getStatus().ordinal() == AdmissionRequestStatus.APPROVED.ordinal())
+                .filter(ar -> ar.getAdmissionRequestStatus().ordinal() == AdmissionRequestStatus.APPROVED.ordinal())
                 .count();
     }
 
     public Long numberOfRequestsRejected() {
         return admissionRequestList.stream()
-                .filter(ar -> ar.getStatus().ordinal() == AdmissionRequestStatus.REJECTED.ordinal())
+                .filter(ar -> ar.getAdmissionRequestStatus().ordinal() == AdmissionRequestStatus.REJECTED.ordinal())
                 .count();
     }
 

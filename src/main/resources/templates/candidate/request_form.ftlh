@@ -1,5 +1,4 @@
-<#-- @ftlvariable name="_csrf" type="org.springframework.security.web.csrf.CsrfToken" -->
-<#-- @ftlvariable name="error" type="java.util.Optional<String>" -->
+
 
 
 
@@ -95,8 +94,8 @@
                             </div>
 
 
-                            <input type="hidden" id="candidateId" name="candidateId" value="${candidate.getId()}"/>
-                            <input type="hidden" id="facultyId" name="facultyId" value="${faculty.getId()}"/>
+                            <input type="hidden" id="candidateId" name="candidateId" value="${candidate.id}"/>
+                            <input type="hidden" id="facultyId" name="facultyId" value="${faculty.id}"/>
 
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

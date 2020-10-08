@@ -18,10 +18,10 @@ public class AdmissionRequest {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(name = "status", nullable = false)
-    private AdmissionRequestStatus status;
+    private AdmissionRequestStatus admissionRequestStatus;
 
     @ManyToOne(targetEntity = Candidate.class, fetch = FetchType.EAGER)
-    @JoinColumn(name = "candidate", referencedColumnName = "id")
+    @JoinColumn(name = "candidate_id")
     private Candidate candidate;
 
     @ManyToOne(targetEntity = Faculty.class, fetch = FetchType.EAGER)
@@ -51,7 +51,7 @@ public class AdmissionRequest {
     public String toString() {
         return "AdmissionRequest{" +
                 "id=" + id +
-                ", status=" + status +
+                ", status=" + admissionRequestStatus +
                 ", requiredSubject1Grade=" + requiredSubject1Grade +
                 ", requiredSubject2Grade=" + requiredSubject2Grade +
                 ", requiredSubject3Grade=" + requiredSubject3Grade +

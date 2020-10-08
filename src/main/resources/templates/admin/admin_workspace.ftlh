@@ -75,12 +75,31 @@
                                 <td>
                                     <#if faculty.admissionOpen>
                                         <form class="form-inline my-2 my-lg-0"
-                                              action="/admin/block_reg/${faculty.getId()}" method="get">
+                                              action="/admin/block_reg/${faculty.getId()}" method="post">
+                                            <input type="hidden" name="id" value="${faculty.getId()}">
+                                            <input type="hidden" name="name" value="${faculty.getName()}">
+                                            <input type="hidden" name="description" value="${faculty.getDescription()}">
+                                            <input type="hidden" name="budgetCapacity" value="${faculty.getBudgetCapacity()}">
+                                            <input type="hidden" name="totalCapacity" value="${faculty.getTotalCapacity()}">
+                                            <input type="hidden" name="requiredSubject1" value="${faculty.getRequiredSubject1()}">
+                                            <input type="hidden" name="requiredSubject2" value="${faculty.getRequiredSubject2()}">
+                                            <input type="hidden" name="requiredSubject3" value="${faculty.getRequiredSubject3()}">
+                                            <input type="hidden" name="admissionOpen" value="${false?string}">
+
                                             <button class="btn btn-warning btn-xs" type="submit">Block</button>
                                         </form>
                                     <#else>
                                         <form class="form-inline my-2 my-lg-0"
-                                              action="/admin/unblock_reg/${faculty.getId()}" method="get">
+                                              action="/admin/block_reg/${faculty.getId()}" method="post">
+                                            <input type="hidden" name="id" value="${faculty.getId()}">
+                                            <input type="hidden" name="name" value="${faculty.getName()}">
+                                            <input type="hidden" name="description" value="${faculty.getDescription()}">
+                                            <input type="hidden" name="budgetCapacity" value="${faculty.getBudgetCapacity()}">
+                                            <input type="hidden" name="totalCapacity" value="${faculty.getTotalCapacity()}">
+                                            <input type="hidden" name="requiredSubject1" value="${faculty.getRequiredSubject1()}">
+                                            <input type="hidden" name="requiredSubject2" value="${faculty.getRequiredSubject2()}">
+                                            <input type="hidden" name="requiredSubject3" value="${faculty.getRequiredSubject3()}">
+                                            <input type="hidden" name="admissionOpen" value="${true?string}">
                                             <button class="btn btn-success btn-xs" type="submit">Unblock</button>
                                         </form>
                                     </#if>
@@ -90,6 +109,15 @@
                                     <form class="form-inline my-2 my-lg-0"
                                           action="/admin/faculty/edit/${faculty.getId()}" method="get">
                                         <button class="btn btn-primary btn-xs" type="submit">Edit</button>
+<#--                                        <input type="hidden" name="id" value="${faculty.getId()}">-->
+<#--                                        <input type="hidden" name="name" value="${faculty.getName()}">-->
+<#--                                        <input type="hidden" name="description" value="${faculty.getDescription()}">-->
+<#--                                        <input type="hidden" name="budgetCapacity" value="${faculty.getBudgetCapacity()}">-->
+<#--                                        <input type="hidden" name="totalCapacity" value="${faculty.getTotalCapacity()}">-->
+<#--                                        <input type="hidden" name="requiredSubject1" value="${faculty.getRequiredSubject1()}">-->
+<#--                                        <input type="hidden" name="requiredSubject2" value="${faculty.getRequiredSubject2()}">-->
+<#--                                        <input type="hidden" name="requiredSubject3" value="${faculty.getRequiredSubject3()}">-->
+<#--                                        <input type="hidden" name="admissionOpen" value="${faculty.isAdmissionOpen()?string}">-->
                                     </form>
                                 </td>
                                 <td class="col-lg-11 col-centered">

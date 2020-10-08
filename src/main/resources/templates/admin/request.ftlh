@@ -70,14 +70,16 @@
         <div class="container h-100">
             <div class="row h-100 justify-content-center align-items-center">
 
-                <form action="/admin/request_approve" method="POST">
-                    <input type="hidden" id="requestId" name="requestId" value="${request.getId()}">
-                    <input type="hidden" id="facultyId" name="facultyId" value="${request.faculty.getId()}">
+                <form action="/admin/request_update" method="POST">
+                    <input type="hidden" id="id" name="id" value="${request.getId()}">
+                    <input type="hidden" id="facultyId" name="facultyId" value="${request.faculty.id}">
+                    <input type="hidden" id="admissionRequestStatus" name="admissionRequestStatus" value="APPROVED">
                     <button class="btn btn-primary mr-2" type="submit">Approve</button>
                 </form>
-                <form action="/admin/request_reject" method="POST">
-                    <input type="hidden" id="requestId" name="requestId" value="${request.getId()}">
-                    <input type="hidden" id="facultyId" name="facultyId" value="${request.faculty.getId()}">
+                <form action="/admin/request_update" method="POST">
+                    <input type="hidden" id="id" name="id" value="${request.getId()}">
+                    <input type="hidden" id="facultyId" name="facultyId" value="${request.faculty.id}">
+                    <input type="hidden" id="admissionRequestStatus" name="admissionRequestStatus" value="REJECTED">
                     <button class="btn btn-danger mr-2" type="submit">Reject</button>
                 </form>
                 <form action="/admin/requests_of_faculty/${request.faculty.getId()}" method="get">

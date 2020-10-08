@@ -1,5 +1,6 @@
 package com.training.admissions.service;
 
+import com.training.admissions.dto.FacultyDTO;
 import com.training.admissions.entity.AdmissionRequest;
 import com.training.admissions.entity.AdmissionRequestStatus;
 import com.training.admissions.entity.Faculty;
@@ -39,7 +40,7 @@ public class StatementService {
 
         return faculty.getAdmissionRequestList()
                 .stream()
-                .filter(x -> x.getStatus() == AdmissionRequestStatus.APPROVED)
+                .filter(x -> x.getAdmissionRequestStatus() == AdmissionRequestStatus.APPROVED)
                 .sorted(
                         Comparator.comparingInt(AdmissionRequest::getSumOfGrades).reversed()
                                 .thenComparing(AdmissionRequest::getCreationDateTime))
@@ -48,10 +49,10 @@ public class StatementService {
 
     }
 
-    public void facultyStatementFinalize(Long id, String author) {
-        facultyService.blockAdmissionRequestRegistration(id);
+    public void facultyStatementFinalize(FacultyDTO facultyDTO, String author) {
+        facultyService.updateFaculty(facultyDTO);
         List<StatementElement> statementElementList = new ArrayList<>();
-        for (AdmissionRequest ar : getStatementForFacultyWithId(id)) {
+        for (AdmissionRequest ar : getStatementForFacultyWithId(facultyDTO.getId())) {
 
             statementElementList.add(StatementElement.builder()
                     .firstName(ar.getCandidate().getCandidateProfile().getFirstName())

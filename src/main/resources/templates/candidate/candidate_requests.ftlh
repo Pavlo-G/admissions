@@ -53,7 +53,7 @@
                                 <td>${request.getId()}</td>
                                 <td>${request.candidate.getUsername()}</td>
                                 <td>${request.faculty.getName()}</td>
-                                <td>${request.status.name()}</td>
+                                <td>${request.admissionRequestStatus.name()}</td>
                                 <td>
                                     ${request.getCreationDateTime()}
                                 </td>

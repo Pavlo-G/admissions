@@ -1,11 +1,14 @@
 package com.training.admissions.service;
 
 import com.training.admissions.dto.CandidateDTO;
+import com.training.admissions.dto.CandidateProfileDTO;
 import com.training.admissions.entity.*;
 import com.training.admissions.exception.CandidateAlreadyExistsException;
 import com.training.admissions.exception.CandidateNotFoundException;
+import com.training.admissions.repository.CandidateProfileRepository;
 import com.training.admissions.repository.CandidateRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,17 +16,17 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
-
 @Slf4j
 @Service
 public class CandidateService {
-
-
+    private final CandidateProfileRepository candidateProfileRepository;
     private final CandidateRepository candidateRepository;
     private final PasswordEncoder bCryptPasswordEncoder;
 
-    public CandidateService(CandidateRepository candidateRepository, PasswordEncoder bCryptPasswordEncoder) {
-
+    public CandidateService(CandidateProfileRepository candidateProfileRepository,
+                            CandidateRepository candidateRepository,
+                            PasswordEncoder bCryptPasswordEncoder) {
+        this.candidateProfileRepository = candidateProfileRepository;
         this.candidateRepository = candidateRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
@@ -46,45 +49,55 @@ public class CandidateService {
     }
 
 
-    @Transactional
-    public Candidate createCandidate(CandidateDTO candidateDTO) {
-        candidateRepository.findByUsername(candidateDTO.getUsername())
-                .ifPresent(s -> {
-                    throw new CandidateAlreadyExistsException("Candidate with username - " + candidateDTO.getUsername() + " - already Exists");
-                });
+    public Candidate createCandidate(CandidateDTO candidateDTO, CandidateProfileDTO candidateProfileDTO) {
 
-        return candidateRepository.save(Candidate.builder()
+        Candidate candidate = Candidate.builder()
                 .username(candidateDTO.getUsername())
                 .password(bCryptPasswordEncoder.encode(candidateDTO.getPassword()))
                 .role(Role.USER)
                 .candidateStatus(CandidateStatus.ACTIVE)
-                .build());
+                .build();
+
+        CandidateProfile candidateProfile = CandidateProfile.builder()
+                .firstName(candidateProfileDTO.getFirstName())
+                .lastName(candidateProfileDTO.getLastName())
+                .email(candidateProfileDTO.getEmail())
+                .address(candidateProfileDTO.getAddress())
+                .city(candidateProfileDTO.getCity())
+                .region(candidateProfileDTO.getRegion())
+                .school(candidateProfileDTO.getSchool())
+                .phoneNumber(candidateProfileDTO.getPhoneNumber())
+                .candidate(candidate)
+                .build();
+        candidate.setCandidateProfile(candidateProfile);
+        try {
+            candidate = candidateRepository.save(candidate);
+        } catch (DataIntegrityViolationException ex) {
+            throw new CandidateAlreadyExistsException("Already Exists!");
+        }
+        return candidate;
     }
 
-    @Transactional
-    public Candidate updateCandidate(CandidateDTO candidateDTO) {
 
-        Candidate candidate = candidateRepository.findById(candidateDTO.getId())
-                .orElseThrow(() -> new CandidateNotFoundException(
-                        "Candidate with " + candidateDTO.getId() + "not found"));
-
-        candidate.setRole(candidateDTO.getRole());
-        setCandidateRequestsStatus(candidateDTO, candidate);
-        candidate.setCandidateStatus(candidateDTO.getCandidateStatus());
-        return candidateRepository.save(candidate);
+    public Integer updateCandidate(CandidateDTO candidateDTO) {
+        setCandidateRequestsStatus(candidateDTO);
+        return candidateRepository.setCandidateUpdate(candidateDTO.getId(), candidateDTO.getRole(), candidateDTO.getCandidateStatus());
     }
 
-    private void setCandidateRequestsStatus(CandidateDTO candidateDTO, Candidate candidate) {
+
+    public void setCandidateRequestsStatus(CandidateDTO candidateDTO) {
+        Candidate candidate = candidateRepository.findById(candidateDTO.getId()).orElseThrow();
         if (candidateDTO.getCandidateStatus() == CandidateStatus.BLOCKED) {
             for (AdmissionRequest ar : candidate.getAdmissionRequestList()) {
-                ar.setStatus(AdmissionRequestStatus.REJECTED);
+                ar.setAdmissionRequestStatus(AdmissionRequestStatus.REJECTED);
             }
         }
         if (candidateDTO.getCandidateStatus() == CandidateStatus.ACTIVE && candidate.getCandidateStatus() == CandidateStatus.BLOCKED) {
             for (AdmissionRequest ar : candidate.getAdmissionRequestList()) {
-                ar.setStatus(AdmissionRequestStatus.NEW);
+                ar.setAdmissionRequestStatus(AdmissionRequestStatus.NEW);
             }
         }
+
     }
 
 
@@ -92,5 +105,18 @@ public class CandidateService {
         log.info("Candidate removed id: " + id);
     }
 
+
+    public Integer updateCandidateProfile(CandidateProfileDTO candidateProfileDTO) {
+        return candidateProfileRepository.setProfileUpdate(
+                candidateProfileDTO.getId(),
+                candidateProfileDTO.getFirstName(),
+                candidateProfileDTO.getLastName(),
+                candidateProfileDTO.getEmail(),
+                candidateProfileDTO.getAddress(),
+                candidateProfileDTO.getCity(),
+                candidateProfileDTO.getRegion(),
+                candidateProfileDTO.getSchool(),
+                candidateProfileDTO.getPhoneNumber());
+    }
 }
 
