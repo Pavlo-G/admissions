@@ -9,8 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-
 @Slf4j
 @Service
 public class FacultyService {
@@ -39,31 +37,22 @@ public class FacultyService {
 
 
     public Faculty createFaculty(FacultyDTO facultyDTO) {
-        return facultyRepository.save(Faculty.builder()
-                .name(facultyDTO.getName())
-                .description(facultyDTO.getDescription())
-                .budgetCapacity(facultyDTO.getBudgetCapacity())
-                .totalCapacity(facultyDTO.getTotalCapacity())
-                .requiredSubject1(facultyDTO.getRequiredSubject1())
-                .requiredSubject2(facultyDTO.getRequiredSubject2())
-                .requiredSubject3(facultyDTO.getRequiredSubject3())
-                .admissionOpen(true)
-                .build());
+        return facultyRepository.save(
+                Faculty.builder()
+                        .id(facultyDTO.getId())
+                        .name(facultyDTO.getName())
+                        .description(facultyDTO.getDescription())
+                        .budgetCapacity(facultyDTO.getBudgetCapacity())
+                        .totalCapacity(facultyDTO.getTotalCapacity())
+                        .requiredSubject1(facultyDTO.getRequiredSubject1())
+                        .requiredSubject2(facultyDTO.getRequiredSubject2())
+                        .requiredSubject3(facultyDTO.getRequiredSubject3())
+                        .admissionOpen(facultyDTO.getId() == null || facultyDTO.isAdmissionOpen())
+                        .build());
     }
 
 
-    public int updateFaculty(FacultyDTO facultyDTO) {
-        return facultyRepository.updateFaculty(
-                facultyDTO.getId(),
-                facultyDTO.getName(),
-                facultyDTO.getDescription(),
-                facultyDTO.getBudgetCapacity(),
-                facultyDTO.getTotalCapacity(),
-                facultyDTO.getRequiredSubject1(),
-                facultyDTO.getRequiredSubject2(),
-                facultyDTO.getRequiredSubject3(),
-                facultyDTO.isAdmissionOpen());
-    }
+
 
 
 }

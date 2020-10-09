@@ -69,7 +69,7 @@ public class FacultyController {
 
     @PostMapping("/admin/block_reg/{id}")
     public String blockRegistrationToFaculty(FacultyDTO facultyDTO) {
-        facultyService.updateFaculty(facultyDTO);
+        facultyService.createFaculty(facultyDTO);
         return "redirect:/admin/workspace";
     }
 
@@ -84,7 +84,7 @@ public class FacultyController {
 
     @PostMapping("/admin/faculty/edit/{id}")
     public String updateFacultyWithId(FacultyDTO facultyDTO) {
-        facultyService.updateFaculty(facultyDTO);
+        facultyService.createFaculty(facultyDTO);
         return "redirect:/admin/workspace";
 
     }

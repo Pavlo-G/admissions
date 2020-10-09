@@ -50,7 +50,7 @@ public class StatementService {
     }
 
     public void facultyStatementFinalize(FacultyDTO facultyDTO, String author) {
-        facultyService.updateFaculty(facultyDTO);
+        facultyService.createFaculty(facultyDTO);
         List<StatementElement> statementElementList = new ArrayList<>();
         for (AdmissionRequest ar : getStatementForFacultyWithId(facultyDTO.getId())) {
 
