@@ -51,6 +51,7 @@ public class StatementService {
                 .collect(Collectors.toList());
     }
 
+
     public void facultyStatementFinalize(FacultyDTO facultyDTO, String author) {
         List<AdmissionRequest> admissionRequests = getStatementForFacultyWithId(facultyDTO.getId());
         List<StatementElement> statementElementList = getStatementElements(admissionRequests);

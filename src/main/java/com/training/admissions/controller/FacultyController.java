@@ -18,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
@@ -36,6 +37,7 @@ public class FacultyController {
     @GetMapping("/faculties")
     public String getAllFaculties(@PageableDefault(sort = {"name"}, direction = Sort.Direction.ASC, size = 5) Pageable pageable,
                                   @AuthenticationPrincipal User user, Model model) {
+
         if (user.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))) {
             return "redirect:/admin/workspace";
         } else {

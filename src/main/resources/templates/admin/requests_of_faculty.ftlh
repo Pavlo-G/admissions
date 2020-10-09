@@ -32,9 +32,15 @@
                         <tr>
 
                             <th>ID</th>
-                            <th>From</th>
+                            <th>From
+                                <a href="${springMacroRequestContext.requestUri}?page=${page.getNumber()}&size=${page.size}&sort=candidate,ASC">&#8593</a>
+                                <a href="${springMacroRequestContext.requestUri}?page=${page.getNumber()}&size=${page.size}&sort=candidate,DESC">&#8595</a>
+                            </th>
                             <th>To the Faculty</th>
-                            <th>Status</th>
+                            <th>Status
+                                <a href="${springMacroRequestContext.requestUri}?page=${page.getNumber()}&size=${page.size}&sort=admissionRequestStatus,ASC">&#8593</a>
+                                <a href="${springMacroRequestContext.requestUri}?page=${page.getNumber()}&size=${page.size}&sort=admissionRequestStatus,DESC">&#8595</a>
+                            </th>
                             <th>Action</th>
 
 
