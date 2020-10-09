@@ -80,9 +80,9 @@ public class AdmissionRequestController {
     public String getRequestsForFacultyById(@PageableDefault(sort = {"admissionRequestStatus"}, direction = Sort.Direction.ASC, size = 5) Pageable pageable,
                                             @PathVariable(name = "id") Long id, Model model) {
         Page<AdmissionRequest> page = admissionRequestService.getAdmissionRequestsForFacultyWithId(id, pageable);
-        Long facultyId = page.getContent().get(0).getFaculty().getId();
+
         model.addAttribute("page", page);
-        model.addAttribute("url", "/admin/requests_of_faculty/" + facultyId);
+        model.addAttribute("url", "/admin/requests_of_faculty/" + id);
 
         return "/admin/requests_of_faculty";
     }

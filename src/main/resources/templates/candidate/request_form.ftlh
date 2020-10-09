@@ -1,7 +1,4 @@
 
-
-
-
 <#import "../fragments/error.ftl" as error/>
 <!doctype html>
 <html lang="en">

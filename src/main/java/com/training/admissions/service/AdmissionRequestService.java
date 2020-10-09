@@ -10,25 +10,22 @@ import com.training.admissions.entity.Faculty;
 import com.training.admissions.exception.RequestAlreadyExistsException;
 import com.training.admissions.exception.RequestNotFoundException;
 import com.training.admissions.repository.AdmissionRequestRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.transaction.Transactional;
 
 @Service
 public class AdmissionRequestService {
     private final AdmissionRequestRepository admissionRequestRepository;
     private final CandidateService candidateService;
-    private final FacultyService facultyService;
 
     public AdmissionRequestService(AdmissionRequestRepository admissionRequestRepository,
-                                   CandidateService candidateService, FacultyService facultyService) {
+                                   CandidateService candidateService) {
         this.admissionRequestRepository = admissionRequestRepository;
         this.candidateService = candidateService;
-        this.facultyService = facultyService;
     }
 
 
@@ -47,15 +44,15 @@ public class AdmissionRequestService {
                 .findAllByCandidate_Username(username, pageable);
     }
 
-    @Transactional
-    public AdmissionRequest saveAdmissionRequest(AdmissionRequestDTO admissionRequestDTO) {
-        Candidate candidate = candidateService.getById(admissionRequestDTO.getCandidateId());
-        Faculty faculty = facultyService.getById(admissionRequestDTO.getFacultyId());
 
-        if (admissionRequestRepository
-                .findByCandidateAndFaculty(candidate, faculty).isEmpty()) {
+    public AdmissionRequest saveAdmissionRequest(AdmissionRequestDTO admissionRequestDTO) {
+        try {
+            Candidate candidate = Candidate.builder().id(admissionRequestDTO.getCandidateId()).build();
+            Faculty faculty = Faculty.builder().id(admissionRequestDTO.getFacultyId()).build();
+
             return admissionRequestRepository.save(
                     AdmissionRequest.builder()
+                            .id(admissionRequestDTO.getId())
                             .admissionRequestStatus(AdmissionRequestStatus.NEW)
                             .candidate(candidate)
                             .faculty(faculty)
@@ -63,8 +60,10 @@ public class AdmissionRequestService {
                             .requiredSubject2Grade(admissionRequestDTO.getRequiredSubject2Grade())
                             .requiredSubject3Grade(admissionRequestDTO.getRequiredSubject3Grade())
                             .build());
+        } catch (DataIntegrityViolationException ex) {
+            throw new RequestAlreadyExistsException("Request Already Exists!");
         }
-        throw new RequestAlreadyExistsException("Request Already Exists!");
+
     }
 
 
@@ -81,7 +80,13 @@ public class AdmissionRequestService {
 
     public AdmissionRequestDTO getAdmissionRequestDTO(FacultyDTO facultyDTO, User currentUser) {
         Candidate candidate = candidateService.getByUsername(currentUser.getUsername());
-        Faculty faculty = facultyService.getById(facultyDTO.getId());
+
+        Faculty faculty = Faculty.builder().id(facultyDTO.getId())
+                .name(facultyDTO.getName())
+                .requiredSubject1(facultyDTO.getRequiredSubject1())
+                .requiredSubject2(facultyDTO.getRequiredSubject2())
+                .requiredSubject3(facultyDTO.getRequiredSubject3())
+                .build();
 
         return AdmissionRequestDTO.builder().candidate(candidate).faculty(faculty).build();
 

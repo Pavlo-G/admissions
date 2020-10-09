@@ -20,7 +20,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col col-xs-6">
-                            <h3 class="panel-title">Admission Requests: ${page.content[0].faculty.name}</h3>
+                            <h3 class="panel-title">Admission Requests: </h3>
                         </div>
 
                     </div>
@@ -54,9 +54,12 @@
                                         <button class="btn btn-primary" type="submit">Check request</button>
                                     </form>
                                 </td>
-
+                        <#else >
+                            No requests for the faculty
                             </tr>
+
                         </#list>
+
                         </tbody>
                     </table>
                     <@pager.pager url page/>

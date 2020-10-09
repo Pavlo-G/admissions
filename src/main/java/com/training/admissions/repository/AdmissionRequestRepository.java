@@ -13,16 +13,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Optional;
+
+
 
 public interface AdmissionRequestRepository extends JpaRepository<AdmissionRequest, Long> {
 
     Page<AdmissionRequest> findAllByCandidate_Username(String username, Pageable pageable);
 
     Page<AdmissionRequest> findAllByFaculty_Id(Long id, Pageable pageable);
-
-    Optional<AdmissionRequest> findByCandidateAndFaculty(Candidate candidate, Faculty faculty);
 
 
     @Transactional
@@ -33,12 +31,6 @@ public interface AdmissionRequestRepository extends JpaRepository<AdmissionReque
     int updateRequest(@Param("id") Long id,
                       @Param("admissionRequestStatus") AdmissionRequestStatus admissionRequestStatus);
 
-
-
-
-
-    @Query("SELECT c,f FROM  Candidate c,Faculty f  WHERE c.username=:username AND f.id=:id")
-    AdmissionRequest getCandidateAndFacultyForRequest(@Param("id")Long id,@Param("username") String username);
 }
 
 

@@ -14,12 +14,15 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel-body">
+                <#if faculty_statement?size!=0>
                 <td align="center">
+
                     <form class="form-inline my-2 my-lg-0"
                           action="/admin/statement/finalize" method="Post">
                         <input type ="hidden"name="id" id="id" value="${faculty_id}">
                         <button class="btn btn-danger" type="submit">Finalize statement</button>
                     </form>
+
                 </td>
                 <br>
                 <table class="table table-striped table-bordered table-list">
@@ -36,7 +39,7 @@
                     </tr>
                     </thead>
                     <tbody>
-
+                    </#if>
                     <#list   faculty_statement as statement>
                         <tr>
 
@@ -66,7 +69,8 @@
                             <#--                                </td>-->
 
                         </tr>
-
+                        <#else >
+                        <h2>No active requests to prepare the statement</h2>
                     </#list>
                     </tbody>
 

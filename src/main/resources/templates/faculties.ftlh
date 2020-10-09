@@ -57,6 +57,9 @@
                                         <form method="Get" action="/candidate/submit_request_form">
                                             <input type="hidden" name="id" value="${faculty.id}">
                                             <input type="hidden" name="name" value="${faculty.name}">
+                                            <input type="hidden" name="requiredSubject1" value="${faculty.requiredSubject1}">
+                                            <input type="hidden" name="requiredSubject2" value="${faculty.requiredSubject2}">
+                                            <input type="hidden" name="requiredSubject3" value="${faculty.requiredSubject3}">
                                             <input type="hidden" name="admissionOpen" value="${faculty.admissionOpen?string}">
                                             <button type="submit" class="btn btn-primary btn-sm">Send admission request
                                             </button>
