@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -46,9 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/","/registration","/registration/error","/auth/login").permitAll()
-                .antMatchers(HttpMethod.POST,"/api/candidate/registration").anonymous()
-                .antMatchers("/public/**", "/resources/**","/resources/public/**").permitAll()
+                .antMatchers("/", "/registration", "/registration/error", "/auth/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/candidate/registration").anonymous()
+                .antMatchers("/public/**", "/resources/**", "/resources/public/**").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .anyRequest()
                 .authenticated()
@@ -65,8 +66,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONID")
                 .logoutSuccessUrl("/auth/login");
 
-
+        http.sessionManagement().maximumSessions(1)
+                .maxSessionsPreventsLogin(true);
     }
+
 
 
     @Override
