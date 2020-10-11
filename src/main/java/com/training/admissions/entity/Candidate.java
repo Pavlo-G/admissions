@@ -1,10 +1,12 @@
 package com.training.admissions.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Set;
 
@@ -24,7 +26,7 @@ public class Candidate {
     private Long id;
 
 
-    @Column(name = "username", unique=true)
+    @Column(name = "username", unique = true)
     private String username;
 
 
@@ -45,11 +47,11 @@ public class Candidate {
             mappedBy = "candidate")
     private CandidateProfile candidateProfile;
 
-    @OneToMany(mappedBy = "candidate",cascade = CascadeType.ALL,fetch = FetchType.LAZY )
+    @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<AdmissionRequest> admissionRequestList;
 
 
-    public Set<SimpleGrantedAuthority> getAuthorities(){
+    public Set<SimpleGrantedAuthority> getAuthorities() {
         return Set.of(new SimpleGrantedAuthority(role.name()));
     }
 

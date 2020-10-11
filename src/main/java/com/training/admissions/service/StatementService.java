@@ -72,7 +72,7 @@ public class StatementService {
                     .email(admissionRequests.get(i).getCandidate().getCandidateProfile().getEmail())
                     .grade(admissionRequests.get(i).getSumOfGrades())
                     .contactNumber(admissionRequests.get(i).getCandidate().getCandidateProfile().getPhoneNumber())
-                    .status(i>admissionRequests.get(i).getFaculty().getBudgetCapacity()?"Contract":"Budget")
+                    .status(i > admissionRequests.get(i).getFaculty().getBudgetCapacity() ? "Contract" : "Budget")
                     .build());
         }
         return statementElementList;

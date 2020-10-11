@@ -24,8 +24,8 @@ public interface CandidateRepository extends JpaRepository<Candidate, Long> {
     @Query("UPDATE Candidate  c set c.role = :role," +
             "c.candidateStatus=:candidateStatus WHERE c.id = :id")
     int setCandidateUpdate(@Param("id") Long id,
-                            @Param("role") Role role,
-                            @Param("candidateStatus") CandidateStatus candidateStatus);
+                           @Param("role") Role role,
+                           @Param("candidateStatus") CandidateStatus candidateStatus);
 
 
     Page<Candidate> findAll(Pageable pageable);

@@ -1,10 +1,7 @@
 package com.training.admissions.repository;
 
-import com.training.admissions.dto.AdmissionRequestDTO;
 import com.training.admissions.entity.AdmissionRequest;
 import com.training.admissions.entity.AdmissionRequestStatus;
-import com.training.admissions.entity.Candidate;
-import com.training.admissions.entity.Faculty;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,7 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
-
 
 
 public interface AdmissionRequestRepository extends JpaRepository<AdmissionRequest, Long> {

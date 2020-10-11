@@ -1,7 +1,10 @@
 package com.training.admissions.entity;
 
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -12,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "admission_request",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"candidate_id","faculty_id"})})
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"candidate_id", "faculty_id"})})
 
 @Entity
 public class AdmissionRequest {
@@ -33,7 +36,7 @@ public class AdmissionRequest {
     @Column(name = "req_subject1_grade", nullable = false)
     private int requiredSubject1Grade;
     @Column(name = "req_subject2_grade", nullable = false)
-    private int  requiredSubject2Grade;
+    private int requiredSubject2Grade;
     @Column(name = "req_subject3_grade", nullable = false)
     private int requiredSubject3Grade;
 
@@ -43,9 +46,8 @@ public class AdmissionRequest {
     private LocalDateTime creationDateTime;
 
 
-
-    public int getSumOfGrades(){
-        return getRequiredSubject1Grade()+getRequiredSubject2Grade()+getRequiredSubject3Grade();
+    public int getSumOfGrades() {
+        return getRequiredSubject1Grade() + getRequiredSubject2Grade() + getRequiredSubject3Grade();
     }
 
 

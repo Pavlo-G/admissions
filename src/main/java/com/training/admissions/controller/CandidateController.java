@@ -37,7 +37,7 @@ public class CandidateController {
     @PostMapping("/api/candidate/registration")
     public String createCandidate(@Valid CandidateDTO candidateDTO,
                                   CandidateProfileDTO candidateProfileDTO) {
-        candidateService.createCandidate(candidateDTO,candidateProfileDTO);
+        candidateService.createCandidate(candidateDTO, candidateProfileDTO);
         log.info("new user " + candidateDTO.getUsername() + " created!");
         return "redirect:/auth/login";
     }

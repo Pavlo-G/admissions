@@ -29,7 +29,6 @@ public class AdmissionRequestService {
     }
 
 
-
     public Integer updateStatusOfRequest(AdmissionRequestDTO admissionRequestDTO) {
         return admissionRequestRepository.updateRequest(admissionRequestDTO.getId(), admissionRequestDTO.getAdmissionRequestStatus());
     }
