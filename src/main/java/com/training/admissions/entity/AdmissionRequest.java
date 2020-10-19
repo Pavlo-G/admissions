@@ -1,6 +1,7 @@
 package com.training.admissions.entity;
 
 
+import com.training.admissions.util.DateTimeUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -48,6 +49,11 @@ public class AdmissionRequest {
 
     public int getSumOfGrades() {
         return getRequiredSubject1Grade() + getRequiredSubject2Grade() + getRequiredSubject3Grade();
+    }
+
+    public String getStringDateTime() {
+        return DateTimeUtil.toString(getCreationDateTime());
+
     }
 
 

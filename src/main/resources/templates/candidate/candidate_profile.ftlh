@@ -12,50 +12,50 @@
 
 <div class="container">
     <div class="row">
-        <h2 class="text-danger">Candidate Profile</h2>
+        <h2 class="text-danger"><@spring.message "navbar.my_profile"/></h2>
         <form class="form-inline ml-auto my-2 my-lg-0"
                 action="/api/candidate/edit/${candidate.getId()}" method="get">
-            <button class="btn btn-primary " type="submit">Edit Details</button>
+            <button class="btn btn-primary " type="submit"><@spring.message "profile.edit.edit_profile"/></button>
         </form>
 
         <table class="table table-bordered success">
             <thead>
             <tr>
-                <th>Username</th>
+                <th><@spring.message "profile.edit.username"/></th>
                 <td>${candidate.username}</td>
             </tr>
             <tr>
-                <th class="info">Email</th>
+                <th class="info"><@spring.message "profile.edit.email"/></th>
                 <td>${candidate.candidateProfile.email}</td>
             </tr>
             <tr>
-                <th>First Name</th>
+                <th><@spring.message "profile.edit.first_name"/></th>
                 <td>${candidate.candidateProfile.firstName}</td>
             </tr>
             <tr>
-                <th class="info">Last Name</th>
+                <th class="info"><@spring.message "profile.edit.last_name"/></th>
                 <td>${candidate.candidateProfile.lastName}</td>
             </tr>
 
             <tr>
-                <th class="info">Address</th>
+                <th class="info"><@spring.message "profile.edit.address"/></th>
                 <td>${candidate.candidateProfile.address}</td>
             </tr>
             <tr>
-                <th class="info">City</th>
+                <th class="info"><@spring.message "profile.edit.city"/></th>
                 <td>${candidate.candidateProfile.city}</td>
             </tr>
 
             <tr>
-                <th class="info">Region</th>
+                <th class="info"><@spring.message "profile.edit.region"/></th>
                 <td>${candidate.candidateProfile.region}</td>
             </tr>
             <tr>
-                <th class="info">School</th>
+                <th class="info"><@spring.message "profile.edit.region"/></th>
                 <td>${candidate.candidateProfile.school}</td>
             </tr>
             <tr>
-                <th class="info">Phone number</th>
+                <th class="info"><@spring.message "profile.edit.phoneNumber"/></th>
                 <td>${candidate.candidateProfile.phoneNumber}</td>
             </tr>
 

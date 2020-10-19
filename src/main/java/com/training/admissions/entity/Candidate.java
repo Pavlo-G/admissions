@@ -39,7 +39,7 @@ public class Candidate {
     private Role role;
 
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "status")
+    @Column(name = "candidate_status")
     private CandidateStatus candidateStatus;
 
     @OneToOne(fetch = FetchType.LAZY,

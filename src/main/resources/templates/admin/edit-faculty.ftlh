@@ -23,20 +23,37 @@
 
 
                             <div class="form-group row">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">Faculty Name </label>
+                                <label for="nameEn" class="col-md-4 col-form-label text-md-right">Faculty Name En </label>
                                 <div class="col-md-6">
-                                    <input type="text" id="name" class="form-control" name="name"
-                                           value="${faculty.getName()}"
+                                    <input type="text" id="nameEn" class="form-control" name="nameEn"
+                                           value="${faculty.getNameEn()}"
+                                           required autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="nameUk" class="col-md-4 col-form-label text-md-right">Faculty Name Uk </label>
+                                <div class="col-md-6">
+                                    <input type="text" id="nameUk" class="form-control" name="nameUk"
+                                           value="${faculty.getNameUk()}"
                                            required autofocus>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="description"
-                                       class="col-md-4 col-form-label text-md-right">Description</label>
+                                <label for="descriptionEn"
+                                       class="col-md-4 col-form-label text-md-right">Description En</label>
                                 <div class="col-md-6">
-                                    <input type="text" id="description" class="form-control" name="description"
-                                           value="${faculty.getDescription()}" required>
+                                    <input type="text" id="descriptionEn" class="form-control" name="descriptionEn"
+                                           value="${faculty.getDescriptionEn()}" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="descriptionUk"
+                                       class="col-md-4 col-form-label text-md-right">Description Uk</label>
+                                <div class="col-md-6">
+                                    <input type="text" id="descriptionUk" class="form-control" name="descriptionUk"
+                                           value="${faculty.getDescriptionUk()}" required>
                                 </div>
                             </div>
 
@@ -60,30 +77,54 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="requiredSubject1" class="col-md-4 col-form-label text-md-right">Required
-                                    Subject1 </label>
+                                <label for="requiredSubject1En" class="col-md-4 col-form-label text-md-right">Required
+                                    Subject1 En </label>
                                 <div class="col-md-6">
                                     <input type="text" id="requiredSubject1" class="form-control"
-                                           name="requiredSubject1" value="${faculty.getRequiredSubject1()} " required>
+                                           name="requiredSubject1En" value="${faculty.getRequiredSubject1En()} " required>
                                 </div>
                             </div>
-
-
                             <div class="form-group row">
-                                <label for="requiredSubject2" class="col-md-4 col-form-label text-md-right">Required
-                                    Subject2 </label>
+                                <label for="requiredSubject1Uk" class="col-md-4 col-form-label text-md-right">Required
+                                    Subject1 En </label>
                                 <div class="col-md-6">
-                                    <input type="text" id="requiredSubject2" class="form-control"
-                                           name="requiredSubject2" value="${faculty.getRequiredSubject2()} " required>
+                                    <input type="text" id="requiredSubject1" class="form-control"
+                                           name="requiredSubject1Uk" value="${faculty.getRequiredSubject1Uk()} " required>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label for="requiredSubject2En" class="col-md-4 col-form-label text-md-right">Required
+                                    Subject2En </label>
+                                <div class="col-md-6">
+                                    <input type="text" id="requiredSubject2En" class="form-control"
+                                           name="requiredSubject2En" value="${faculty.getRequiredSubject2En()} " required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="requiredSubject2Uk" class="col-md-4 col-form-label text-md-right">Required
+                                    Subject2 Uk </label>
+                                <div class="col-md-6">
+                                    <input type="text" id="requiredSubject2En" class="form-control"
+                                           name="requiredSubject2Uk" value="${faculty.getRequiredSubject2Uk()} " required>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="requiredSubject3" class="col-md-4 col-form-label text-md-right">Required
-                                    Subject3 </label>
+                                <label for="requiredSubject3En" class="col-md-4 col-form-label text-md-right">Required
+                                    Subject3En </label>
                                 <div class="col-md-6">
                                     <input type="text" id="requiredSubject3" class="form-control"
-                                           name="requiredSubject3" value="${faculty.getRequiredSubject3()} " required>
+                                           name="requiredSubject3En" value="${faculty.getRequiredSubject3En()} " required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="requiredSubject3Uk" class="col-md-4 col-form-label text-md-right">Required
+                                    Subject3Uk </label>
+                                <div class="col-md-6">
+                                    <input type="text" id="requiredSubject3Uk" class="form-control"
+                                           name="requiredSubject3Uk" value="${faculty.getRequiredSubject3Uk()} " required>
                                 </div>
                             </div>
 

@@ -23,7 +23,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col col-xs-6">
-                            <h2 class="text-danger">Admission Requests </h2>
+                            <h2 class="text-danger"><@spring.message "candidate.admission.requests"/> </h2>
                         </div>
                         <#--                        <div class="col col-xs-6 text-right">-->
                         <#--                            <button type="button" class="btn btn-sm btn-primary btn-create">Create New</button>-->
@@ -36,14 +36,14 @@
                         <thead>
                         <tr>
 
-                            <th>ID</th>
-                            <th>From Candidate</th>
-                            <th>To the Faculty</th>
-                            <th>Status</th>
-                            <th>Creation date and time</th>
+                            <th><@spring.message "candidate.admission.requests.id"/></th>
+                            <th><@spring.message "admin.requests_of_faculty.from"/></th>
+                            <th><@spring.message "admin.requests_of_faculty.to_the_faculty"/></th>
+                            <th><@spring.message "admin.requests_of_faculty.status"/></th>
+                            <th><@spring.message "statement.date_time"/></th>
 
 
-                            <th align="center">Delete</th>
+                            <th align="center"><@spring.message "candidate.admission.requests.delete"/></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -52,16 +52,23 @@
 
                                 <td>${request.getId()}</td>
                                 <td>${request.candidate.getUsername()}</td>
-                                <td>${request.faculty.getName()}</td>
+                                <td>
+                                    <#if springMacroRequestContext.getLocale().toString()?contains("uk")>
+                                        ${request.faculty.getNameUk()}
+                                    <#else >
+                                        ${request.faculty.getNameEn()}
+                                    </#if>
+
+                                </td>
                                 <td>${request.admissionRequestStatus.name()}</td>
                                 <td>
-                                    ${request.getCreationDateTime()}
+                                    ${request.getStringDateTime()}
                                 </td>
 
                                 <td align="center">
                                     <form
                                             action="/candidate/delete_request/${request.getId()}" method="post">
-                                        <button class="btn btn-primary" type="submit">Delete request</button>
+                                        <button class="btn btn-primary" type="submit"><@spring.message "candidate.admission.requests.delete"/></button>
                                     </form>
 
                                 </td>

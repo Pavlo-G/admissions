@@ -52,7 +52,7 @@
 
                                 <td>${request.getId()}</td>
                                 <td>${request.candidate.getUsername()}</td>
-                                <td>${request.faculty.getName()}</td>
+                                <td>${request.faculty.getNameEn()}</td>
                                 <td>${request.admissionRequestStatus.name()}</td>
                                 <td>
                                     <form

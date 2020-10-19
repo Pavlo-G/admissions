@@ -82,10 +82,14 @@ public class AdmissionRequestService {
         Candidate candidate = candidateService.getByUsername(currentUser.getUsername());
 
         Faculty faculty = Faculty.builder().id(facultyDTO.getId())
-                .name(facultyDTO.getName())
-                .requiredSubject1(facultyDTO.getRequiredSubject1())
-                .requiredSubject2(facultyDTO.getRequiredSubject2())
-                .requiredSubject3(facultyDTO.getRequiredSubject3())
+                .nameEn(facultyDTO.getNameEn())
+                .nameUk(facultyDTO.getNameUk())
+                .requiredSubject1En(facultyDTO.getRequiredSubject1En())
+                .requiredSubject1Uk(facultyDTO.getRequiredSubject1Uk())
+                .requiredSubject2En(facultyDTO.getRequiredSubject2En())
+                .requiredSubject2Uk(facultyDTO.getRequiredSubject2Uk())
+                .requiredSubject3En(facultyDTO.getRequiredSubject3En())
+                .requiredSubject3Uk(facultyDTO.getRequiredSubject3Uk())
                 .build();
 
         return AdmissionRequestDTO.builder().candidate(candidate).faculty(faculty).build();

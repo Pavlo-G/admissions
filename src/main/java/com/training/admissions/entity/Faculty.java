@@ -14,28 +14,38 @@ import java.util.List;
 @AllArgsConstructor
 
 @Table(name = "faculty",
-        uniqueConstraints = {@UniqueConstraint(columnNames = {"name"})})
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"name_en"})})
 @Entity
 public class Faculty {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "name_en", nullable = false)
+    private String nameEn;
+    @Column(name = "name_uk", nullable = false)
+    private String nameUk;
 
-    @Column(name = "description", length = 2048, nullable = false)
-    private String description;
+    @Column(name = "description_en", length = 2048, nullable = false)
+    private String descriptionEn;
+    @Column(name = "description_uk", length = 2048, nullable = false)
+    private String descriptionUk;
     @Column(name = "budget_capacity", nullable = false)
     private int budgetCapacity;
     @Column(name = "total_capacity", nullable = false)
     private int totalCapacity;
 
-    @Column(name = "req_subject1", nullable = false)
-    private String requiredSubject1;
-    @Column(name = "req_subject2", nullable = false)
-    private String requiredSubject2;
-    @Column(name = "req_subject3", nullable = false)
-    private String requiredSubject3;
+    @Column(name = "req_subject1_en", nullable = false)
+    private String requiredSubject1En;
+    @Column(name = "req_subject1_uk", nullable = false)
+    private String requiredSubject1Uk;
+    @Column(name = "req_subject2_en", nullable = false)
+    private String requiredSubject2En;
+    @Column(name = "req_subject2_uk", nullable = false)
+    private String requiredSubject2Uk;
+    @Column(name = "req_subject3_en", nullable = false)
+    private String requiredSubject3En;
+    @Column(name = "req_subject3_uk", nullable = false)
+    private String requiredSubject3Uk;
     @Column(name = "admission_open", nullable = false)
     private boolean admissionOpen;
 
@@ -66,13 +76,13 @@ public class Faculty {
     public String toString() {
         return "Faculty{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
+                ", nameEn='" + nameEn + '\'' +
+                ", descriptionEn='" + descriptionEn + '\'' +
                 ", budgetCapacity=" + budgetCapacity +
                 ", totalCapacity=" + totalCapacity +
-                ", requiredSubject1='" + requiredSubject1 + '\'' +
-                ", requiredSubject2='" + requiredSubject2 + '\'' +
-                ", requiredSubject3='" + requiredSubject3 + '\'' +
+                ", requiredSubject1En='" + requiredSubject1En + '\'' +
+                ", requiredSubject2En='" + requiredSubject2En + '\'' +
+                ", requiredSubject3En='" + requiredSubject3En + '\'' +
                 '}';
     }
 }

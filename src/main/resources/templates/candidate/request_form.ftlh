@@ -29,7 +29,7 @@
                 </div>
                 <#else>
                 <div class="card">
-                    <div class="card-header">Admission request to ${faculty.name}</div>
+                    <div class="card-header">Admission request to ${faculty.getNameEn()}</div>
                     <div class="card-body">
                         <form action="/candidate/submit_request" method="post">
 
@@ -72,19 +72,37 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="requiredSubject1Grade" class="col-md-4 col-form-label text-md-right">Grade For ${faculty.getRequiredSubject1()} </label>
+                                <label for="requiredSubject1Grade" class="col-md-4 col-form-label text-md-right">Grade For
+                                    <#if springMacroRequestContext.getLocale().toString()?contains("uk")>
+                                    ${faculty.getRequiredSubject1Uk()}
+                                    <#else >
+                                     ${faculty.getRequiredSubject1En()}
+                                    </#if>
+                                    </label>
                                 <div class="col-md-6">
                                     <input type="number" id="requiredSubject1Grade" min="1" max="12" class="form-control" name="requiredSubject1Grade" required>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="requiredSubject2Grade" class="col-md-4 col-form-label text-md-right">Grade For ${faculty.getRequiredSubject2()} </label>
+                                <label for="requiredSubject2Grade" class="col-md-4 col-form-label text-md-right">Grade For
+                                  <#if springMacroRequestContext.getLocale().toString()?contains("uk")>
+                                    ${faculty.getRequiredSubject2Uk()}
+                                    <#else >
+                                     ${faculty.getRequiredSubject2En()}
+                                     </#if>
+                                    </label> </label>
                                 <div class="col-md-6">
                                     <input type="number" id="requiredSubject2Grade" min="1" max="12" class="form-control" name="requiredSubject2Grade" required>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="requiredSubject3Grade"  class="col-md-4 col-form-label text-md-right">Grade For ${faculty.getRequiredSubject3()} </label>
+                                <label for="requiredSubject3Grade"  class="col-md-4 col-form-label text-md-right">Grade For
+                                  <#if springMacroRequestContext.getLocale().toString()?contains("uk")>
+                                    ${faculty.getRequiredSubject3Uk()}
+                                    <#else >
+                                     ${faculty.getRequiredSubject3En()}
+                                      </#if>
+                                 </label>
                                 <div class="col-md-6">
                                     <input type="number" id="requiredSubject3Grade" min="1" max="12" class="form-control" name="requiredSubject3Grade" required>
                                 </div>

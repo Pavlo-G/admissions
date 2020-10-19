@@ -11,55 +11,55 @@
 
 <div class="container">
     <div class="row">
-        <h2 class="text-danger">Request to the ${request.faculty.getName()} </h2>
+        <h2 class="text-danger"><@spring.message "admin.requests_of_faculty.to_the_faculty"/> ${request.faculty.getNameEn()} </h2>
 
 
         <table class="table table-bordered success">
             <thead>
             <tr>
-                <th>First Name</th>
+                <th><@spring.message "profile.edit.first_name"/></th>
                 <td>${request.candidate.candidateProfile.firstName}</td>
             </tr>
             <tr>
-                <th>Last Name</th>
+                <th><@spring.message "profile.edit.last_name"/></th>
                 <td>${request.candidate.candidateProfile.lastName}</td>
             </tr>
             <tr>
-                <th >Email</th>
+                <th ><@spring.message "profile.edit.email"/></th>
                 <td>${request.candidate.candidateProfile.email}</td>
             </tr>
             <tr>
-                <th >Address</th>
+                <th ><@spring.message "profile.edit.address"/></th>
                 <td>${request.candidate.candidateProfile.address}</td>
             </tr>
 
             <tr>
-                <th >City</th>
+                <th ><@spring.message "profile.edit.city"/></th>
                 <td>${request.candidate.candidateProfile.city}</td>
             </tr>
             <tr>
-                <th >Region</th>
+                <th ><@spring.message "profile.edit.region"/></th>
                 <td>${request.candidate.candidateProfile.region}</td>
             </tr>
             <tr>
-                <th >School</th>
+                <th ><@spring.message "profile.edit.school"/></th>
                 <td>${request.candidate.candidateProfile.school}</td>
             </tr>
             <tr>
-                <th >Contact Number</th>
+                <th ><@spring.message "profile.edit.phoneNumber"/></th>
                 <td>${request.candidate.candidateProfile.phoneNumber}</td>
             </tr>
 
             <tr>
-                <th >Grade for ${request.faculty.getRequiredSubject1()} </th>
+                <th ><@spring.message "candidate.admission.requests.grade.for"/>  ${request.faculty.getRequiredSubject1En()} </th>
                 <td>${request.getRequiredSubject1Grade()}</td>
             </tr>
             <tr>
-                <th >Grade for ${request.faculty.getRequiredSubject2()}</th>
+                <th ><@spring.message "candidate.admission.requests.grade.for"/> ${request.faculty.getRequiredSubject2En()}</th>
                 <td>${request.getRequiredSubject2Grade()}</td>
             </tr>
             <tr>
-                <th >Grade for ${request.faculty.getRequiredSubject3()}</th>
+                <th ><@spring.message "candidate.admission.requests.grade.for"/> ${request.faculty.getRequiredSubject3En()}</th>
                 <td>${request.getRequiredSubject3Grade()}</td>
             </tr>
 
@@ -74,16 +74,16 @@
                     <input type="hidden" id="id" name="id" value="${request.getId()}">
                     <input type="hidden" id="facultyId" name="facultyId" value="${request.faculty.id}">
                     <input type="hidden" id="admissionRequestStatus" name="admissionRequestStatus" value="APPROVED">
-                    <button class="btn btn-primary mr-2" type="submit">Approve</button>
+                    <button class="btn btn-primary mr-2" type="submit"><@spring.message "admin.check_request.approve"/></button>
                 </form>
                 <form action="/admin/request_update" method="POST">
                     <input type="hidden" id="id" name="id" value="${request.getId()}">
                     <input type="hidden" id="facultyId" name="facultyId" value="${request.faculty.id}">
                     <input type="hidden" id="admissionRequestStatus" name="admissionRequestStatus" value="REJECTED">
-                    <button class="btn btn-danger mr-2" type="submit">Reject</button>
+                    <button class="btn btn-danger mr-2" type="submit"><@spring.message "admin.check_request.reject"/></button>
                 </form>
                 <form action="/admin/requests_of_faculty/${request.faculty.getId()}" method="get">
-                    <button class="btn btn-warning mr-2" type="submit"> Back</button>
+                    <button class="btn btn-warning mr-2" type="submit"> <@spring.message "admin.check_request.back"/></button>
                 </form>
 
             </div>

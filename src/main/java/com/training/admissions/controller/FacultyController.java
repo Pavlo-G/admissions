@@ -34,7 +34,7 @@ public class FacultyController {
 
 
     @GetMapping("/faculties")
-    public String getAllFaculties(@PageableDefault(sort = {"name"}, direction = Sort.Direction.ASC, size = 5) Pageable pageable,
+    public String getAllFaculties(@PageableDefault(sort = {"nameEn"}, direction = Sort.Direction.ASC, size = 5) Pageable pageable,
                                   @AuthenticationPrincipal User user, Model model) {
 
         if (user.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))) {
@@ -70,7 +70,7 @@ public class FacultyController {
 
     @PostMapping("/admin/block_reg/{id}")
     public String blockRegistrationToFaculty(FacultyDTO facultyDTO) {
-        facultyService.createFaculty(facultyDTO);
+        facultyService.blockUnblockRegistration(facultyDTO);
         return "redirect:/admin/workspace";
     }
 
@@ -99,7 +99,7 @@ public class FacultyController {
 
 
     @GetMapping("/admin/workspace")
-    public String getAdminWorkspace(@PageableDefault(sort = {"name"}, direction = Sort.Direction.ASC, size = 5) Pageable pageable,
+    public String getAdminWorkspace(@PageableDefault(sort = {"nameEn"}, direction = Sort.Direction.ASC, size = 5) Pageable pageable,
                                     Model model) {
 
         Page<Faculty> page = facultyService.getAllFaculties(pageable);

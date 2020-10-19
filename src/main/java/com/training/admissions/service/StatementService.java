@@ -66,13 +66,13 @@ public class StatementService {
         List<StatementElement> statementElementList = new ArrayList<>();
         for (int i = 0; i < admissionRequests.size(); i++) {
             statementElementList.add(StatementElement.builder()
-                    .facultyName(admissionRequests.get(i).getFaculty().getName())
+                    .facultyName(admissionRequests.get(i).getFaculty().getNameEn())
                     .firstName(admissionRequests.get(i).getCandidate().getCandidateProfile().getFirstName())
                     .lastName(admissionRequests.get(i).getCandidate().getCandidateProfile().getLastName())
                     .email(admissionRequests.get(i).getCandidate().getCandidateProfile().getEmail())
                     .grade(admissionRequests.get(i).getSumOfGrades())
                     .contactNumber(admissionRequests.get(i).getCandidate().getCandidateProfile().getPhoneNumber())
-                    .status(i > admissionRequests.get(i).getFaculty().getBudgetCapacity() ? "Contract" : "Budget")
+                    .status(i >= admissionRequests.get(i).getFaculty().getBudgetCapacity() ? "Contract" : "Budget")
                     .build());
         }
         return statementElementList;

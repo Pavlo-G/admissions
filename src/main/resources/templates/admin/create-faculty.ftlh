@@ -20,19 +20,34 @@
                         <@errors.errors/>
                         <form action="/admin/faculty/add" method="POST">
                             <div class="form-group row">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">Faculty Name </label>
+                                <label for="nameEn" class="col-md-4 col-form-label text-md-right">Faculty Name En </label>
                                 <div class="col-md-6">
-                                    <input type="text" id="name" class="form-control" name="name"
+                                    <input type="text" id="nameEn" class="form-control" name="nameEn"
+                                           required autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="nameUk" class="col-md-4 col-form-label text-md-right">Faculty Name Uk </label>
+                                <div class="col-md-6">
+                                    <input type="text" id="nameUk" class="form-control" name="nameUk"
                                            required autofocus>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="description" class="col-md-4 col-form-label text-md-right">Description</label>
+                                <label for="descriptionEn" class="col-md-4 col-form-label text-md-right">Description En</label>
                                 <div class="col-md-6">
-                                    <input type="text" id="description" class="form-control" name="description">
+                                    <input type="text" id="descriptionEn" class="form-control" name="descriptionEn">
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <label for="descriptionUk" class="col-md-4 col-form-label text-md-right">Description Uk</label>
+                                <div class="col-md-6">
+                                    <input type="text" id="descriptionUk" class="form-control" name="descriptionUk">
+                                </div>
+                            </div>
+
+
 
                             <div class="form-group row">
                                 <label for="budgetCapacity" class="col-md-4 col-form-label text-md-right"> Budget Capacity </label>
@@ -50,24 +65,42 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="requiredSubject1" class="col-md-4 col-form-label text-md-right">Required Subject1 </label>
+                                <label for="requiredSubject1En" class="col-md-4 col-form-label text-md-right">Required Subject1 En </label>
                                 <div class="col-md-6">
-                                    <input type="text" id="requiredSubject1" class="form-control" name="requiredSubject1" required>
+                                    <input type="text" id="requiredSubject1En" class="form-control" name="requiredSubject1En" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="requiredSubject1Uk" class="col-md-4 col-form-label text-md-right">Required Subject1 Uk </label>
+                                <div class="col-md-6">
+                                    <input type="text" id="requiredSubject1Uk" class="form-control" name="requiredSubject1Uk" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="requiredSubject2En" class="col-md-4 col-form-label text-md-right">Required Subject2 En </label>
+                                <div class="col-md-6">
+                                    <input type="text" id="requiredSubject2En" class="form-control" name="requiredSubject2En" required>
                                 </div>
                             </div>
 
 
                             <div class="form-group row">
-                                <label for="requiredSubject2" class="col-md-4 col-form-label text-md-right">Required Subject2 </label>
+                                <label for="requiredSubject2Uk" class="col-md-4 col-form-label text-md-right">Required Subject2 Uk </label>
                                 <div class="col-md-6">
-                                    <input type="text" id="requiredSubject2" class="form-control" name="requiredSubject2" required>
+                                    <input type="text" id="requiredSubject2Uk" class="form-control" name="requiredSubject2Uk" required>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="requiredSubject3" class="col-md-4 col-form-label text-md-right">Required Subject3 </label>
+                                <label for="requiredSubject3En" class="col-md-4 col-form-label text-md-right">Required Subject3En </label>
                                 <div class="col-md-6">
-                                    <input type="text" id="requiredSubject3" class="form-control" name="requiredSubject3" required>
+                                    <input type="text" id="requiredSubject3En" class="form-control" name="requiredSubject3En" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="requiredSubject3Uk" class="col-md-4 col-form-label text-md-right">Required Subject3Uk </label>
+                                <div class="col-md-6">
+                                    <input type="text" id="requiredSubject3UK" class="form-control" name="requiredSubject3Uk" required>
                                 </div>
                             </div>
 

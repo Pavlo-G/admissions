@@ -33,20 +33,35 @@ public class FacultyService {
     public void deleteById(Long id) {
         facultyRepository.deleteById(id);
         log.info("Faculty removed id: " + id);
+
+
     }
+
+    public void blockUnblockRegistration(FacultyDTO facultyDTO) {
+
+facultyRepository.blockUnblockRegistration(facultyDTO.getId(),facultyDTO.isAdmissionOpen());
+    }
+
+
+
 
 
     public Faculty createFaculty(FacultyDTO facultyDTO) {
         return facultyRepository.save(
                 Faculty.builder()
                         .id(facultyDTO.getId())
-                        .name(facultyDTO.getName())
-                        .description(facultyDTO.getDescription())
+                        .nameEn(facultyDTO.getNameEn())
+                        .nameUk(facultyDTO.getNameUk())
+                        .descriptionEn(facultyDTO.getDescriptionEn())
+                        .descriptionUk(facultyDTO.getDescriptionUk())
                         .budgetCapacity(facultyDTO.getBudgetCapacity())
                         .totalCapacity(facultyDTO.getTotalCapacity())
-                        .requiredSubject1(facultyDTO.getRequiredSubject1())
-                        .requiredSubject2(facultyDTO.getRequiredSubject2())
-                        .requiredSubject3(facultyDTO.getRequiredSubject3())
+                        .requiredSubject1En(facultyDTO.getRequiredSubject1En())
+                        .requiredSubject1En(facultyDTO.getRequiredSubject1Uk())
+                        .requiredSubject2En(facultyDTO.getRequiredSubject2En())
+                        .requiredSubject2En(facultyDTO.getRequiredSubject2Uk())
+                        .requiredSubject3En(facultyDTO.getRequiredSubject3En())
+                        .requiredSubject3En(facultyDTO.getRequiredSubject3Uk())
                         .admissionOpen(facultyDTO.getId() == null || facultyDTO.isAdmissionOpen())
                         .build());
     }

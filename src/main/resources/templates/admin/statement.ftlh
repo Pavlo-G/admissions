@@ -19,8 +19,9 @@
 
                     <form class="form-inline my-2 my-lg-0"
                           action="/admin/statement/finalize" method="Post">
-                        <input type ="hidden"name="id" id="id" value="${faculty_id}">
-                        <button class="btn btn-danger" type="submit">Finalize statement</button>
+                        <input type="hidden" name="id" id="id" value="${faculty_id}">
+                        <button class="btn btn-danger"
+                                type="submit"><@spring.message "statement.finalize_statement"/></button>
                     </form>
 
                 </td>
@@ -29,12 +30,12 @@
                     <thead>
                     <tr>
 
-                        <th style="width: 14.28%">Faculty Name</th>
-                        <th style="width: 14.28%">Candidate Name</th>
-                        <th style="width: 14.28%">Candidate Email</th>
-                        <th style="width: 14.28%">Candidate Contact Number</th>
-                        <th style="width: 14.28%">Candidate Grade</th>
-                        <th style="width: 14.28%">Budget/Contract</th>
+                        <th style="width: 14.28%"><@spring.message "faculty.name"/></th>
+                        <th style="width: 14.28%"><@spring.message "statement.candidate_name"/></th>
+                        <th style="width: 14.28%"><@spring.message "statement.candidate_mail"/></th>
+                        <th style="width: 14.28%"><@spring.message "statement.candidate_number"/></th>
+                        <th style="width: 14.28%"><@spring.message "statement.candidate_grade"/></th>
+                        <th style="width: 14.28%"><@spring.message "statement.budget_contract"/></th>
 
                     </tr>
                     </thead>
@@ -43,7 +44,11 @@
                     <#list   faculty_statement as statement>
                         <tr>
 
-                            <td style="width: 14.28%">${statement.faculty.getName()}</td>
+                            <td style="width: 14.28%">    <#if springMacroRequestContext.getLocale().toString()?contains("uk")>
+                                    ${statement.faculty.getNameUk()}
+                                <#else >
+                                    ${statement.faculty.getNameEn()}
+                                </#if></td>
                             <td style="width: 14.28%">${statement.candidate.candidateProfile.firstName} ${statement.candidate.candidateProfile.lastName} </td>
                             <td style="width: 14.28%">${statement.candidate.candidateProfile.email}</td>
                             <td style="width: 14.28%">${statement.candidate.candidateProfile.phoneNumber}</td>
@@ -53,9 +58,9 @@
                                 capacity =statement.faculty.getBudgetCapacity()
                                 />
                                 <#if ( index lt  capacity) >
-                                    Budget
+                                    <@spring.message "statement.budget"/>
                                 <#else>
-                                    Contract
+                                    <@spring.message "statement.contract"/>
                                 </#if>
 
                             </td>
@@ -69,7 +74,7 @@
                             <#--                                </td>-->
 
                         </tr>
-                        <#else >
+                    <#else >
                         <h2>No active requests to prepare the statement</h2>
                     </#list>
                     </tbody>
@@ -77,14 +82,12 @@
                 </table>
 
 
-
-
             </div>
 
         </div>
-<#--        <#else >-->
-<#--        <h2>Choose Faculty To Show Statement</h2>-->
-<#--        </#if>-->
+        <#--        <#else >-->
+        <#--        <h2>Choose Faculty To Show Statement</h2>-->
+        <#--        </#if>-->
 
     </div>
 </div>

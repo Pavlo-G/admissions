@@ -22,10 +22,15 @@ public class FacultyDTO {
 
     private Long id;
 
-    private String name;
-    @NotBlank(message = "fill the description")
+    private String nameEn;
+    private String nameUk;
+
+    @NotBlank(message = "fill the description on English")
     @Length(max = 2048, message = "description is too long")
-    private String description;
+    private String descriptionEn;
+    @NotBlank(message = "fill the description on Ukrainian")
+    @Length(max = 2048, message = "description is too long")
+    private String descriptionUk;
     @Min(value = 1, message = "must be equal or greater than 1")
     @Max(value = 300, message = "must be equal or less than 300")
     private int budgetCapacity;
@@ -33,9 +38,12 @@ public class FacultyDTO {
     @Max(value = 300, message = "must be equal or less than 300")
     private int totalCapacity;
 
-    private String requiredSubject1;
-    private String requiredSubject2;
-    private String requiredSubject3;
+    private String requiredSubject1En;
+    private String requiredSubject1Uk;
+    private String requiredSubject2En;
+    private String requiredSubject2Uk;
+    private String requiredSubject3En;
+    private String requiredSubject3Uk;
 
     private boolean admissionOpen;
 

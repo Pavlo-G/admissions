@@ -40,17 +40,17 @@
                     <table class="table table-striped table-bordered table-list">
                         <thead class="col-md-10 col-md-offset-1">
                         <tr>
-                            <th style="width: 10%">Name</th>
-                            <th style="width: 5%">New Requests</th>
-                            <th style="width: 5%">Approved Requests</th>
-                            <th style="width: 5%">Rejected Requests</th>
-                            <th style="width: 5%">Budget Capacity</th>
-                            <th style="width: 5%">Total Capacity</th>
-                            <th style="width: 13%">Work With Requests</th>
-                            <th style="width: 10%">Block/Unblock Registration</th>
-                            <th style="width: 14%">Edit Faculty</th>
-                            <th style="width: 14%">Delete Faculty</th>
-                            <th style="width: 14%">Statement</th>
+                            <th style="width: 10%"><@spring.message "admin.name"/></th>
+                            <th style="width: 5%"><@spring.message "admin.new_requests"/></th>
+                            <th style="width: 5%"><@spring.message "admin.approved_requests"/></th>
+                            <th style="width: 5%"><@spring.message "admin.rejected_requests"/></th>
+                            <th style="width: 5%"><@spring.message "admin.budget_capacity"/></th>
+                            <th style="width: 5%"><@spring.message "admin.total_capacity"/></th>
+                            <th style="width: 13%"><@spring.message "admin.work_with_requests"/></th>
+                            <th style="width: 10%"><@spring.message "admin.block_unblock_registration"/></th>
+                            <th style="width: 14%"><@spring.message "admin.edit_faculty"/></th>
+                            <th style="width: 14%"><@spring.message "admin.delete_faculty"/>/th>
+                            <th style="width: 14%"><@spring.message "admin.statement"/></th>
 
                         </tr>
                         </thead>
@@ -60,7 +60,12 @@
                             <tr>
 
 
-                                <td>${faculty.getName()}</td>
+                                <td>    <#if springMacroRequestContext.getLocale().toString()?contains("uk")>
+                                        ${faculty.getNameUk()}
+                                    <#else >
+                                        ${faculty.getNameEn()}
+                                    </#if>
+                                </td>
                                 <td>${faculty.numberOfRequestsNew()}</td>
                                 <td>${faculty.numberOfRequestsApproved()}</td>
                                 <td>${faculty.numberOfRequestsRejected()}</td>
@@ -69,7 +74,7 @@
                                 <td>
                                     <form class="form-inline my-2 my-lg-0"
                                           action="/admin/requests_of_faculty/${faculty.getId()}" method="get">
-                                        <button class="btn btn-primary btn-xs" type="submit">Requests</button>
+                                        <button class="btn btn-primary btn-xs" type="submit"><@spring.message "admin.requests"/></button>
                                     </form>
                                 </td>
                                 <td>
@@ -77,30 +82,30 @@
                                         <form class="form-inline my-2 my-lg-0"
                                               action="/admin/block_reg/${faculty.getId()}" method="post">
                                             <input type="hidden" name="id" value="${faculty.getId()}">
-                                            <input type="hidden" name="name" value="${faculty.getName()}">
-                                            <input type="hidden" name="description" value="${faculty.getDescription()}">
-                                            <input type="hidden" name="budgetCapacity" value="${faculty.getBudgetCapacity()}">
-                                            <input type="hidden" name="totalCapacity" value="${faculty.getTotalCapacity()}">
-                                            <input type="hidden" name="requiredSubject1" value="${faculty.getRequiredSubject1()}">
-                                            <input type="hidden" name="requiredSubject2" value="${faculty.getRequiredSubject2()}">
-                                            <input type="hidden" name="requiredSubject3" value="${faculty.getRequiredSubject3()}">
+<#--                                            <input type="hidden" name="nameEn" value="${faculty.getNameEn()}">-->
+<#--                                            <input type="hidden" name="descriptionEn" value="${faculty.getDescriptionEn()}">-->
+<#--                                            <input type="hidden" name="budgetCapacity" value="${faculty.getBudgetCapacity()}">-->
+<#--                                            <input type="hidden" name="totalCapacity" value="${faculty.getTotalCapacity()}">-->
+<#--                                            <input type="hidden" name="requiredSubject1En" value="${faculty.getRequiredSubject1En()}">-->
+<#--                                            <input type="hidden" name="requiredSubject2En" value="${faculty.getRequiredSubject2En()}">-->
+<#--                                            <input type="hidden" name="requiredSubject3En" value="${faculty.getRequiredSubject3En()}">-->
                                             <input type="hidden" name="admissionOpen" value="${false?string}">
 
-                                            <button class="btn btn-warning btn-xs" type="submit">Block</button>
+                                            <button class="btn btn-warning btn-xs" type="submit"><@spring.message "admin.block"/></button>
                                         </form>
                                     <#else>
                                         <form class="form-inline my-2 my-lg-0"
                                               action="/admin/block_reg/${faculty.getId()}" method="post">
                                             <input type="hidden" name="id" value="${faculty.getId()}">
-                                            <input type="hidden" name="name" value="${faculty.getName()}">
-                                            <input type="hidden" name="description" value="${faculty.getDescription()}">
-                                            <input type="hidden" name="budgetCapacity" value="${faculty.getBudgetCapacity()}">
-                                            <input type="hidden" name="totalCapacity" value="${faculty.getTotalCapacity()}">
-                                            <input type="hidden" name="requiredSubject1" value="${faculty.getRequiredSubject1()}">
-                                            <input type="hidden" name="requiredSubject2" value="${faculty.getRequiredSubject2()}">
-                                            <input type="hidden" name="requiredSubject3" value="${faculty.getRequiredSubject3()}">
+<#--                                            <input type="hidden" name="nameEn" value="${faculty.getNameEn()}">-->
+<#--                                            <input type="hidden" name="description" value="${faculty.getDescriptionEn()}">-->
+<#--                                            <input type="hidden" name="budgetCapacity" value="${faculty.getBudgetCapacity()}">-->
+<#--                                            <input type="hidden" name="totalCapacity" value="${faculty.getTotalCapacity()}">-->
+<#--                                            <input type="hidden" name="requiredSubject1" value="${faculty.getRequiredSubject1En()}">-->
+<#--                                            <input type="hidden" name="requiredSubject2" value="${faculty.getRequiredSubject2En()}">-->
+<#--                                            <input type="hidden" name="requiredSubject3" value="${faculty.getRequiredSubject3En()}">-->
                                             <input type="hidden" name="admissionOpen" value="${true?string}">
-                                            <button class="btn btn-success btn-xs" type="submit">Unblock</button>
+                                            <button class="btn btn-success btn-xs" type="submit"><@spring.message "admin.unblock"/></button>
                                         </form>
                                     </#if>
                                 </td>
@@ -108,8 +113,8 @@
                                 <td>
                                     <form class="form-inline my-2 my-lg-0"
                                           action="/admin/faculty/edit/${faculty.getId()}" method="get">
-                                        <button class="btn btn-primary btn-xs" type="submit">Edit</button>
-<#--                                        <input type="hidden" name="id" value="${faculty.getId()}">-->
+                                        <button class="btn btn-primary btn-xs" type="submit"><@spring.message "admin.edit_faculty"/></button>
+                                        <input type="hidden" name="id" value="${faculty.getId()}">
 <#--                                        <input type="hidden" name="name" value="${faculty.getName()}">-->
 <#--                                        <input type="hidden" name="description" value="${faculty.getDescription()}">-->
 <#--                                        <input type="hidden" name="budgetCapacity" value="${faculty.getBudgetCapacity()}">-->
@@ -123,13 +128,13 @@
                                 <td class="col-lg-11 col-centered">
                                     <form class="form-inline my-2 my-lg-0"
                                           action="/admin/faculties/delete/${faculty.getId()}" method="post">
-                                        <button class="btn btn-danger btn-xs" type="submit">Delete</button>
+                                        <button class="btn btn-danger btn-xs" type="submit"><@spring.message "admin.delete_faculty"/></button>
                                     </form>
                                 </td>
                                 <td class="col-lg-11 col-centered">
                                     <form class="form-inline my-2 my-lg-0"
                                           action="/admin/statement/faculty/${faculty.id}" method="get">
-                                        <button class="btn btn-primary btn-xs" type="submit">Statement</button>
+                                        <button class="btn btn-primary btn-xs" type="submit"><@spring.message "admin.statement"/></button>
                                     </form>
                                 </td>
                             </tr>
