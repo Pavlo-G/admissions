@@ -20,7 +20,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col col-xs-6">
-                            <h3 class="panel-title">Admission Requests: </h3>
+                            <h3 class="panel-title"><@spring.message "admin.requests"/> </h3>
                         </div>
 
                     </div>
@@ -31,17 +31,17 @@
                         <thead>
                         <tr>
 
-                            <th>ID</th>
-                            <th>From
+                            <th><@spring.message "admin.requests_of_faculty.id"/></th>
+                            <th><@spring.message "admin.requests_of_faculty.from"/>
                                 <a href="${springMacroRequestContext.requestUri}?page=${page.getNumber()}&size=${page.size}&sort=candidate,ASC">&#8593</a>
                                 <a href="${springMacroRequestContext.requestUri}?page=${page.getNumber()}&size=${page.size}&sort=candidate,DESC">&#8595</a>
                             </th>
-                            <th>To the Faculty</th>
-                            <th>Status
+                            <th><@spring.message "admin.check_request.request_to_the"/></th>
+                            <th><@spring.message "admin.requests_of_faculty.status"/>
                                 <a href="${springMacroRequestContext.requestUri}?page=${page.getNumber()}&size=${page.size}&sort=admissionRequestStatus,ASC">&#8593</a>
                                 <a href="${springMacroRequestContext.requestUri}?page=${page.getNumber()}&size=${page.size}&sort=admissionRequestStatus,DESC">&#8595</a>
                             </th>
-                            <th>Action</th>
+                            <th><@spring.message "admin.requests_of_faculty.action"/></th>
 
 
                         </tr>
@@ -57,7 +57,7 @@
                                 <td>
                                     <form
                                             action="/admin/requests_of_faculty/request/${request.getId()}" method="get">
-                                        <button class="btn btn-primary" type="submit">Check request</button>
+                                        <button class="btn btn-primary" type="submit"><@spring.message "admin.requests_of_faculty.check_request"/></button>
                                     </form>
                                 </td>
                         <#else >

@@ -23,40 +23,37 @@
 
                     <form method="get" action="/faculties">
                         <button type="submit" class="btn btn-primary">
-                            Go back to faculties list
+                            <@spring.message "admin.check_request.back"/>
                         </button>
                     </form>
                 </div>
                 <#else>
                 <div class="card">
-                    <div class="card-header">Admission request to ${faculty.getNameEn()}</div>
+                    <div class="card-header"><@spring.message "admin.requests_of_faculty.to_the_faculty"/> ${faculty.getNameEn()}</div>
                     <div class="card-body">
                         <form action="/candidate/submit_request" method="post">
 
                             <div class="form-group row">
-                                <label for="first_name" class="col-md-4 col-form-label text-md-right">First
-                                    Name </label>
+                                <label for="first_name" class="col-md-4 col-form-label text-md-right"><@spring.message "profile.edit.first_name"/></label>
                                 <div class="col-md-6">
                                     ${candidate.candidateProfile.firstName}
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="last_name" class="col-md-4 col-form-label text-md-right">Last
-                                    Name </label>
+                                <label for="last_name" class="col-md-4 col-form-label text-md-right"><@spring.message "profile.edit.last_name"/> </label>
                                 <div class="col-md-6">
                                     ${candidate.candidateProfile.lastName}
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail
-                                    Address</label>
+                                <label for="email_address" class="col-md-4 col-form-label text-md-right"><@spring.message "profile.edit.email"/></label>
                                 <div class="col-md-6">
                                     ${candidate.candidateProfile.email}
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="address" class="col-md-4 col-form-label text-md-right">Address </label>
+                                <label for="address" class="col-md-4 col-form-label text-md-right"><@spring.message "profile.edit.address"/> </label>
                                 <div class="col-md-6">
                                     ${candidate.candidateProfile.address}
                                 </div>
@@ -64,15 +61,13 @@
 
 
                             <div class="form-group row">
-                                <label for="phone_number" class="col-md-4 col-form-label text-md-right">Contact
-                                    Number
-                                </label>
+                                <label for="phone_number" class="col-md-4 col-form-label text-md-right"> <@spring.message "profile.edit.phoneNumber"/></label>
                                 <div class="col-md-6">
                                     ${candidate.candidateProfile.phoneNumber}
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="requiredSubject1Grade" class="col-md-4 col-form-label text-md-right">Grade For
+                                <label for="requiredSubject1Grade" class="col-md-4 col-form-label text-md-right"><@spring.message "candidate.admission.requests.grade.for"/>
                                     <#if springMacroRequestContext.getLocale().toString()?contains("uk")>
                                     ${faculty.getRequiredSubject1Uk()}
                                     <#else >
@@ -84,7 +79,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="requiredSubject2Grade" class="col-md-4 col-form-label text-md-right">Grade For
+                                <label for="requiredSubject2Grade" class="col-md-4 col-form-label text-md-right"><@spring.message "candidate.admission.requests.grade.for"/>
                                   <#if springMacroRequestContext.getLocale().toString()?contains("uk")>
                                     ${faculty.getRequiredSubject2Uk()}
                                     <#else >
@@ -96,7 +91,7 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="requiredSubject3Grade"  class="col-md-4 col-form-label text-md-right">Grade For
+                                <label for="requiredSubject3Grade"  class="col-md-4 col-form-label text-md-right"><@spring.message "candidate.admission.requests.grade.for"/>
                                   <#if springMacroRequestContext.getLocale().toString()?contains("uk")>
                                     ${faculty.getRequiredSubject3Uk()}
                                     <#else >
@@ -114,7 +109,7 @@
 
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Submit Request
+                                    <@spring.message "faculty.submit_request"/>
                                 </button>
                             </div>
 

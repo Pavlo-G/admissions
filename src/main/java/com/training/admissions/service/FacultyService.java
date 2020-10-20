@@ -57,11 +57,11 @@ facultyRepository.blockUnblockRegistration(facultyDTO.getId(),facultyDTO.isAdmis
                         .budgetCapacity(facultyDTO.getBudgetCapacity())
                         .totalCapacity(facultyDTO.getTotalCapacity())
                         .requiredSubject1En(facultyDTO.getRequiredSubject1En())
-                        .requiredSubject1En(facultyDTO.getRequiredSubject1Uk())
+                        .requiredSubject1Uk(facultyDTO.getRequiredSubject1Uk())
                         .requiredSubject2En(facultyDTO.getRequiredSubject2En())
-                        .requiredSubject2En(facultyDTO.getRequiredSubject2Uk())
+                        .requiredSubject2Uk(facultyDTO.getRequiredSubject2Uk())
                         .requiredSubject3En(facultyDTO.getRequiredSubject3En())
-                        .requiredSubject3En(facultyDTO.getRequiredSubject3Uk())
+                        .requiredSubject3Uk(facultyDTO.getRequiredSubject3Uk())
                         .admissionOpen(facultyDTO.getId() == null || facultyDTO.isAdmissionOpen())
                         .build());
     }

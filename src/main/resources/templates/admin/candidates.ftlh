@@ -20,7 +20,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col col-xs-6">
-                            <h3 class="panel-title">All candidates</h3>
+                            <h3 class="panel-title"><@spring.message "navbar.Admin_workspace_candidates"/></h3>
                         </div>
                     </div>
                 </div>
@@ -31,14 +31,14 @@
                         <thead>
                         <tr>
 
-                            <th>ID</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Status</th>
+                            <th><@spring.message "admin.requests_of_faculty.id"/></th>
+                            <th><@spring.message "profile.edit.username"/></th>
+                            <th><@spring.message "profile.edit.email"/></th>
+                            <th><@spring.message "candidates.role"/></th>
+                            <th><@spring.message "candidate.admission.requests.status"/></th>
                             <#--                            <th>Action</th>-->
-                            <th>Edit</th>
-                            <th>Delete</th>
+                            <th><@spring.message "candidate.edit"/></th>
+                            <th><@spring.message "candidate.admission.requests.delete"/></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -54,14 +54,14 @@
 
                                 <td align="center">
                                     <form action="/admin/candidate/edit/${candidate.getId()}" method="get">
-                                        <button class="btn btn-primary" type="submit"> Edit</button>
+                                        <button class="btn btn-primary" type="submit"> <@spring.message "candidate.edit"/></button>
                                     </form>
 
                                 </td>
 
                                 <td align="center">
                                     <form action="/admin/candidate/delete/${candidate.getId()}" method="post">
-                                        <button class="btn btn-danger" type="submit"> Delete</button>
+                                        <button class="btn btn-danger" type="submit"><@spring.message "candidate.admission.requests.delete"/></button>
                                     </form>
 
                                 </td>

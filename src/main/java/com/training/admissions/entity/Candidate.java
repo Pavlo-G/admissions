@@ -1,17 +1,14 @@
 package com.training.admissions.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
-
 @Entity
 @Builder
 @NoArgsConstructor
@@ -53,6 +50,25 @@ public class Candidate {
 
     public Set<SimpleGrantedAuthority> getAuthorities() {
         return Set.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Candidate candidate = (Candidate) o;
+        return Objects.equals(id, candidate.id) &&
+                Objects.equals(username, candidate.username) &&
+                Objects.equals(password, candidate.password) &&
+                role == candidate.role &&
+                candidateStatus == candidate.candidateStatus &&
+                Objects.equals(candidateProfile, candidate.candidateProfile);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, password, role, candidateStatus, candidateProfile);
     }
 
     @Override

@@ -20,11 +20,11 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col col-xs-1">
-                            <h3 class="panel-title">Faculties</h3>
+                            <h3 class="panel-title"><@spring.message "admin.faculties"/></h3>
                         </div>
                         <div class=" pull-right">
                             <form action="/admin/faculty/add" method="get">
-                                <button type="submit" class="btn btn-primary btn-create">Create New Faculty
+                                <button type="submit" class="btn btn-primary btn-create"><@spring.message "admin.create_new_faculty"/>
                                 </button>
                             </form>
                         </div>
@@ -49,7 +49,7 @@
                             <th style="width: 13%"><@spring.message "admin.work_with_requests"/></th>
                             <th style="width: 10%"><@spring.message "admin.block_unblock_registration"/></th>
                             <th style="width: 14%"><@spring.message "admin.edit_faculty"/></th>
-                            <th style="width: 14%"><@spring.message "admin.delete_faculty"/>/th>
+                            <th style="width: 14%"><@spring.message "admin.delete_faculty"/></th>
                             <th style="width: 14%"><@spring.message "admin.statement"/></th>
 
                         </tr>

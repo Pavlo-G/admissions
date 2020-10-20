@@ -18,11 +18,15 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @ToString
+@EqualsAndHashCode
 public class FacultyDTO {
 
     private Long id;
-
+    @NotBlank(message = "fill the name on English")
+    @Length(max = 50, message = "name is too long")
     private String nameEn;
+    @NotBlank(message = "fill the name on Ukrainian")
+    @Length(max =50, message = "name is too long")
     private String nameUk;
 
     @NotBlank(message = "fill the description on English")
@@ -31,18 +35,30 @@ public class FacultyDTO {
     @NotBlank(message = "fill the description on Ukrainian")
     @Length(max = 2048, message = "description is too long")
     private String descriptionUk;
-    @Min(value = 1, message = "must be equal or greater than 1")
+    @Min(value = 0, message = "must be equal or greater than 0")
     @Max(value = 300, message = "must be equal or less than 300")
     private int budgetCapacity;
-    @Min(value = 1, message = "must be equal or greater than 1")
+    @Min(value = 0, message = "must be equal or greater than 0")
     @Max(value = 300, message = "must be equal or less than 300")
     private int totalCapacity;
 
+    @NotBlank(message = "fill the subject on English")
+    @Length(max = 50, message = "subject name is too long")
     private String requiredSubject1En;
+    @NotBlank(message = "fill the subject on Ukrainian")
+    @Length(max = 50, message = "subject name is too long")
     private String requiredSubject1Uk;
+    @NotBlank(message = "fill the subject on English")
+    @Length(max = 50, message = "subject name is too long")
     private String requiredSubject2En;
+    @NotBlank(message = "fill the subject on Ukrainian")
+    @Length(max = 50, message = "subject name is too long")
     private String requiredSubject2Uk;
+    @NotBlank(message = "fill the subject on English")
+    @Length(max = 50, message = "subject name is too long")
     private String requiredSubject3En;
+    @NotBlank(message = "fill the subject on Ukrainian")
+    @Length(max = 50, message = "subject name is too long")
     private String requiredSubject3Uk;
 
     private boolean admissionOpen;

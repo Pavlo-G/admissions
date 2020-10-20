@@ -11,7 +11,11 @@
 
 <div class="container">
     <div class="row">
-        <h2 class="text-danger"><@spring.message "admin.requests_of_faculty.to_the_faculty"/> ${request.faculty.getNameEn()} </h2>
+        <h2 class="text-danger"><@spring.message "candidate.admission.requests_to"/> <#if springMacroRequestContext.getLocale().toString()?contains("uk")>
+                ${request.faculty.nameUk}
+            <#else >
+                ${request.faculty.nameEn}
+            </#if> </h2>
 
 
         <table class="table table-bordered success">
@@ -51,15 +55,30 @@
             </tr>
 
             <tr>
-                <th ><@spring.message "candidate.admission.requests.grade.for"/>  ${request.faculty.getRequiredSubject1En()} </th>
+                <th ><@spring.message "candidate.admission.requests.grade.for"/>
+                    <#if springMacroRequestContext.getLocale().toString()?contains("uk")>
+                        ${request.faculty.requiredSubject1Uk}
+                    <#else >
+                        ${request.faculty.requiredSubject1En}
+                    </#if>
+                </th>
                 <td>${request.getRequiredSubject1Grade()}</td>
             </tr>
             <tr>
-                <th ><@spring.message "candidate.admission.requests.grade.for"/> ${request.faculty.getRequiredSubject2En()}</th>
+                <th ><@spring.message "candidate.admission.requests.grade.for"/>    <#if springMacroRequestContext.getLocale().toString()?contains("uk")>
+                        ${request.faculty.requiredSubject2Uk}
+                    <#else >
+                        ${request.faculty.requiredSubject2En}
+                    </#if></th>
                 <td>${request.getRequiredSubject2Grade()}</td>
             </tr>
             <tr>
-                <th ><@spring.message "candidate.admission.requests.grade.for"/> ${request.faculty.getRequiredSubject3En()}</th>
+                <th ><@spring.message "candidate.admission.requests.grade.for"/><#if springMacroRequestContext.getLocale().toString()?contains("uk")>
+                        ${request.faculty.requiredSubject3Uk}
+                    <#else >
+                        ${request.faculty.requiredSubject3En}
+                    </#if>
+                </th>
                 <td>${request.getRequiredSubject3Grade()}</td>
             </tr>
 
