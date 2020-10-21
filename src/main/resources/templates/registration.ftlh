@@ -1,4 +1,4 @@
-<#import "fragments/errors.ftlh" as errors/>
+<#import "fragments/error.ftl" as error/>
 <!doctype html>
 <html lang="en">
 <head>
@@ -17,7 +17,7 @@
                 <div class="card">
                     <div class="card-header">Register</div>
                     <div class="card-body">
-                        <#--                        <@errors.errors/>-->
+                        <@error.error/>
                         <form action="/api/candidate/registration" method="POST">
                             <div class="form-group row">
                                 <label for="username" class="col-md-4 col-form-label text-md-right">Username </label>

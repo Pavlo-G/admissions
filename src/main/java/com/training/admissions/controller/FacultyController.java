@@ -4,6 +4,7 @@ package com.training.admissions.controller;
 import com.training.admissions.dto.FacultyDTO;
 import com.training.admissions.entity.Faculty;
 import com.training.admissions.service.FacultyService;
+import com.training.admissions.util.ValidationErrorUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +16,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,11 +57,11 @@ public class FacultyController {
 
     @PostMapping("/admin/faculty/add")
     public String createNewFaculty(@Valid FacultyDTO facultyDTO,
-                                   BindingResult bindingResult,
+                                   Errors errors,
                                    Model model) {
-        if (bindingResult.hasErrors()) {
+        if (errors.hasErrors()) {
+            model.mergeAttributes(ValidationErrorUtils.getErrorsMap(errors));
             model.addAttribute("faculty", facultyDTO);
-            model.addAttribute("errorMessages", bindingResult.getAllErrors());
             return "/admin/create-faculty";
         }
         facultyService.createFaculty(facultyDTO);
@@ -84,7 +86,16 @@ public class FacultyController {
 
 
     @PostMapping("/admin/faculty/edit/{id}")
-    public String updateFacultyWithId(FacultyDTO facultyDTO) {
+    public String updateFacultyWithId(@Valid FacultyDTO facultyDTO,
+                                      Errors errors,
+                                      Model model) {
+        if (errors.hasErrors()) {
+            model.mergeAttributes(ValidationErrorUtils.getErrorsMap(errors));
+            model.addAttribute("faculty", facultyDTO);
+            return "/admin/edit-faculty";
+        }
+
+
         facultyService.createFaculty(facultyDTO);
         return "redirect:/admin/workspace";
 

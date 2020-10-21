@@ -27,8 +27,8 @@ public class CandidateProfileDTO {
     @NotBlank(message = "fill the  last name on English")
     @Length(max = 50, message = "first name is too long")
     private String lastName;
-    @NotBlank(message = "fill the  email")
     @Email(message="email is not valid")
+    @NotBlank(message = "fill the  email")
     private String email;
     @NotBlank(message = "fill the  address")
     @Length(max = 100, message = "address is too long")
@@ -42,7 +42,7 @@ public class CandidateProfileDTO {
     @NotBlank(message = "fill the school")
     @Length(max = 100, message = "school name is too long")
     private String school;
-//    @NotBlank(message = "fill the phone number")
+    @NotBlank(message = "fill the phone number")
     @Pattern(regexp = "[0-9]+", message = "wrong phone number")
     private String phoneNumber;
 

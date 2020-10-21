@@ -5,11 +5,9 @@ import com.training.admissions.entity.AdmissionRequest;
 import com.training.admissions.entity.AdmissionRequestStatus;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
-import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.*;
 import java.util.List;
 
 @Getter
@@ -26,7 +24,7 @@ public class FacultyDTO {
     @Length(max = 50, message = "name is too long")
     private String nameEn;
     @NotBlank(message = "fill the name on Ukrainian")
-    @Length(max =50, message = "name is too long")
+    @Length(max = 50, message = "name is too long")
     private String nameUk;
 
     @NotBlank(message = "fill the description on English")
@@ -35,12 +33,15 @@ public class FacultyDTO {
     @NotBlank(message = "fill the description on Ukrainian")
     @Length(max = 2048, message = "description is too long")
     private String descriptionUk;
-    @Min(value = 0, message = "must be equal or greater than 0")
-    @Max(value = 300, message = "must be equal or less than 300")
-    private int budgetCapacity;
-    @Min(value = 0, message = "must be equal or greater than 0")
-    @Max(value = 300, message = "must be equal or less than 300")
-    private int totalCapacity;
+    @NotNull(message = "Capacity can not be empty")
+    @Min(value = 0,message = "Capacity can not be less than 0")
+    @Max(value = 999,message = "Capacity can not be more than 999")
+    private Integer budgetCapacity;
+
+    @NotNull(message = "Capacity can not be empty")
+    @Min(value = 0,message = "Capacity can not be less than 0")
+    @Max(value = 999,message = "Capacity can not be more than 999")
+    private Integer totalCapacity;
 
     @NotBlank(message = "fill the subject on English")
     @Length(max = 50, message = "subject name is too long")
@@ -65,7 +66,10 @@ public class FacultyDTO {
 
     @AssertTrue(message = "budget capacity must be less or equals to total capacity")
     private boolean isValid() {
-        return this.budgetCapacity <= this.totalCapacity;
+        if (this.budgetCapacity != null && this.totalCapacity != null) {
+            return this.budgetCapacity <= this.totalCapacity;
+        }
+        return false;
     }
 
     private List<AdmissionRequest> admissionRequestsList;
