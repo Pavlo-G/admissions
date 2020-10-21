@@ -40,6 +40,15 @@ public class StatementService {
         return getSortedListOfRequestForFaculty(faculty);
     }
 
+
+    /**
+     * Returns sorted list of admission requests for the faculty by the grade.
+     * Size of the list limited by "totalCapacity" field of Faculty entity.
+     *
+     * @param faculty
+     * @return List<AdmissionRequest>
+     */
+
     private List<AdmissionRequest> getSortedListOfRequestForFaculty(Faculty faculty) {
         return faculty.getAdmissionRequestList()
                 .stream()
@@ -52,6 +61,12 @@ public class StatementService {
     }
 
 
+    /**
+     * Creating a pdf report out of statementElementList.
+     *
+     * @param facultyDTO
+     * @param author
+     */
     public void facultyStatementFinalize(FacultyDTO facultyDTO, String author) {
         List<AdmissionRequest> admissionRequests = getStatementForFacultyWithId(facultyDTO.getId());
         List<StatementElement> statementElementList = getStatementElements(admissionRequests);
@@ -61,6 +76,13 @@ public class StatementService {
             throw new StatementCreationException("Can not create statement report");
         }
     }
+
+
+    /**
+     *
+     * @param admissionRequests
+     * @return
+     */
 
     private List<StatementElement> getStatementElements(List<AdmissionRequest> admissionRequests) {
         List<StatementElement> statementElementList = new ArrayList<>();

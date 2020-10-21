@@ -1,4 +1,4 @@
-<#import "fragments/error.ftl" as error/>
+<#import "fragments/errors.ftlh" as errors/>
 <!doctype html>
 <html lang="en">
 <head>
@@ -17,83 +17,166 @@
                 <div class="card">
                     <div class="card-header">Register</div>
                     <div class="card-body">
-                        <@error.error/>
+                        <#--                        <@errors.errors/>-->
                         <form action="/api/candidate/registration" method="POST">
                             <div class="form-group row">
                                 <label for="username" class="col-md-4 col-form-label text-md-right">Username </label>
                                 <div class="col-md-6">
-                                    <input type="text" id="username" class="form-control" name="username"
-                                           >
+                                    <input type="text"
+                                           class="form-control ${(usernameError??)?string('is-invalid', '')}"
+                                           value="<#if candidateDTO??>${candidateDTO.username}</#if>" name="username"/>
+                                    <#if usernameError??>
+                                        <div class="invalid-feedback">
+                                            ${usernameError}
+                                        </div>
+                                    </#if>
                                 </div>
                             </div>
 
-<#--                            <div class="form-group row">-->
-<#--                                <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail-->
-<#--                                    Address</label>-->
-<#--                                <div class="col-md-6">-->
-<#--                                    <input type="email" id="email_address" class="form-control" name="email" required>-->
-<#--                                </div>-->
-<#--                            </div>-->
 
                             <div class="form-group row">
                                 <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
                                 <div class="col-md-6">
-                                    <input type="password" id="password" class="form-control" name="password" required>
+                                    <input type="password" id="password"
+                                           class="form-control ${(passwordError??)?string('is-invalid', '')}"
+                                           name="password"/>
+
+                                    <#if passwordError??>
+                                        <div class="invalid-feedback">
+                                            ${passwordError}
+                                        </div>
+                                    </#if>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="firstName" class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.first_name"/> </label>
+                                <label for="firstName"
+                                       class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.first_name"/> </label>
                                 <div class="col-md-6">
-                                    <input type="text" id="firstName" class="form-control" name="firstName"
-                                           required >
+                                    <input type="text" id="firstName"
+                                           class="form-control ${(firstNameError??)?string('is-invalid', '')}"
+                                           name="firstName"
+                                           value="<#if candidateProfileDTO??>${candidateProfileDTO.firstName}</#if>"/>
+                                    <#if firstNameError??>
+                                        <div class="invalid-feedback">
+                                            ${firstNameError}
+                                        </div>
+                                    </#if>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="lastName" class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.last_name"/> </label>
+                                <label for="lastName"
+                                       class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.last_name"/> </label>
                                 <div class="col-md-6">
-                                    <input type="text" id="lastName" class="form-control" name="lastName" required>
+                                    <input type="text" id="lastName"
+                                           class="form-control ${(lastNameError??)?string('is-invalid', '')}"
+                                           name="lastName"
+                                           value="<#if candidateProfileDTO??> ${candidateProfileDTO.lastName}</#if>">
+
+                                    <#if lastNameError??>
+                                        <div class="invalid-feedback">
+                                            ${lastNameError}
+                                        </div>
+                                    </#if>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="email_address" class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.email"/> </label>
+                                <label for="email_address"
+                                       class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.email"/> </label>
                                 <div class="col-md-6">
-                                    <input type="email" id="email_address" class="form-control" name="email" required>
+                                    <input type="email" id="email_address"
+                                           class="form-control ${(emailError??)?string('is-invalid', '')}" name="email"
+                                           value="<#if candidateProfileDTO??> ${candidateProfileDTO.email}</#if>"/>
+
+                                    <#if emailError??>
+                                        <div class="invalid-feedback">
+                                            ${emailError}
+                                        </div>
+                                    </#if>
                                 </div>
                             </div>
 
 
                             <div class="form-group row">
-                                <label for="address" class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.address"/> </label>
+                                <label for="address"
+                                       class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.address"/> </label>
                                 <div class="col-md-6">
-                                    <input type="text" id="address" class="form-control" name="address" required>
+                                    <input type="text" id="address"
+                                           class="form-control ${(addressError??)?string('is-invalid', '')}"
+                                           name="address"
+                                           value="<#if candidateProfileDTO??> ${candidateProfileDTO.address}</#if>"/>
+
+                                    <#if addressError??>
+                                        <div class="invalid-feedback">
+                                            ${addressError}
+                                        </div>
+                                    </#if>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="city" class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.city"/> </label>
+                                <label for="city"
+                                       class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.city"/> </label>
                                 <div class="col-md-6">
-                                    <input type="text" id="city" class="form-control" name="city" required>
+                                    <input type="text" id="city"
+                                           class="form-control ${(cityError??)?string('is-invalid', '')}" name="city"
+                                           value="<#if candidateProfileDTO??> ${candidateProfileDTO.city}</#if>"/>
+
+                                    <#if cityError??>
+                                        <div class="invalid-feedback">
+                                            ${cityError}
+                                        </div>
+                                    </#if>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="region" class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.region"/> </label>
+                                <label for="region"
+                                       class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.region"/> </label>
                                 <div class="col-md-6">
-                                    <input type="text" id="region" class="form-control" name="region" required>
+                                    <input type="text" id="region"
+                                           class="form-control ${(regionError??)?string('is-invalid', '')}"
+                                           name="region"
+                                           value="<#if candidateProfileDTO??> ${candidateProfileDTO.region}</#if>">
+
+                                    <#if regionError??>
+                                        <div class="invalid-feedback">
+                                            ${regionError}
+                                        </div>
+                                    </#if>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="school" class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.school"/> </label>
+                                <label for="school"
+                                       class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.school"/> </label>
                                 <div class="col-md-6">
-                                    <input type="text" id="school" class="form-control" name="school" required>
+                                    <input type="text" id="school"
+                                           class="form-control ${(schoolError??)?string('is-invalid', '')}"
+                                           name="school"
+                                           value="<#if candidateProfileDTO??> ${candidateProfileDTO.school}</#if>">
+
+                                    <#if schoolError??>
+                                        <div class="invalid-feedback">
+                                            ${schoolError}
+                                        </div>
+                                    </#if>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="phoneNumber" class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.phoneNumber"/> </label>
+                                <label for="phoneNumber"
+                                       class="col-md-4 col-form-label text-md-right"><@spring.message "reg.detail.phoneNumber"/> </label>
                                 <div class="col-md-6">
-                                    <input type="text" id="phoneNumber" class="form-control" name="phoneNumber" required>
+                                    <input type="text" id="phoneNumber"
+                                           class="form-control ${(phoneNumberError??)?string('is-invalid', '')}"
+                                           name="phoneNumber"
+                                           value="<#if candidateProfileDTO??> ${candidateProfileDTO.phoneNumber}</#if>">
+
+                                    <#if phoneNumberError??>
+                                        <div class="invalid-feedback">
+                                            ${phoneNumberError}
+                                        </div>
+                                    </#if>
                                 </div>
                             </div>
 

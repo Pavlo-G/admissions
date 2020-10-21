@@ -29,8 +29,7 @@ public class CandidateProfile {
     @Column(name = "last_name")
     private String lastName;
 
-    @NotBlank(message = "fill the email")
-    @Email(message = "email is not correct")
+
     @Column(name = "email")
     private String email;
 

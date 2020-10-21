@@ -6,6 +6,7 @@ import com.training.admissions.dto.CandidateProfileDTO;
 import com.training.admissions.entity.Candidate;
 import com.training.admissions.service.CandidateService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -14,12 +15,20 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -36,7 +45,25 @@ public class CandidateController {
 
     @PostMapping("/api/candidate/registration")
     public String createCandidate(@Valid CandidateDTO candidateDTO,
-                                  CandidateProfileDTO candidateProfileDTO) {
+                                  BindingResult bindingResultCandidate,
+                                  @Valid CandidateProfileDTO candidateProfileDTO,
+                                  BindingResult bindingResultProfile, Model model) {
+
+        if (bindingResultCandidate.hasErrors() || bindingResultProfile.hasErrors()) {
+
+            Map<String, String> errors = new HashMap<>();
+            errors.putAll(bindingResultCandidate.getFieldErrors()
+                    .stream()
+                    .collect(Collectors.toMap(fieldError -> fieldError.getField()+"Error", DefaultMessageSourceResolvable::getDefaultMessage)));
+            errors.putAll(bindingResultProfile.getFieldErrors()
+                    .stream()
+                    .collect(Collectors.toMap(fieldError -> fieldError.getField()+"Error", FieldError::getDefaultMessage)));
+
+            model.addAttribute("candidateDTO", candidateDTO);
+            model.addAttribute("candidateProfileDTO", candidateProfileDTO);
+            model.mergeAttributes(errors);
+            return "/registration";
+        }
         candidateService.createCandidate(candidateDTO, candidateProfileDTO);
         log.info("new user " + candidateDTO.getUsername() + " created!");
         return "redirect:/auth/login";

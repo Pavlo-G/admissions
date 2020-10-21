@@ -42,8 +42,8 @@ public class CandidateProfileDTO {
     @NotBlank(message = "fill the school")
     @Length(max = 100, message = "school name is too long")
     private String school;
-    @NotBlank(message = "fill the phone number")
-    @Pattern(regexp = "[0-9]+", message = "wrong Sort number")
+//    @NotBlank(message = "fill the phone number")
+    @Pattern(regexp = "[0-9]+", message = "wrong phone number")
     private String phoneNumber;
 
     private  Long candidateId;
