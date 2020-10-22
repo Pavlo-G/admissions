@@ -81,5 +81,8 @@
 
     </div>
 </div>
+<br>
+<br>
+<#include "../fragments/footer.ftlh"/>
 
 </body>

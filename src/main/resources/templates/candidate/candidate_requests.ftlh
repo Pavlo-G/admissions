@@ -32,6 +32,7 @@
                 </div>
                 <div class="panel-body">
                     <@items_per_page.items url page/>
+                    <#if page.content?size!=0>
                     <table class="table table-striped table-bordered table-list">
                         <thead>
                         <tr>
@@ -47,6 +48,7 @@
                         </tr>
                         </thead>
                         <tbody>
+                        </#if>
                         <#list page.content as request>
                             <tr>
 
@@ -68,11 +70,16 @@
                                 <td align="center">
                                     <form
                                             action="/candidate/delete_request/${request.getId()}" method="post">
-                                        <button class="btn btn-primary" type="submit"><@spring.message "candidate.admission.requests.delete"/></button>
+                                        <button class="btn btn-primary"
+                                                type="submit"><@spring.message "candidate.admission.requests.delete"/></button>
                                     </form>
 
                                 </td>
+
+
                             </tr>
+                        <#else >
+                            <h2>No submited requests </h2>
                         </#list>
                         </tbody>
                     </table>
@@ -84,6 +91,7 @@
         </div>
     </div>
 </div>
-
-
+<br>
+<br>
+<#include "../fragments/footer.ftlh"/>
 </body>

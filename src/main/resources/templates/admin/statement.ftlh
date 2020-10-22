@@ -66,13 +66,6 @@
                             </td>
 
 
-                            <#--                                <td align="center">-->
-                            <#--                                    <form class="form-inline my-2 my-lg-0"-->
-                            <#--                                          action="/admin/requests_of_faculty/${faculty.getId()}" method="get">-->
-                            <#--                                        <button class="btn btn-primary" type="submit">edit</button>-->
-                            <#--                                    </form>-->
-                            <#--                                </td>-->
-
                         </tr>
                     <#else >
                         <h2>No active requests to prepare the statement</h2>
@@ -91,6 +84,8 @@
 
     </div>
 </div>
-
+<br>
+<br>
 
 </body>
+<#include "../fragments/footer.ftlh"/>

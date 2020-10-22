@@ -184,6 +184,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     Register
                                 </button>
+                                <a href="/" class="btn btn-link">
+                                    <@spring.message "admin.check_request.back"/>
+                                </a>
                             </div>
 
                         </form>
@@ -194,8 +197,9 @@
     </div>
 
 </main>
-
-
+<br>
+<br>
+<#include "fragments/footer.ftlh"/>
 </body>
 </html>
 

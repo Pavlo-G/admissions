@@ -13,5 +13,7 @@
 <form action="/auth/logout" method="post">
     <button type="submit">Logout</button>
 </form>
+<br>
+<br>
 </body>
 </html>

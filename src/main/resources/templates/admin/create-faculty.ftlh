@@ -228,10 +228,10 @@
     </div>
 
 </main>
+<br>
+<br>
 
-<#include "../fragments/footer.ftlh" />
+<#include "../fragments/footer.ftlh"/>
 </body>
 </html>
 
-</body>
-</html>

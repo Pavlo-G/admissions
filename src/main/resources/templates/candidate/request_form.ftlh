@@ -122,13 +122,13 @@
     </div>
 
 </main>
+<br>
+<br>
 
-
+<#include "../fragments/footer.ftlh"/>
 </body>
 </html>
 
-</body>
-</html>
 
 
 
@@ -140,52 +140,3 @@
 
 
 
-
-<#--<!DOCTYPE html>-->
-<#--<html lang="en">-->
-<#--<head>-->
-<#--    <meta charset="utf-8">-->
-<#--    <title>Log in</title>-->
-<#--</head>-->
-<#--<body>-->
-<#--<nav role="navigation">-->
-<#--    <ul>-->
-<#--        <li><a href="/">Home</a></li>-->
-<#--    </ul>-->
-<#--</nav>-->
-
-<#--<h1>Faculty admission request form</h1>-->
-
-
-<#--<form role="form" action="/submit_request" method="post">-->
-<#--    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>-->
-
-<#--    <div>-->
-<#--        <label for="first_name">First Name</label>-->
-<#--        <input type="text" name="first_name" id="first_name" required autofocus/>-->
-<#--    </div>-->
-<#--    <div>-->
-<#--        <label for="last_name">Last Name</label>-->
-<#--        <input type="text" name="last_name" id="last_name" required />-->
-<#--    </div>-->
-<#--    <div>-->
-<#--        <label for="address">Address</label>-->
-<#--        <input type="text" name="address" id="address" required />-->
-<#--    </div>-->
-<#--    <div>-->
-<#--        <label for="email">Email</label>-->
-<#--        <input type="email" name="email" id="email" required />-->
-<#--    </div>-->
-<#--    <div>-->
-<#--        <label for="number">Contact Number</label>-->
-<#--        <input type="tel" name="number" id="number" required />-->
-<#--    </div>-->
-<#--    -->
-<#--    <button type="submit">Submit</button>-->
-<#--</form>-->
-
-<#--&lt;#&ndash;<#if error.isPresent()>&ndash;&gt;-->
-<#--&lt;#&ndash;    <p>The email or password you have entered is invalid, try again.</p>&ndash;&gt;-->
-<#--&lt;#&ndash;</#if>&ndash;&gt;-->
-<#--</body>-->
-<#--</html>-->

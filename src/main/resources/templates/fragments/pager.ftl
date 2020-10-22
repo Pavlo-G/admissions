@@ -15,7 +15,12 @@
         >
     <#else >
 
-        <#assign body=1..page.getTotalPages()/>
+        <#if page.getTotalPages()==0>
+            <#assign  body=1..1/>
+        <#else>
+            <#assign  body=1..page.getTotalPages()  />
+        </#if>
+
 
 
     </#if>

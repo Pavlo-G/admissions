@@ -55,6 +55,10 @@
     </div>
 
 </main>
+<br>
+<br>
+
+<#include "fragments/footer.ftlh"/>
 </body>
 </html>
 
