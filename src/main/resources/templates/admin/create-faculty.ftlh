@@ -17,7 +17,12 @@
                 <div class="card">
                     <div class="card-header"><@spring.message "admin.create_new_faculty"/></div>
                     <div class="card-body">
-                        <@errors.errors/>
+                        <#if validError??>
+                        <div class="alert alert-primary" role="alert">
+                            ${validError}
+                        </div>
+                        <#else >
+                        </#if>
                         <form action="/admin/faculty/add" method="POST">
                             <div class="form-group row">
                                 <label for="nameEn"
@@ -26,7 +31,7 @@
                                     <input type="text" id="nameEn"
                                            class="form-control ${(nameEnError??)?string('is-invalid', '')}"
                                            name="nameEn"
-                                           value="<#if faculty??> ${faculty.nameEn}</#if>" autofocus>
+                                           value="<#if faculty??>${faculty.nameEn}</#if>" autofocus>
                                     <#if nameEnError??>
                                         <div class="invalid-feedback">
                                             ${nameEnError}
@@ -41,7 +46,7 @@
                                     <input type="text" id="nameUk"
                                            class="form-control ${(nameUkError??)?string('is-invalid', '')}"
                                            name="nameUk"
-                                           value="<#if faculty??> ${faculty.nameUk}</#if>" autofocus>
+                                           value="<#if faculty??>${faculty.nameUk}</#if>" autofocus>
                                     <#if nameUkError??>
                                         <div class="invalid-feedback">
                                             ${nameUkError}
@@ -57,7 +62,7 @@
                                     <input type="text" id="descriptionEn"
                                            class="form-control ${(descriptionEnError??)?string('is-invalid', '')}"
                                            name="descriptionEn"
-                                           value="<#if faculty??> ${faculty.descriptionEn}</#if>" autofocus>
+                                           value="<#if faculty??>${faculty.descriptionEn}</#if>" autofocus>
                                     <#if descriptionEnError??>
                                         <div class="invalid-feedback">
                                             ${descriptionEnError}
@@ -72,7 +77,7 @@
                                     <input type="text" id="descriptionUk"
                                            class="form-control ${(descriptionUkError??)?string('is-invalid', '')}"
                                            name="descriptionUk"
-                                           value="<#if faculty??> ${faculty.descriptionUk}</#if>">
+                                           value="<#if faculty??>${faculty.descriptionUk}</#if>">
                                     <#if descriptionUkError??>
                                         <div class="invalid-feedback">
                                             ${descriptionUkError}
@@ -89,13 +94,7 @@
                                     <input type="number" id="budgetCapacity"
                                            class="form-control ${(budgetCapacityError??)?string('is-invalid', '')}"
                                            name="budgetCapacity"
-                                           value="<#if faculty??>
-                                          <#if  faculty.budgetCapacity??>
-                                          ${faculty.budgetCapacity}
-                                          <#else >
-                                          </#if>
-                                            <#else>
-                                            </#if>">
+                                           value="<#if faculty??><#if  faculty.budgetCapacity??>${faculty.budgetCapacity}<#else></#if><#else></#if>">
                                     <#if budgetCapacityError??>
                                         <div class="invalid-feedback">
                                             ${budgetCapacityError}
@@ -111,13 +110,7 @@
                                     <input type="number" id="totalCapacity"
                                            class="form-control  ${(totalCapacityError??)?string('is-invalid', '')}"
                                            name="totalCapacity"
-                                           value="<#if faculty??>
-                                          <#if  faculty.totalCapacity??>
-                                          ${faculty.totalCapacity}
-                                          <#else >
-                                          </#if>
-                                            <#else>
-                                            </#if>">
+                                           value="<#if faculty??><#if faculty.totalCapacity??>${faculty.totalCapacity}<#else></#if><#else></#if>">
                                     <#if totalCapacityError??>
                                         <div class="invalid-feedback">
                                             ${totalCapacityError}
@@ -133,7 +126,7 @@
                                     <input type="text" id="requiredSubject1En"
                                            class="form-control ${(requiredSubject1EnError??)?string('is-invalid', '')}"
                                            name="requiredSubject1En"
-                                           value="<#if faculty??> ${faculty.requiredSubject1En}</#if>">
+                                           value="<#if faculty??>${faculty.requiredSubject1En}</#if>">
                                     <#if requiredSubject1EnError??>
                                         <div class="invalid-feedback">
                                             ${requiredSubject1EnError}
@@ -148,7 +141,7 @@
                                     <input type="text" id="requiredSubject1Uk"
                                            class="form-control ${(requiredSubject1UkError??)?string('is-invalid', '')}"
                                            name="requiredSubject1Uk"
-                                           value="<#if faculty??> ${faculty.requiredSubject1Uk}</#if>"/>
+                                           value="<#if faculty??>${faculty.requiredSubject1Uk}</#if>"/>
                                     <#if requiredSubject1UkError??>
                                         <div class="invalid-feedback">
                                             ${requiredSubject1UkError}
@@ -163,7 +156,7 @@
                                     <input type="text" id="requiredSubject2En"
                                            class="form-control ${(requiredSubject2EnError??)?string('is-invalid', '')}"
                                            name="requiredSubject2En"
-                                           value="<#if faculty??> ${faculty.requiredSubject2En}</#if>"/>
+                                           value="<#if faculty??>${faculty.requiredSubject2En}</#if>"/>
                                     <#if requiredSubject2EnError??>
                                         <div class="invalid-feedback">
                                             ${requiredSubject3EnError}
@@ -180,7 +173,7 @@
                                     <input type="text" id="requiredSubject2Uk"
                                            class="form-control ${(requiredSubject2UkError??)?string('is-invalid', '')}"
                                            name="requiredSubject2Uk"
-                                           value="<#if faculty??> ${faculty.requiredSubject2Uk}</#if>"/>
+                                           value="<#if faculty??>${faculty.requiredSubject2Uk}</#if>"/>
                                     <#if requiredSubject2UkError??>
                                         <div class="invalid-feedback">
                                             ${requiredSubject2UkError}
@@ -196,7 +189,7 @@
                                     <input type="text" id="requiredSubject3En"
                                            class="form-control ${(requiredSubject3EnError??)?string('is-invalid', '')}"
                                            name="requiredSubject3En"
-                                           value="<#if faculty??> ${faculty.requiredSubject3En}</#if>"/>
+                                           value="<#if faculty??>${faculty.requiredSubject3En}</#if>"/>
                                     <#if requiredSubject3EnError??>
                                         <div class="invalid-feedback">
                                             ${requiredSubject3EnError}
@@ -211,7 +204,7 @@
                                     <input type="text" id="requiredSubject3UK"
                                            class="form-control ${(requiredSubject3UkError??)?string('is-invalid', '')}"
                                            name="requiredSubject3Uk"
-                                           value="<#if faculty??> ${faculty.requiredSubject3Uk}</#if>"/>
+                                           value="<#if faculty??>${faculty.requiredSubject3Uk}</#if>"/>
                                     <#if requiredSubject3UkError??>
                                         <div class="invalid-feedback">
                                             ${requiredSubject3UkError}
