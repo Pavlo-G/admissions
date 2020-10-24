@@ -19,7 +19,7 @@ public class ApiExceptionHandler {
     @ExceptionHandler(value = CandidateNotFoundException.class)
     public ModelAndView handleCandidateNotFoundException(CandidateNotFoundException ex) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/registration");
+        modelAndView.setViewName("redirect:/admin/workspace");
         modelAndView.addObject("errorMessage", ex.getMessage());
         return modelAndView;
     }

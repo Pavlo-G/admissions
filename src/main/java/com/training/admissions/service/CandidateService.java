@@ -35,7 +35,8 @@ public class CandidateService {
     }
 
     public Candidate getById(Long id) {
-        return candidateRepository.findById(id)
+        return
+                candidateRepository.findById(id)
                 .orElseThrow(
                         () -> new CandidateNotFoundException("Candidate with " + id + "not found"));
     }
