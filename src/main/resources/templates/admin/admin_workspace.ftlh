@@ -1,4 +1,5 @@
 <head>
+    <#import "../fragments/error.ftl" as error>
     <#import "../fragments/pager.ftl" as pager/>
     <#import "../fragments/items-per-page.ftl" as items_per_page/>
     <#include "../fragments/bootsrap-links.ftl"/>
@@ -37,6 +38,7 @@
                     </div>
                 </div>
                 <div class="panel-body  row align-items-center">
+                    <@error.error/>
                     <table class="table table-striped table-bordered table-list">
                         <thead class="col-md-10 col-md-offset-1">
                         <tr>

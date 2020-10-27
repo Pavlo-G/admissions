@@ -38,13 +38,13 @@ public class CandidateService {
         return
                 candidateRepository.findById(id)
                 .orElseThrow(
-                        () -> new CandidateNotFoundException("Candidate with " + id + "not found"));
+                        () -> new CandidateNotFoundException("Candidate with id= " + id + " not found"));
     }
 
     public Candidate getByUsername(String name) {
         return candidateRepository.findByUsername(name)
                 .orElseThrow(
-                        () -> new CandidateNotFoundException("Candidate with name: " + name + "not found"));
+                        () -> new CandidateNotFoundException("Candidate with name: " + name + " not found"));
     }
 
 

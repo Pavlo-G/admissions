@@ -19,7 +19,7 @@ public class ApiExceptionHandler {
     @ExceptionHandler(value = CandidateNotFoundException.class)
     public ModelAndView handleCandidateNotFoundException(CandidateNotFoundException ex) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/admin/workspace");
+        modelAndView.setViewName("/errorPage");
         modelAndView.addObject("errorMessage", ex.getMessage());
         return modelAndView;
     }
@@ -41,11 +41,30 @@ public class ApiExceptionHandler {
         return modelAndView;
     }
 
-//    @ExceptionHandler(value = DataIntegrityViolationException.class)
-//    public ModelAndView handleDataIntegrityViolationException( DataIntegrityViolationException ex){
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.setViewName("/candidate/request_form");
-//        modelAndView.addObject("errorMessage", ex.getMessage());
-//        return modelAndView;
-//    }
+    @ExceptionHandler(value = RequestNotFoundException.class)
+    public ModelAndView handleRequestNotFoundException(RequestNotFoundException ex) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/errorPage");
+        modelAndView.addObject("errorMessage", ex.getMessage());
+        return modelAndView;
+    }
+
+
+    @ExceptionHandler(value = FacultyNotFoundException.class)
+    public ModelAndView handleFacultyNotFoundException(FacultyNotFoundException ex) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/errorPage");
+        modelAndView.addObject("errorMessage", ex.getMessage());
+        return modelAndView;
+    }
+
+
+    @ExceptionHandler(value = StatementCreationException.class)
+    public ModelAndView handleStatementCreationException(StatementCreationException ex) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/errorPage");
+        modelAndView.addObject("errorMessage", ex.getMessage());
+        return modelAndView;
+    }
+
 }

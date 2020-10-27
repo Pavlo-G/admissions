@@ -39,11 +39,8 @@ public class FacultyService {
 
     public void blockUnblockRegistration(FacultyDTO facultyDTO) {
 
-facultyRepository.blockUnblockRegistration(facultyDTO.getId(),facultyDTO.isAdmissionOpen());
+        facultyRepository.blockUnblockRegistration(facultyDTO.getId(), facultyDTO.isAdmissionOpen());
     }
-
-
-
 
 
     public Faculty createFaculty(FacultyDTO facultyDTO) {

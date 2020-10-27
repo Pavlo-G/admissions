@@ -125,7 +125,6 @@ public class CandidateController {
     @PostMapping("/admin/candidate/edit/{id}")
     public String updateCandidate(CandidateDTO candidateDTO) {
 
-
         candidateService.updateCandidate(candidateDTO);
         return "redirect:/admin/candidate";
 
