@@ -1,4 +1,6 @@
+<#include "../fragments/security.ftlh"/>
 
+<#import "/spring.ftl" as spring/>
 <#import "../fragments/error.ftl" as error/>
 <!doctype html>
 <html lang="en">
@@ -9,8 +11,94 @@
 </head>
 <body>
 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <#if know>
+        <a class="navbar-brand" href="/faculties"><@spring.message "navbar.Admission_Board_App"/></a>
+    <#else >
+        <a class="navbar-brand" href="/"><@spring.message "navbar.Admission_Board_App"/></a>
+    </#if>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
 
-<#include "../fragments/nav-bar.ftl"/>
+            <li class="nav-item dropdown">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                            data-target="#navbarDropdown"><@spring.message "navbar.Change_Language"/>
+                            <b class="caret"></b></a>
+                        <div class="dropdown-menu dropdown-menu-right" id="navbarDropdown">
+                            <a class="dropdown-item"
+                               href="${springMacroRequestContext.requestUri}?lang=en <#if faculty??>&id=${faculty.id}&admissionOpen=${faculty.admissionOpen?string}</#if>"><@spring.message "navbar.English"/></a>
+                            <a class="dropdown-item"
+                               href="${springMacroRequestContext.requestUri}?lang=uk<#if faculty??>&id=${faculty.id}&admissionOpen=${faculty.admissionOpen?string}</#if>"><@spring.message "navbar.Ukrainian"/></a>
+                        </div>
+
+                    </li>
+                </ul>
+            </li>
+
+
+            <#if isAdmin>
+                <li class="nav-item">
+                    <form class="form-inline ml-2 mr-2 my-2 my-lg-0" action="/admin/workspace" method="get">
+                        <button class="btn btn-primary"
+                                type="submit"><@spring.message "navbar.Admin_workspace"/></button>
+                    </form>
+                </li>
+            </#if>
+        </ul>
+
+
+        <#if know>
+
+            <div class="nav-item dropdown">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown"><a href="" class="dropdown-toggle" data-target="#navbarDropdownPr"
+                                            data-toggle="dropdown"><@spring.message "navbar.Account"/> ${name}
+                            <b class="caret"></b></a>
+                        <div class="dropdown-menu dropdown-menu-right" id="navbarDropdownPr">
+
+                            <form action="/api/candidate/profile" method="get">
+                                <button class="dropdown-item"
+                                        type="submit"><@spring.message "navbar.my_profile"/></button>
+                            </form>
+                            <form action="/candidate/candidate_requests" method="get">
+                                <button class="dropdown-item"
+                                        type="submit"><@spring.message "navbar.my_requests"/></button>
+                            </form>
+                            <form action="/auth/logout" method="post">
+                                <button class="dropdown-item" type="submit"><@spring.message "navbar.logout"/></button>
+                            </form>
+                        </div>
+
+                        </form>
+                    </li>
+                </ul>
+            </div>
+
+        <#else>
+            <div>
+
+                <form class="form-inline my-2 mr-2 my-lg-0">
+                    <a class="btn btn-primary my-2 my-sm-0" href="/auth/login"
+                       role="button"><@spring.message "navbar.login"/></a>
+                </form>
+            </div>
+            <div>
+
+                <form class="form-inline my-2 my-lg-0">
+                    <a class="btn btn-primary my-2 my-sm-0" href="/registration"
+                       role="button"><@spring.message "navbar.registration"/></a>
+                </form>
+
+            </div>
+
+        </#if>
+    </div>
+</nav>
 
 <br>
 <main class="login-form">
@@ -29,31 +117,39 @@
                 </div>
                 <#else>
                 <div class="card">
-                    <div class="card-header"><@spring.message "admin.requests_of_faculty.to_the_faculty"/> ${faculty.getNameEn()}</div>
+                    <div class="card-header"><@spring.message "admin.requests_of_faculty.to_the_faculty"/>    <#if springMacroRequestContext.getLocale().toString()?contains("uk")>
+                            ${faculty.nameUk}
+                        <#else >
+                            ${faculty.nameEn}
+                        </#if></div>
                     <div class="card-body">
                         <form action="/candidate/submit_request" method="post">
 
                             <div class="form-group row">
-                                <label for="first_name" class="col-md-4 col-form-label text-md-right"><@spring.message "profile.edit.first_name"/></label>
+                                <label for="first_name"
+                                       class="col-md-4 col-form-label text-md-right"><@spring.message "profile.edit.first_name"/></label>
                                 <div class="col-md-6">
                                     ${candidate.candidateProfile.firstName}
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="last_name" class="col-md-4 col-form-label text-md-right"><@spring.message "profile.edit.last_name"/> </label>
+                                <label for="last_name"
+                                       class="col-md-4 col-form-label text-md-right"><@spring.message "profile.edit.last_name"/> </label>
                                 <div class="col-md-6">
                                     ${candidate.candidateProfile.lastName}
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="email_address" class="col-md-4 col-form-label text-md-right"><@spring.message "profile.edit.email"/></label>
+                                <label for="email_address"
+                                       class="col-md-4 col-form-label text-md-right"><@spring.message "profile.edit.email"/></label>
                                 <div class="col-md-6">
                                     ${candidate.candidateProfile.email}
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="address" class="col-md-4 col-form-label text-md-right"><@spring.message "profile.edit.address"/> </label>
+                                <label for="address"
+                                       class="col-md-4 col-form-label text-md-right"><@spring.message "profile.edit.address"/> </label>
                                 <div class="col-md-6">
                                     ${candidate.candidateProfile.address}
                                 </div>
@@ -61,45 +157,52 @@
 
 
                             <div class="form-group row">
-                                <label for="phone_number" class="col-md-4 col-form-label text-md-right"> <@spring.message "profile.edit.phoneNumber"/></label>
+                                <label for="phone_number"
+                                       class="col-md-4 col-form-label text-md-right"> <@spring.message "profile.edit.phoneNumber"/></label>
                                 <div class="col-md-6">
                                     ${candidate.candidateProfile.phoneNumber}
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="requiredSubject1Grade" class="col-md-4 col-form-label text-md-right"><@spring.message "candidate.admission.requests.grade.for"/>
+                                <label for="requiredSubject1Grade"
+                                       class="col-md-4 col-form-label text-md-right"><@spring.message "candidate.admission.requests.grade.for"/>
                                     <#if springMacroRequestContext.getLocale().toString()?contains("uk")>
-                                    ${faculty.getRequiredSubject1Uk()}
+                                        ${faculty.getRequiredSubject1Uk()}
                                     <#else >
-                                     ${faculty.getRequiredSubject1En()}
+                                        ${faculty.getRequiredSubject1En()}
                                     </#if>
-                                    </label>
+                                </label>
                                 <div class="col-md-6">
-                                    <input type="number" id="requiredSubject1Grade" min="1" max="12" class="form-control" name="requiredSubject1Grade" required>
+                                    <input type="number" id="requiredSubject1Grade"
+                                           class="form-control" name="requiredSubject1Grade">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="requiredSubject2Grade" class="col-md-4 col-form-label text-md-right"><@spring.message "candidate.admission.requests.grade.for"/>
-                                  <#if springMacroRequestContext.getLocale().toString()?contains("uk")>
-                                    ${faculty.getRequiredSubject2Uk()}
+                                <label for="requiredSubject2Grade"
+                                       class="col-md-4 col-form-label text-md-right"><@spring.message "candidate.admission.requests.grade.for"/>
+                                    <#if springMacroRequestContext.getLocale().toString()?contains("uk")>
+                                        ${faculty.getRequiredSubject2Uk()}
                                     <#else >
-                                     ${faculty.getRequiredSubject2En()}
-                                     </#if>
-                                    </label> </label>
+                                        ${faculty.getRequiredSubject2En()}
+                                    </#if>
+                                </label> </label>
                                 <div class="col-md-6">
-                                    <input type="number" id="requiredSubject2Grade" min="1" max="12" class="form-control" name="requiredSubject2Grade" required>
+                                    <input type="number" id="requiredSubject2Grade"
+                                           class="form-control" name="requiredSubject2Grade">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="requiredSubject3Grade"  class="col-md-4 col-form-label text-md-right"><@spring.message "candidate.admission.requests.grade.for"/>
-                                  <#if springMacroRequestContext.getLocale().toString()?contains("uk")>
-                                    ${faculty.getRequiredSubject3Uk()}
+                                <label for="requiredSubject3Grade"
+                                       class="col-md-4 col-form-label text-md-right"><@spring.message "candidate.admission.requests.grade.for"/>
+                                    <#if springMacroRequestContext.getLocale().toString()?contains("uk")>
+                                        ${faculty.getRequiredSubject3Uk()}
                                     <#else >
-                                     ${faculty.getRequiredSubject3En()}
-                                      </#if>
-                                 </label>
+                                        ${faculty.getRequiredSubject3En()}
+                                    </#if>
+                                </label>
                                 <div class="col-md-6">
-                                    <input type="number" id="requiredSubject3Grade" min="1" max="12" class="form-control" name="requiredSubject3Grade" required>
+                                    <input type="number" id="requiredSubject3Grade"
+                                           class="form-control" name="requiredSubject3Grade" >
                                 </div>
                             </div>
 

@@ -9,6 +9,7 @@ import com.training.admissions.exception.CanNotMakePDFException;
 import com.training.admissions.exception.StatementCreationException;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -102,6 +103,9 @@ public class StatementService {
 
 
     public ResponseEntity<byte[]> getPDF() {
+
+
+
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType("application/pdf"));
         String filename = "src\\main\\resources\\public\\Reports.pdf";
@@ -130,6 +134,7 @@ public class StatementService {
 
         File file = new File(OUT_FILE);
         OutputStream outputSteam = new FileOutputStream(file);
+
         JasperExportManager.exportReportToPdfStream(jasperPrint, outputSteam);
 
     }

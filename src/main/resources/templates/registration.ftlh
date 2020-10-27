@@ -15,12 +15,12 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Register</div>
+                    <div class="card-header"><@spring.message "login.registration"/></div>
                     <div class="card-body">
                         <@error.error/>
                         <form action="/api/candidate/registration" method="POST">
                             <div class="form-group row">
-                                <label for="username" class="col-md-4 col-form-label text-md-right">Username </label>
+                                <label for="username" class="col-md-4 col-form-label text-md-right"><@spring.message "profile.edit.username"/> </label>
                                 <div class="col-md-6">
                                     <input type="text"
                                            class="form-control ${(usernameError??)?string('is-invalid', '')}"
@@ -35,7 +35,7 @@
 
 
                             <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                                <label for="password" class="col-md-4 col-form-label text-md-right"><@spring.message "login.password"/></label>
                                 <div class="col-md-6">
                                     <input type="password" id="password"
                                            class="form-control ${(passwordError??)?string('is-invalid', '')}"
@@ -182,7 +182,7 @@
 
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Register
+                                    <@spring.message "login.registration"/>
                                 </button>
                                 <a href="/" class="btn btn-link">
                                     <@spring.message "admin.check_request.back"/>

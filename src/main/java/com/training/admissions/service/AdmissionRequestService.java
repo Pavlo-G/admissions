@@ -80,9 +80,9 @@ public class AdmissionRequestService {
     }
 
 
-    public AdmissionRequestDTO getAdmissionRequestDTO(FacultyDTO facultyDTO, User currentUser) {
-        Candidate candidate = candidateService.getByUsername(currentUser.getUsername());
-        Faculty faculty= facultyService.getById(facultyDTO.getId());
+    public AdmissionRequestDTO getAdmissionRequestDTO(Long facultyId, String username) {
+        Candidate candidate = candidateService.getByUsername(username);
+        Faculty faculty= facultyService.getById(facultyId);
 
         return AdmissionRequestDTO.builder().candidate(candidate).faculty(faculty).build();
 

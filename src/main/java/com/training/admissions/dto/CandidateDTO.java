@@ -18,11 +18,11 @@ public class CandidateDTO {
 
     private Long id;
 
-    @NotBlank(message = "Name is mandatory")
-    @Length( max = 20, message = "username is too long max 15")
+    @NotBlank(message = "{username.not_empty}")
+    @Length( max = 15, message ="{username.too_long} ")
     private String username;
-    @NotBlank(message = "password is mandatory")
-    @Length( max = 20, message = "password is too long max 15")
+    @NotBlank(message = "{username.not_empty}")
+    @Length( max = 15, message = "{username.too_long}")
     private String password;
     private Role role;
     private CandidateStatus candidateStatus;

@@ -42,9 +42,15 @@ public class CandidateController {
 
     }
 
+
+    @GetMapping("/api/candidate/registration")
+    public String registrationRedirect() {
+        return "/registration";
+    }
+
+
     @PostMapping("/api/candidate/registration")
-    public String createCandidate(
-                                  @Valid CandidateDTO candidateDTO,
+    public String createCandidate(@Valid CandidateDTO candidateDTO,
                                   Errors errors,
                                   @Valid CandidateProfileDTO candidateProfileDTO,
                                   Errors errorsProfile, Model model) {
@@ -83,12 +89,18 @@ public class CandidateController {
         return "/candidate/candidate_profile_edit";
 
     }
+    @GetMapping("/api/candidate/update")
+    public String updateCandidateForm(@AuthenticationPrincipal User currentUser,Model model){
+        model.addAttribute("candidate",candidateService.getByUsername(currentUser.getUsername()));
+        return "candidate/candidate_profile_edit";
+    }
+
 
 
     @PostMapping("/api/candidate/update")
     public String updateCandidate(@AuthenticationPrincipal User currentUser,
-            @Valid CandidateProfileDTO candidateProfileDTO,
-            Errors errorsProfile, Model model) {
+                                  @Valid CandidateProfileDTO candidateProfileDTO,
+                                  Errors errorsProfile, Model model) {
 
         if (errorsProfile.hasErrors()) {
             model.mergeAttributes(ValidationErrorUtils.getErrorsMap(errorsProfile));

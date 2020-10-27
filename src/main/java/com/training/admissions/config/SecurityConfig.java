@@ -47,8 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/registration", "/registration/error", "/auth/login").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/candidate/registration").anonymous()
+                .antMatchers("/").permitAll()
+                .antMatchers("/registration", "/auth/login").anonymous()
+                .antMatchers( "/api/candidate/registration").anonymous()
                 .antMatchers("/public/**", "/resources/**", "/resources/public/**").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .anyRequest()
@@ -70,7 +71,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .maximumSessions(1)
                 .maxSessionsPreventsLogin(false);
     }
-
 
 
     @Override
