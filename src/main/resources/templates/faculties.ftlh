@@ -77,20 +77,20 @@
                                 <#if faculty.admissionOpen>
                                     <form method="Get" action="/candidate/submit_request_form">
                                         <input type="hidden" name="id" value="${faculty.id}">
-                                        <input type="hidden" name="nameEn" value="${faculty.nameEn}">
-                                        <input type="hidden" name="nameUk" value="${faculty.nameUk}">
-                                        <input type="hidden" name="requiredSubject1En"
-                                               value="${faculty.requiredSubject1En}">
-                                        <input type="hidden" name="requiredSubject1Uk"
-                                               value="${faculty.requiredSubject1Uk}">
-                                        <input type="hidden" name="requiredSubject2En"
-                                               value="${faculty.requiredSubject2En}">
-                                        <input type="hidden" name="requiredSubject2Uk"
-                                               value="${faculty.requiredSubject2Uk}">
-                                        <input type="hidden" name="requiredSubject3En"
-                                               value="${faculty.requiredSubject3En}">
-                                        <input type="hidden" name="requiredSubject3Uk"
-                                               value="${faculty.requiredSubject3Uk}">
+<#--                                        <input type="hidden" name="nameEn" value="${faculty.nameEn}">-->
+<#--                                        <input type="hidden" name="nameUk" value="${faculty.nameUk}">-->
+<#--                                        <input type="hidden" name="requiredSubject1En"-->
+<#--                                               value="${faculty.requiredSubject1En}">-->
+<#--                                        <input type="hidden" name="requiredSubject1Uk"-->
+<#--                                               value="${faculty.requiredSubject1Uk}">-->
+<#--                                        <input type="hidden" name="requiredSubject2En"-->
+<#--                                               value="${faculty.requiredSubject2En}">-->
+<#--                                        <input type="hidden" name="requiredSubject2Uk"-->
+<#--                                               value="${faculty.requiredSubject2Uk}">-->
+<#--                                        <input type="hidden" name="requiredSubject3En"-->
+<#--                                               value="${faculty.requiredSubject3En}">-->
+<#--                                        <input type="hidden" name="requiredSubject3Uk"-->
+<#--                                               value="${faculty.requiredSubject3Uk}">-->
                                         <input type="hidden" name="admissionOpen"
                                                value="${faculty.admissionOpen?string}">
                                         <button type="submit" class="btn btn-success btn-sm">  <@spring.message "faculty.submit_request"/>

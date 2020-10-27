@@ -33,4 +33,5 @@ public interface CandidateRepository extends JpaRepository<Candidate, Long> {
 
     Optional<Candidate> findByUsername(String username);
 
+
 }

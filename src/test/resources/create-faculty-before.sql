@@ -1,5 +1,6 @@
-
 delete from admissions_test.faculty;
+ALTER TABLE admissions_test.faculty AUTO_INCREMENT =1 ;
+
 
 insert into admissions_test.faculty(name_en, name_uk, description_en,description_uk,budget_capacity,total_capacity
 ,req_subject1_en,req_subject1_uk,req_subject2_en,req_subject2_uk,req_subject3_en,req_subject3_uk,admission_open

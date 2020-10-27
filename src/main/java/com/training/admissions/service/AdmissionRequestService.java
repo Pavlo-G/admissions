@@ -21,11 +21,13 @@ import org.springframework.stereotype.Service;
 public class AdmissionRequestService {
     private final AdmissionRequestRepository admissionRequestRepository;
     private final CandidateService candidateService;
+    private final  FacultyService facultyService;
 
     public AdmissionRequestService(AdmissionRequestRepository admissionRequestRepository,
-                                   CandidateService candidateService) {
+                                   CandidateService candidateService, FacultyService facultyService) {
         this.admissionRequestRepository = admissionRequestRepository;
         this.candidateService = candidateService;
+        this.facultyService = facultyService;
     }
 
 
@@ -80,17 +82,7 @@ public class AdmissionRequestService {
 
     public AdmissionRequestDTO getAdmissionRequestDTO(FacultyDTO facultyDTO, User currentUser) {
         Candidate candidate = candidateService.getByUsername(currentUser.getUsername());
-
-        Faculty faculty = Faculty.builder().id(facultyDTO.getId())
-                .nameEn(facultyDTO.getNameEn())
-                .nameUk(facultyDTO.getNameUk())
-                .requiredSubject1En(facultyDTO.getRequiredSubject1En())
-                .requiredSubject1Uk(facultyDTO.getRequiredSubject1Uk())
-                .requiredSubject2En(facultyDTO.getRequiredSubject2En())
-                .requiredSubject2Uk(facultyDTO.getRequiredSubject2Uk())
-                .requiredSubject3En(facultyDTO.getRequiredSubject3En())
-                .requiredSubject3Uk(facultyDTO.getRequiredSubject3Uk())
-                .build();
+        Faculty faculty= facultyService.getById(facultyDTO.getId());
 
         return AdmissionRequestDTO.builder().candidate(candidate).faculty(faculty).build();
 
