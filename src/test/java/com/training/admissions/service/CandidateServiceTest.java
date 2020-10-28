@@ -17,6 +17,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
+import java.util.spi.CalendarNameProvider;
 
 import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
@@ -46,18 +47,6 @@ public class CandidateServiceTest {
         Assert.assertEquals("user", actualCandidate.get().getUsername());
     }
 
-//    @Test
-//    public void createCandidate() {
-//
-//    }
-
-//    @Test
-//    public void updateCandidate() {
-//    }
-//
-//    @Test
-//    public void setCandidateRequestsStatus() {
-//    }
 
     @Test
     public void deleteById() {
@@ -65,7 +54,4 @@ public class CandidateServiceTest {
         Assert.assertEquals(1, candidateRepository.findAll().size());
     }
 
-//    @Test
-//    public void updateCandidateProfile() {
-//    }
 }

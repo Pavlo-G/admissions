@@ -54,10 +54,4 @@ public class FacultyServiceTest {
         Assert.assertFalse(facultyRepository.findById(1L).get().isAdmissionOpen());
     }
 
-    @Test
-    public void createFaculty() {
-
-
-
-    }
 }
