@@ -48,4 +48,5 @@ public class CandidateProfileDTO {
 
     private Long candidateId;
 
+    private String fileName;
 }

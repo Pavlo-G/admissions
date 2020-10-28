@@ -13,6 +13,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -37,8 +42,8 @@ public class CandidateService {
     public Candidate getById(Long id) {
         return
                 candidateRepository.findById(id)
-                .orElseThrow(
-                        () -> new CandidateNotFoundException("Candidate with id= " + id + " not found"));
+                        .orElseThrow(
+                                () -> new CandidateNotFoundException("Candidate with id= " + id + " not found"));
     }
 
     public Candidate getByUsername(String name) {
@@ -66,6 +71,7 @@ public class CandidateService {
                 .region(candidateProfileDTO.getRegion())
                 .school(candidateProfileDTO.getSchool())
                 .phoneNumber(candidateProfileDTO.getPhoneNumber())
+                .fileName(candidateProfileDTO.getFileName())
                 .candidate(candidate)
                 .build();
         candidate.setCandidateProfile(candidateProfile);
@@ -116,7 +122,25 @@ public class CandidateService {
                 candidateProfileDTO.getCity(),
                 candidateProfileDTO.getRegion(),
                 candidateProfileDTO.getSchool(),
-                candidateProfileDTO.getPhoneNumber());
+                candidateProfileDTO.getPhoneNumber(),
+                candidateProfileDTO.getFileName());
+    }
+
+    public String saveFile(MultipartFile file, String uploadPath) throws IOException {
+        String resultFilename = null;
+        if (file != null && !file.getOriginalFilename().isEmpty()) {
+            File uploadDir = new File(uploadPath);
+
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
+
+            String uuidFile = UUID.randomUUID().toString();
+            resultFilename = uuidFile + "." + file.getOriginalFilename();
+
+            file.transferTo(new File(uploadPath + "/" + resultFilename));
+        }
+        return resultFilename;
     }
 }
 

@@ -86,9 +86,9 @@
 
         </table>
 
-        <#if request.getFileName()??>
+        <#if request.candidate.candidateProfile.getFileName()??>
                 <div>
-                    <img class="img-fluid" src="/img/${request.fileName}">
+                    <img class="img-fluid" src="/img/${request.candidate.candidateProfile.fileName}">
                 </div>
         </#if>
 

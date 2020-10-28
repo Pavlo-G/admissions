@@ -47,8 +47,7 @@ public class AdmissionRequest {
     private LocalDateTime creationDateTime;
 
 
-    @Column(name = "certificate")
-    private String fileName;
+
 
 
     public int getSumOfGrades() {

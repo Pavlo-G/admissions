@@ -1,6 +1,7 @@
 package com.training.admissions.controller;
 
 import com.training.admissions.entity.Candidate;
+import com.training.admissions.exception.CandidateNotFoundException;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +15,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -46,9 +48,8 @@ public class CandidateControllerTest {
     @Test
     @WithMockUser(authorities = "ADMIN")
     public void getCandidateByIdNotExists() throws Exception {
-        this.mockMvc.perform(get("/admin/candidate/edit/24"))
-                .andExpect(redirectedUrl("/admin/workspace"));
-
+        this.mockMvc.perform(get("/admin/candidate/edit/245"))
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof CandidateNotFoundException));
     }
 
     @Test

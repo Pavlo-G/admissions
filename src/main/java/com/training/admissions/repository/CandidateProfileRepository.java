@@ -20,7 +20,8 @@ public interface CandidateProfileRepository extends JpaRepository<CandidateProfi
             "cp.city=:city," +
             "cp.region=:region," +
             "cp.school=:school," +
-            "cp.phoneNumber=:phoneNumber" +
+            "cp.phoneNumber=:phoneNumber, " +
+            "cp.fileName=:fileName" +
             " WHERE cp.id = :id")
     int setProfileUpdate(@Param("id") Long id,
                          @Param("firstName") String firstName,
@@ -30,5 +31,6 @@ public interface CandidateProfileRepository extends JpaRepository<CandidateProfi
                          @Param("city") String city,
                          @Param("region") String region,
                          @Param("school") String school,
-                         @Param("phoneNumber") String phoneNumber);
+                         @Param("phoneNumber") String phoneNumber,
+                         @Param("fileName") String fileName);
 }

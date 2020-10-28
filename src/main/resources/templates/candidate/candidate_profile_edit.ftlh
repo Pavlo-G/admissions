@@ -16,7 +16,7 @@
         <@error.error/>
 
         <table class="table table-bordered success">
-            <form action="/api/candidate/update" method="post">
+            <form action="/api/candidate/update" method="post" enctype="multipart/form-data">
                 <input type="hidden" id="id" class="form-control" name="id" value="<#if candidateProfileDTO??>${candidateProfileDTO.id}<#else>${candidate.candidateProfile.id}</#if>"/>
 
                 <thead>
@@ -159,6 +159,23 @@
                                     ${phoneNumberError}
                                 </div>
                             </#if>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        <label for="file"><@spring.message "file.certificate"/>
+                        </label>
+                    </th>
+                    <td>
+                        <div class="form-group row">
+
+                            <div class="col-md-12">
+                                <input type="file" id="file"
+                                       class="form-control"
+                                       name="file"/>
+                            </div>
                         </div>
                     </td>
                 </tr>

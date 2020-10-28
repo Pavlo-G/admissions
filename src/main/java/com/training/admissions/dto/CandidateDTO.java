@@ -28,4 +28,6 @@ public class CandidateDTO {
     private CandidateStatus candidateStatus;
 
 
+
+
 }

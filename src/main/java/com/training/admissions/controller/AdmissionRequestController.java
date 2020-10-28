@@ -38,16 +38,12 @@ public class AdmissionRequestController {
 
     private final AdmissionRequestService admissionRequestService;
 
-    private static final List<String> contentTypes = Arrays.asList("image/png", "image/jpeg", "image/gif");
-
 
     public AdmissionRequestController(AdmissionRequestService admissionRequestService) {
         this.admissionRequestService = admissionRequestService;
 
     }
 
-    @Value("${upload.path}")
-    private String uploadPath;
 
     @GetMapping("/candidate/submit_request_form")
     public String getRequestForm(FacultyDTO facultyDTO,
@@ -64,10 +60,10 @@ public class AdmissionRequestController {
 
 
     @PostMapping("/candidate/submit_request")
-    public String createRequestFromCandidate(@RequestParam("file") MultipartFile file,
-                                             @Valid AdmissionRequestDTO admissionRequestDTO,
-                                             Errors errors, @AuthenticationPrincipal User currentUser,
-                                             Model model) throws IOException {
+    public String createRequestFromCandidate(
+            @Valid AdmissionRequestDTO admissionRequestDTO,
+            Errors errors, @AuthenticationPrincipal User currentUser,
+            Model model) {
         AdmissionRequestDTO admissionRequest = admissionRequestService
                 .getAdmissionRequestDTO(admissionRequestDTO.getFacultyId(), currentUser.getUsername());
         model.addAttribute("facultyId", admissionRequest.getFaculty().getId());
@@ -77,17 +73,9 @@ public class AdmissionRequestController {
             model.mergeAttributes(ValidationErrorUtils.getErrorsMap(errors));
             return "/candidate/request_form";
         }
-
-        if (contentTypes.contains(file.getContentType())) {
-            admissionRequestDTO.setFileName(admissionRequestService.saveFile(file, uploadPath));
-        } else {
-            model.addAttribute("errorMessage", "Wrong file format. Required: image/png, image/jpeg, image/gif ");
-            return "/candidate/request_form";
-        }
-
         try {
             admissionRequestService.saveAdmissionRequest(admissionRequestDTO);
-        }catch (RequestAlreadyExistsException e){
+        } catch (RequestAlreadyExistsException e) {
             model.addAttribute("errorMessage", e.getMessage());
             return "/candidate/request_form";
         }

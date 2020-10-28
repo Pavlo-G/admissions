@@ -58,7 +58,7 @@
                             <div class="form-group row">
                                 <label for="descriptionEn"
                                        class="col-md-4 col-form-label text-md-right"><@spring.message "faculty.description.en"/></label>
-                                <div class="col-md-6">
+                                <div class="col-md-6 ">
                                     <input type="text" id="descriptionEn"
                                            class="form-control ${(descriptionEnError??)?string('is-invalid', '')}"
                                            name="descriptionEn"

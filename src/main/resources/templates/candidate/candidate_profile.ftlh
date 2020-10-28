@@ -62,6 +62,11 @@
             </thead>
 
         </table>
+        <#if candidate.candidateProfile.getFileName()??>
+            <div>
+                <img class="img-fluid" src="/img/${candidate.candidateProfile.fileName}">
+            </div>
+        </#if>
     </div>
 </div>
 <br>

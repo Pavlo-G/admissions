@@ -70,7 +70,6 @@ public class AdmissionRequestService {
                             .requiredSubject1Grade(admissionRequestDTO.getRequiredSubject1Grade())
                             .requiredSubject2Grade(admissionRequestDTO.getRequiredSubject2Grade())
                             .requiredSubject3Grade(admissionRequestDTO.getRequiredSubject3Grade())
-                            .fileName(admissionRequestDTO.getFileName())
                             .build());
         } catch (DataIntegrityViolationException ex) {
             throw new RequestAlreadyExistsException("Request Already Exists!");
@@ -79,27 +78,10 @@ public class AdmissionRequestService {
     }
 
 
-    public String saveFile(MultipartFile file, String uploadPath) throws IOException {
-        String resultFilename = null;
-        if (file != null && !file.getOriginalFilename().isEmpty()) {
-            File uploadDir = new File(uploadPath);
 
-            if (!uploadDir.exists()) {
-                uploadDir.mkdir();
-            }
-
-            String uuidFile = UUID.randomUUID().toString();
-            resultFilename = uuidFile + "." + file.getOriginalFilename();
-
-            file.transferTo(new File(uploadPath + "/" + resultFilename));
-        }
-        return resultFilename;
-    }
 
     @Transactional
     public void deleteRequest(Long id) {
-        File file = new File(uploadPath+"\\"+ getById(id).getFileName());
-        boolean deleted = file.delete();
         admissionRequestRepository.deleteById(id);
     }
 

@@ -52,4 +52,7 @@ public class CandidateProfile {
     @JoinColumn(name = "candidate_id", nullable = false)
     private Candidate candidate;
 
+    @Column(name = "certificate_file")
+    private String fileName;
+
 }

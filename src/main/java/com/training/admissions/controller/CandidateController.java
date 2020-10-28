@@ -1,12 +1,15 @@
 package com.training.admissions.controller;
 
 
+import com.training.admissions.dto.AdmissionRequestDTO;
 import com.training.admissions.dto.CandidateDTO;
 import com.training.admissions.dto.CandidateProfileDTO;
 import com.training.admissions.entity.Candidate;
+import com.training.admissions.exception.RequestAlreadyExistsException;
 import com.training.admissions.service.CandidateService;
 import com.training.admissions.util.ValidationErrorUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,22 +20,21 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.*;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
 @Slf4j
 @Controller
 public class CandidateController {
+    @Value("${upload.path}")
+    private String uploadPath;
+    private static final List<String> contentTypes = Arrays.asList("image/png", "image/jpeg", "image/gif");
 
     private final CandidateService candidateService;
 
@@ -48,10 +50,11 @@ public class CandidateController {
 
 
     @PostMapping("/api/candidate/registration")
-    public String createCandidate(@Valid CandidateDTO candidateDTO,
+    public String createCandidate(@RequestParam("file") MultipartFile file,
+                                  @Valid CandidateDTO candidateDTO,
                                   Errors errors,
                                   @Valid CandidateProfileDTO candidateProfileDTO,
-                                  Errors errorsProfile, Model model) {
+                                  Errors errorsProfile, Model model) throws IOException {
 
         if (errors.hasErrors() || errorsProfile.hasErrors()) {
             model.mergeAttributes(ValidationErrorUtils.getErrorsMap(errors));
@@ -60,6 +63,12 @@ public class CandidateController {
             model.addAttribute("candidateProfileDTO", candidateProfileDTO);
 
             return "/registration";
+        }
+        if (contentTypes.contains(file.getContentType())) {
+            candidateProfileDTO.setFileName(candidateService.saveFile(file, uploadPath));
+        } else {
+            model.addAttribute("errorMessage", "Wrong file format. Required: image/png, image/jpeg, image/gif ");
+            return "/candidate/request_form";
         }
         candidateService.createCandidate(candidateDTO, candidateProfileDTO);
         log.info("new user " + candidateDTO.getUsername() + " created!");
@@ -84,21 +93,23 @@ public class CandidateController {
     public String getById(@PathVariable Long id, Model model) {
         Candidate candidate = candidateService.getById(id);
         model.addAttribute("candidate", candidate);
+        model.addAttribute("uploadPath", uploadPath);
         return "/candidate/candidate_profile_edit";
 
     }
+
     @GetMapping("/api/candidate/update")
-    public String updateCandidateForm(@AuthenticationPrincipal User currentUser,Model model){
-        model.addAttribute("candidate",candidateService.getByUsername(currentUser.getUsername()));
+    public String updateCandidateForm(@AuthenticationPrincipal User currentUser, Model model) {
+        model.addAttribute("candidate", candidateService.getByUsername(currentUser.getUsername()));
         return "candidate/candidate_profile_edit";
     }
 
 
-
     @PostMapping("/api/candidate/update")
-    public String updateCandidate(@AuthenticationPrincipal User currentUser,
+    public String updateCandidate(@RequestParam("file") MultipartFile file,
+                                  @AuthenticationPrincipal User currentUser,
                                   @Valid CandidateProfileDTO candidateProfileDTO,
-                                  Errors errorsProfile, Model model) {
+                                  Errors errorsProfile, Model model) throws IOException {
 
         if (errorsProfile.hasErrors()) {
             model.mergeAttributes(ValidationErrorUtils.getErrorsMap(errorsProfile));
@@ -107,6 +118,16 @@ public class CandidateController {
             model.addAttribute("candidateProfileDTO", candidateProfileDTO);
 
             return "candidate/candidate_profile_edit";
+        }
+        if (!file.isEmpty()) {
+            if (contentTypes.contains(file.getContentType())) {
+                candidateProfileDTO.setFileName(candidateService.saveFile(file, uploadPath));
+            } else {
+                model.addAttribute("errorMessage", "Wrong file format. Required: image/png, image/jpeg, image/gif ");
+                return "candidate/candidate_profile_edit";
+            }
+        }else{
+            candidateProfileDTO.setFileName(candidateService.getByUsername(currentUser.getUsername()).getCandidateProfile().getFileName());
         }
         candidateService.updateCandidateProfile(candidateProfileDTO);
         return "redirect:/api/candidate/profile";

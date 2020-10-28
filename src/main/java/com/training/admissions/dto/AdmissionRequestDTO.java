@@ -39,7 +39,7 @@ public class AdmissionRequestDTO {
     private Integer requiredSubject3Grade;
 
 
-    private String fileName;
+
 
 
     private AdmissionRequestStatus admissionRequestStatus;

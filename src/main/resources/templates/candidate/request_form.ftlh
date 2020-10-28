@@ -123,7 +123,7 @@
                             ${faculty.nameEn}
                         </#if></div>
                     <div class="card-body">
-                        <form action="/candidate/submit_request" method="post" enctype="multipart/form-data">
+                        <form action="/candidate/submit_request" method="post" >
 
                             <div class="form-group row">
                                 <label for="first_name"
@@ -227,17 +227,7 @@
                                     </#if>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="requiredSubject3Grade"
-                                       class="col-md-4 col-form-label text-md-right"><@spring.message "file.certificate"/>
-                                </label>
-                                <div class="col-md-6">
-                                    <input type="file" id="file"
-                                           class="form-control"
-                                           name="file"
-                                    />
-                                </div>
-                            </div>
+
 
 
                             <input type="hidden" id="candidateId" name="candidateId" value="${candidate.id}"/>
