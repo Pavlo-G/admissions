@@ -8,6 +8,7 @@ import com.training.admissions.exception.RequestAlreadyExistsException;
 import com.training.admissions.service.AdmissionRequestService;
 import com.training.admissions.util.ValidationErrorUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -20,8 +21,15 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 
 
 @Slf4j
@@ -30,12 +38,16 @@ public class AdmissionRequestController {
 
     private final AdmissionRequestService admissionRequestService;
 
+    private static final List<String> contentTypes = Arrays.asList("image/png", "image/jpeg", "image/gif");
+
 
     public AdmissionRequestController(AdmissionRequestService admissionRequestService) {
         this.admissionRequestService = admissionRequestService;
 
     }
 
+    @Value("${upload.path}")
+    private String uploadPath;
 
     @GetMapping("/candidate/submit_request_form")
     public String getRequestForm(FacultyDTO facultyDTO,
@@ -53,18 +65,35 @@ public class AdmissionRequestController {
 
 
     @PostMapping("/candidate/submit_request")
-    public String createRequestFromCandidate(@Valid AdmissionRequestDTO admissionRequestDTO,
-                                             Errors errors, @AuthenticationPrincipal User currentUser, Model model) {
+    public String createRequestFromCandidate(@RequestParam("file") MultipartFile file,
+                                             @Valid AdmissionRequestDTO admissionRequestDTO,
+                                             Errors errors, @AuthenticationPrincipal User currentUser, Model model) throws IOException {
+
+
+        AdmissionRequestDTO admissionRequest = admissionRequestService
+                .getAdmissionRequestDTO(admissionRequestDTO.getFacultyId(), currentUser.getUsername());
+        model.addAttribute("facultyId", admissionRequest.getFaculty().getId());
+        model.addAttribute("faculty", admissionRequest.getFaculty());
+        model.addAttribute("candidate", admissionRequest.getCandidate());
         if (errors.hasErrors()) {
-            AdmissionRequestDTO admissionRequest = admissionRequestService
-                    .getAdmissionRequestDTO(admissionRequestDTO.getFacultyId(),currentUser.getUsername() );
-            model.addAttribute("facultyId",admissionRequest.getFaculty().getId() );
-            model.addAttribute("faculty",admissionRequest.getFaculty() );
-            model.addAttribute("candidate", admissionRequest.getCandidate());
             model.mergeAttributes(ValidationErrorUtils.getErrorsMap(errors));
             return "/candidate/request_form";
         }
-                admissionRequestService.saveAdmissionRequest(admissionRequestDTO);
+
+        if (contentTypes.contains(file.getContentType())) {
+            admissionRequestDTO.setFileName(admissionRequestService.saveFile(file, uploadPath));
+        } else {
+            model.addAttribute("errorMessage", "Wrong file format. Required: image/png, image/jpeg, image/gif ");
+            return "/candidate/request_form";
+        }
+
+        try {
+            admissionRequestService.saveAdmissionRequest(admissionRequestDTO);
+        }catch (RequestAlreadyExistsException e){
+            model.addAttribute("errorMessage", e.getMessage());
+            return "/candidate/request_form";
+        }
+
 
         return "redirect:/candidate/candidate_requests";
     }

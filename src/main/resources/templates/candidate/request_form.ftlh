@@ -115,7 +115,7 @@
                         </button>
                     </form>
                 </div>
-                <#else>
+               </#if>
                 <div class="card">
                     <div class="card-header"><@spring.message "admin.requests_of_faculty.to_the_faculty"/>    <#if springMacroRequestContext.getLocale().toString()?contains("uk")>
                             ${faculty.nameUk}
@@ -123,7 +123,7 @@
                             ${faculty.nameEn}
                         </#if></div>
                     <div class="card-body">
-                        <form action="/candidate/submit_request" method="post">
+                        <form action="/candidate/submit_request" method="post" enctype="multipart/form-data">
 
                             <div class="form-group row">
                                 <label for="first_name"
@@ -223,7 +223,7 @@
                                     </#if>
                                 </div>
                             </div>
-
+                            <input type="file" name="file">
 
                             <input type="hidden" id="candidateId" name="candidateId" value="${candidate.id}"/>
                             <input type="hidden" id="facultyId" name="facultyId" value="${faculty.id}"/>
@@ -235,7 +235,6 @@
                             </div>
 
                         </form>
-                        </#if>
                     </div>
                 </div>
             </div>

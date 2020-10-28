@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.NumberFormat;
 
+import javax.persistence.Lob;
 import javax.validation.constraints.*;
 
 @Getter
@@ -36,6 +37,10 @@ public class AdmissionRequestDTO {
     @NotNull(message = "can not be empty")
     @Range(min = 1, max = 12, message = "grade should be from 1 to 12")
     private Integer requiredSubject3Grade;
+
+
+    private String fileName;
+
 
     private AdmissionRequestStatus admissionRequestStatus;
 

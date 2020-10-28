@@ -38,15 +38,15 @@ public class ApiExceptionHandler {
         return modelAndView;
     }
 
-    @ExceptionHandler(value = RequestAlreadyExistsException.class)
-    public ModelAndView handleRequestAlreadyExistsException(RequestAlreadyExistsException ex) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/errorPage");
-        Locale locale = LocaleContextHolder.getLocale();
-        ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
-        modelAndView.addObject("errorMessage",bundle.getObject("request.already.exists.error"));
-        return modelAndView;
-    }
+//    @ExceptionHandler(value = RequestAlreadyExistsException.class)
+//    public ModelAndView handleRequestAlreadyExistsException(RequestAlreadyExistsException ex) {
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.setViewName("/errorPage");
+//        Locale locale = LocaleContextHolder.getLocale();
+//        ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
+//        modelAndView.addObject("errorMessage",bundle.getObject("request.already.exists.error"));
+//        return modelAndView;
+//    }
 
     @ExceptionHandler(value = RequestNotFoundException.class)
     public ModelAndView handleRequestNotFoundException(RequestNotFoundException ex) {

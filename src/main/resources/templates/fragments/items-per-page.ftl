@@ -12,7 +12,7 @@
                     </li>
                 <#else >
                     <li class="page-item">
-                        <a class="page-link" href="${url}?page=${page.getNumber()}&size=${el}" tabindex="-1"
+                        <a class="page-link" href="${url}?page=0&size=${el}" tabindex="-1"
                            aria-disabled="true">${el}</a>
                     </li>
                 </#if>

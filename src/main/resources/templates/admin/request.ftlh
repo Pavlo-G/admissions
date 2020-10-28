@@ -85,6 +85,12 @@
             </thead>
 
         </table>
+        <#if request.getFileName()??>
+                <div>
+                    <img class="img-fluid" src="/img/${request.fileName}">
+                </div>
+        </#if>
+
 
         <div class="container h-100">
             <div class="row h-100 justify-content-center align-items-center">

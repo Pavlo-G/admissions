@@ -10,18 +10,27 @@ import com.training.admissions.entity.Faculty;
 import com.training.admissions.exception.RequestAlreadyExistsException;
 import com.training.admissions.exception.RequestNotFoundException;
 import com.training.admissions.repository.AdmissionRequestRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.transaction.Transactional;
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
 
 
 @Service
 public class AdmissionRequestService {
+    @Value("${upload.path}")
+    private String uploadPath;
     private final AdmissionRequestRepository admissionRequestRepository;
     private final CandidateService candidateService;
-    private final  FacultyService facultyService;
+    private final FacultyService facultyService;
 
     public AdmissionRequestService(AdmissionRequestRepository admissionRequestRepository,
                                    CandidateService candidateService, FacultyService facultyService) {
@@ -61,6 +70,7 @@ public class AdmissionRequestService {
                             .requiredSubject1Grade(admissionRequestDTO.getRequiredSubject1Grade())
                             .requiredSubject2Grade(admissionRequestDTO.getRequiredSubject2Grade())
                             .requiredSubject3Grade(admissionRequestDTO.getRequiredSubject3Grade())
+                            .fileName(admissionRequestDTO.getFileName())
                             .build());
         } catch (DataIntegrityViolationException ex) {
             throw new RequestAlreadyExistsException("Request Already Exists!");
@@ -69,7 +79,27 @@ public class AdmissionRequestService {
     }
 
 
+    public String saveFile(MultipartFile file, String uploadPath) throws IOException {
+        String resultFilename = null;
+        if (file != null && !file.getOriginalFilename().isEmpty()) {
+            File uploadDir = new File(uploadPath);
+
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
+
+            String uuidFile = UUID.randomUUID().toString();
+            resultFilename = uuidFile + "." + file.getOriginalFilename();
+
+            file.transferTo(new File(uploadPath + "/" + resultFilename));
+        }
+        return resultFilename;
+    }
+
+    @Transactional
     public void deleteRequest(Long id) {
+        File file = new File(uploadPath+"\\"+ getById(id).getFileName());
+        boolean deleted = file.delete();
         admissionRequestRepository.deleteById(id);
     }
 
@@ -82,7 +112,7 @@ public class AdmissionRequestService {
 
     public AdmissionRequestDTO getAdmissionRequestDTO(Long facultyId, String username) {
         Candidate candidate = candidateService.getByUsername(username);
-        Faculty faculty= facultyService.getById(facultyId);
+        Faculty faculty = facultyService.getById(facultyId);
 
         return AdmissionRequestDTO.builder().candidate(candidate).faculty(faculty).build();
 
