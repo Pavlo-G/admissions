@@ -42,7 +42,10 @@
     </p>
     <ul style="list-style-type: circle;">
         <li style="line-height: 1; text-align: left;"><span style="font-size: 12px;"><span
-                        style="font-family: Verdana, Geneva, sans-serif;">&nbsp;- додавання, видалення або редагування факультету; - блокування або &nbsp;розблокування абітурієнта;&nbsp;</span></span>
+                        style="font-family: Verdana, Geneva, sans-serif;">&nbsp;- додавання, видалення або редагування факультету; &nbsp;</span></span>
+        </li>
+        <li style="line-height: 1; text-align: left;"><span style="font-size: 12px;"><span
+                        style="font-family: Verdana, Geneva, sans-serif;">- блокування або &nbsp;розблокування абітурієнта;&nbsp;</span></span>
         </li>
         <li style="line-height: 1; text-align: left;"><span style="font-size: 12px;"><span
                         style="font-family: Verdana, Geneva, sans-serif;">&nbsp;- додавання результатів абітурієнтів до Відомості;</span></span>

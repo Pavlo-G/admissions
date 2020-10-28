@@ -31,9 +31,9 @@
                             <b class="caret"></b></a>
                         <div class="dropdown-menu dropdown-menu-right" id="navbarDropdown">
                             <a class="dropdown-item"
-                               href="${springMacroRequestContext.requestUri}?lang=en <#if faculty??>&id=${faculty.id}&admissionOpen=${faculty.admissionOpen?string}</#if>"><@spring.message "navbar.English"/></a>
+                               href="/candidate/submit_request_form?lang=en <#if faculty??>&id=${faculty.id}&admissionOpen=${faculty.admissionOpen?string}</#if>"><@spring.message "navbar.English"/></a>
                             <a class="dropdown-item"
-                               href="${springMacroRequestContext.requestUri}?lang=uk<#if faculty??>&id=${faculty.id}&admissionOpen=${faculty.admissionOpen?string}</#if>"><@spring.message "navbar.Ukrainian"/></a>
+                               href="/candidate/submit_request_form?lang=uk<#if faculty??>&id=${faculty.id}&admissionOpen=${faculty.admissionOpen?string}</#if>"><@spring.message "navbar.Ukrainian"/></a>
                         </div>
 
                     </li>
@@ -173,8 +173,14 @@
                                     </#if>
                                 </label>
                                 <div class="col-md-6">
-                                    <input type="number" id="requiredSubject1Grade"
-                                           class="form-control" name="requiredSubject1Grade">
+                                    <input type="number"   id="requiredSubject1Grade"
+                                           class="form-control ${(requiredSubject1GradeError??)?string('is-invalid', '')}" name="requiredSubject1Grade"
+                                           value="<#if requiredSubject1Grade??>${requiredSubject1Grade}</#if>" autofocus/>
+                                    <#if requiredSubject1GradeError??>
+                                        <div class="invalid-feedback">
+                                            ${requiredSubject1GradeError}
+                                        </div>
+                                    </#if>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -185,10 +191,16 @@
                                     <#else >
                                         ${faculty.getRequiredSubject2En()}
                                     </#if>
-                                </label> </label>
+                                </label>
                                 <div class="col-md-6">
-                                    <input type="number" id="requiredSubject2Grade"
-                                           class="form-control" name="requiredSubject2Grade">
+                                    <input type="number"   id="requiredSubject2Grade"
+                                           class="form-control ${(requiredSubject2GradeError??)?string('is-invalid', '')}" name="requiredSubject2Grade"
+                                           value="<#if requiredSubject2Grade??>${requiredSubject2Grade}</#if>"/>
+                                    <#if requiredSubject2GradeError??>
+                                        <div class="invalid-feedback">
+                                            ${requiredSubject2GradeError}
+                                        </div>
+                                    </#if>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -201,8 +213,14 @@
                                     </#if>
                                 </label>
                                 <div class="col-md-6">
-                                    <input type="number" id="requiredSubject3Grade"
-                                           class="form-control" name="requiredSubject3Grade" >
+                                    <input type="number"    id="requiredSubject3Grade"
+                                           class="form-control ${(requiredSubject3GradeError??)?string('is-invalid', '')}" name="requiredSubject3Grade"
+                                           value="<#if requiredSubject3Grade??>${requiredSubject3Grade}</#if>" />
+                                    <#if requiredSubject3GradeError??>
+                                        <div class="invalid-feedback">
+                                            ${requiredSubject3GradeError}
+                                        </div>
+                                    </#if>
                                 </div>
                             </div>
 

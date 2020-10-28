@@ -20,6 +20,7 @@
                     <form class="form-inline my-2 my-lg-0"
                           action="/admin/statement/finalize" method="Post">
                         <input type="hidden" name="id" id="id" value="${faculty_id}">
+                        <input type="hidden" name="admissionOpen" id="admissionOpen" value="false">
                         <button class="btn btn-danger"
                                 type="submit"><@spring.message "statement.finalize_statement"/></button>
                     </form>
@@ -68,7 +69,7 @@
 
                         </tr>
                     <#else >
-                        <h2>No active requests to prepare the statement</h2>
+                        <h2><@spring.message "statement.empty"/></h2>
                     </#list>
                     </tbody>
 

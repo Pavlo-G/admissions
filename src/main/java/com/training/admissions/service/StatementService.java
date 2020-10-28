@@ -71,6 +71,7 @@ public class StatementService {
     public void facultyStatementFinalize(FacultyDTO facultyDTO, String author) {
         List<AdmissionRequest> admissionRequests = getStatementForFacultyWithId(facultyDTO.getId());
         List<StatementElement> statementElementList = getStatementElements(admissionRequests);
+        facultyService.blockUnblockRegistration(facultyDTO);
         try {
             createPdfReport(statementElementList, author);
         } catch (FileNotFoundException | JRException e) {

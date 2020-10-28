@@ -1,5 +1,6 @@
 <#import "fragments/pager.ftl" as pager/>
 <#import "fragments/items-per-page.ftl" as items_per_page/>
+<#import "fragments/error.ftl" as error>
 <head>
 
     <link rel="stylesheet" href="css/stylesheet.css">
@@ -24,6 +25,7 @@
             <div class="col col-xs-6">
                 <h3 class="panel-title"><@spring.message "admin.faculties"/></h3>
             </div>
+            <@error.error/>
 
         </div>
         <#--                </div>-->

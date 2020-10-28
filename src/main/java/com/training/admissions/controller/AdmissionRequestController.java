@@ -4,6 +4,7 @@ package com.training.admissions.controller;
 import com.training.admissions.dto.AdmissionRequestDTO;
 import com.training.admissions.dto.FacultyDTO;
 import com.training.admissions.entity.AdmissionRequest;
+import com.training.admissions.exception.RequestAlreadyExistsException;
 import com.training.admissions.service.AdmissionRequestService;
 import com.training.admissions.util.ValidationErrorUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -57,12 +58,14 @@ public class AdmissionRequestController {
         if (errors.hasErrors()) {
             AdmissionRequestDTO admissionRequest = admissionRequestService
                     .getAdmissionRequestDTO(admissionRequestDTO.getFacultyId(),currentUser.getUsername() );
+            model.addAttribute("facultyId",admissionRequest.getFaculty().getId() );
             model.addAttribute("faculty",admissionRequest.getFaculty() );
             model.addAttribute("candidate", admissionRequest.getCandidate());
             model.mergeAttributes(ValidationErrorUtils.getErrorsMap(errors));
             return "/candidate/request_form";
         }
-        admissionRequestService.saveAdmissionRequest(admissionRequestDTO);
+                admissionRequestService.saveAdmissionRequest(admissionRequestDTO);
+
         return "redirect:/candidate/candidate_requests";
     }
 

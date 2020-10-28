@@ -1,8 +1,13 @@
 package com.training.admissions.exception;
 
+import com.training.admissions.dto.AdmissionRequestDTO;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
@@ -36,8 +41,10 @@ public class ApiExceptionHandler {
     @ExceptionHandler(value = RequestAlreadyExistsException.class)
     public ModelAndView handleRequestAlreadyExistsException(RequestAlreadyExistsException ex) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/candidate/request_form");
-        modelAndView.addObject("errorMessage", ex.getMessage());
+        modelAndView.setViewName("/errorPage");
+        Locale locale = LocaleContextHolder.getLocale();
+        ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
+        modelAndView.addObject("errorMessage",bundle.getObject("request.already.exists.error"));
         return modelAndView;
     }
 

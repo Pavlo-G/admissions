@@ -1,9 +1,13 @@
 package com.training.admissions.controller;
 
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 
 @Controller
@@ -25,7 +29,9 @@ public class MainController {
     @GetMapping("/auth/login")
     public String login(Model model, @RequestParam(value = "error", required = false) Boolean error) {
         if (error != null) {
-            model.addAttribute("errorMessage", "The email or password is incorrect.");
+            Locale locale = LocaleContextHolder.getLocale();
+            ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
+            model.addAttribute("errorMessage", bundle.getObject("login.or.password.error"));
         }
         return "login";
 

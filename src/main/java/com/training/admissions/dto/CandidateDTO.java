@@ -21,8 +21,8 @@ public class CandidateDTO {
     @NotBlank(message = "{username.not_empty}")
     @Length( max = 15, message ="{username.too_long} ")
     private String username;
-    @NotBlank(message = "{username.not_empty}")
-    @Length( max = 15, message = "{username.too_long}")
+    @NotBlank(message = "{password.not_empty}")
+    @Length( max = 15, message = "{password.too_long}")
     private String password;
     private Role role;
     private CandidateStatus candidateStatus;
