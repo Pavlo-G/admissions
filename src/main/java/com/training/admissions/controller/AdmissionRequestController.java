@@ -57,7 +57,6 @@ public class AdmissionRequestController {
             AdmissionRequestDTO admissionRequestDTO = admissionRequestService.getAdmissionRequestDTO(facultyDTO.getId(), currentUser.getUsername());
             model.addAttribute("faculty", admissionRequestDTO.getFaculty());
             model.addAttribute("candidate", admissionRequestDTO.getCandidate());
-
             return "/candidate/request_form";
         }
         return "/candidate/candidate_requests";
@@ -67,9 +66,8 @@ public class AdmissionRequestController {
     @PostMapping("/candidate/submit_request")
     public String createRequestFromCandidate(@RequestParam("file") MultipartFile file,
                                              @Valid AdmissionRequestDTO admissionRequestDTO,
-                                             Errors errors, @AuthenticationPrincipal User currentUser, Model model) throws IOException {
-
-
+                                             Errors errors, @AuthenticationPrincipal User currentUser,
+                                             Model model) throws IOException {
         AdmissionRequestDTO admissionRequest = admissionRequestService
                 .getAdmissionRequestDTO(admissionRequestDTO.getFacultyId(), currentUser.getUsername());
         model.addAttribute("facultyId", admissionRequest.getFaculty().getId());
@@ -93,8 +91,6 @@ public class AdmissionRequestController {
             model.addAttribute("errorMessage", e.getMessage());
             return "/candidate/request_form";
         }
-
-
         return "redirect:/candidate/candidate_requests";
     }
 
@@ -142,7 +138,6 @@ public class AdmissionRequestController {
 
     @PostMapping("/admin/request_update")
     public String requestApprove(AdmissionRequestDTO admissionRequestDTO) {
-
         admissionRequestService.updateStatusOfRequest(admissionRequestDTO);
         return "redirect:/admin/requests_of_faculty/" + admissionRequestDTO.getFacultyId();
     }

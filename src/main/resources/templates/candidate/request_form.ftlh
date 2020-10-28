@@ -106,16 +106,16 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <#if errorMessage??>
-                <div class="alert alert-primary" role="alert">
-                    ${errorMessage}
+                    <div class="alert alert-primary" role="alert">
+                        ${errorMessage}
 
-                    <form method="get" action="/faculties">
-                        <button type="submit" class="btn btn-primary">
-                            <@spring.message "admin.check_request.back"/>
-                        </button>
-                    </form>
-                </div>
-               </#if>
+                        <form method="get" action="/faculties">
+                            <button type="submit" class="btn btn-primary">
+                                <@spring.message "admin.check_request.back"/>
+                            </button>
+                        </form>
+                    </div>
+                </#if>
                 <div class="card">
                     <div class="card-header"><@spring.message "admin.requests_of_faculty.to_the_faculty"/>    <#if springMacroRequestContext.getLocale().toString()?contains("uk")>
                             ${faculty.nameUk}
@@ -173,9 +173,11 @@
                                     </#if>
                                 </label>
                                 <div class="col-md-6">
-                                    <input type="number"   id="requiredSubject1Grade"
-                                           class="form-control ${(requiredSubject1GradeError??)?string('is-invalid', '')}" name="requiredSubject1Grade"
-                                           value="<#if requiredSubject1Grade??>${requiredSubject1Grade}</#if>" autofocus/>
+                                    <input type="number" id="requiredSubject1Grade"
+                                           class="form-control ${(requiredSubject1GradeError??)?string('is-invalid', '')}"
+                                           name="requiredSubject1Grade"
+                                           value="<#if requiredSubject1Grade??>${requiredSubject1Grade}</#if>"
+                                           autofocus/>
                                     <#if requiredSubject1GradeError??>
                                         <div class="invalid-feedback">
                                             ${requiredSubject1GradeError}
@@ -193,8 +195,9 @@
                                     </#if>
                                 </label>
                                 <div class="col-md-6">
-                                    <input type="number"   id="requiredSubject2Grade"
-                                           class="form-control ${(requiredSubject2GradeError??)?string('is-invalid', '')}" name="requiredSubject2Grade"
+                                    <input type="number" id="requiredSubject2Grade"
+                                           class="form-control ${(requiredSubject2GradeError??)?string('is-invalid', '')}"
+                                           name="requiredSubject2Grade"
                                            value="<#if requiredSubject2Grade??>${requiredSubject2Grade}</#if>"/>
                                     <#if requiredSubject2GradeError??>
                                         <div class="invalid-feedback">
@@ -213,9 +216,10 @@
                                     </#if>
                                 </label>
                                 <div class="col-md-6">
-                                    <input type="number"    id="requiredSubject3Grade"
-                                           class="form-control ${(requiredSubject3GradeError??)?string('is-invalid', '')}" name="requiredSubject3Grade"
-                                           value="<#if requiredSubject3Grade??>${requiredSubject3Grade}</#if>" />
+                                    <input type="number" id="requiredSubject3Grade"
+                                           class="form-control ${(requiredSubject3GradeError??)?string('is-invalid', '')}"
+                                           name="requiredSubject3Grade"
+                                           value="<#if requiredSubject3Grade??>${requiredSubject3Grade}</#if>"/>
                                     <#if requiredSubject3GradeError??>
                                         <div class="invalid-feedback">
                                             ${requiredSubject3GradeError}
@@ -223,7 +227,18 @@
                                     </#if>
                                 </div>
                             </div>
-                            <input type="file" name="file">
+                            <div class="form-group row">
+                                <label for="requiredSubject3Grade"
+                                       class="col-md-4 col-form-label text-md-right"><@spring.message "file.certificate"/>
+                                </label>
+                                <div class="col-md-6">
+                                    <input type="file" id="file"
+                                           class="form-control"
+                                           name="file"
+                                    />
+                                </div>
+                            </div>
+
 
                             <input type="hidden" id="candidateId" name="candidateId" value="${candidate.id}"/>
                             <input type="hidden" id="facultyId" name="facultyId" value="${faculty.id}"/>

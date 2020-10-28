@@ -36,10 +36,8 @@ public class CandidateController {
 
     private final CandidateService candidateService;
 
-
     public CandidateController(CandidateService candidateService) {
         this.candidateService = candidateService;
-
     }
 
 

@@ -38,7 +38,7 @@
                             <th><@spring.message "candidate.admission.requests.status"/></th>
                             <#--                            <th>Action</th>-->
                             <th><@spring.message "candidate.edit"/></th>
-                            <th><@spring.message "candidate.admission.requests.delete"/></th>
+                            <th><@spring.message "admin.delete_faculty"/></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -61,7 +61,7 @@
 
                                 <td align="center">
                                     <form action="/admin/candidate/delete/${candidate.getId()}" method="post">
-                                        <button class="btn btn-danger" type="submit"><@spring.message "candidate.admission.requests.delete"/></button>
+                                        <button class="btn btn-danger" type="submit"><@spring.message "admin.delete_faculty"/></button>
                                     </form>
 
                                 </td>
